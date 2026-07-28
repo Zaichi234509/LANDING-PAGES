@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="A Walk with Hu Tao — The Long Walk">
+  <defs><linearGradient id="sk" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0%" stop-color="#e0a07f"/><stop offset="55%" stop-color="#f7ecdd"/><stop offset="100%" stop-color="#f6efe4"/></linearGradient></defs>
+  <rect width="1200" height="630" fill="url(#sk)"/>
+  <circle cx="960" cy="200" r="86" fill="#d9a441" opacity=".35"/>
+  <circle cx="960" cy="200" r="56" fill="none" stroke="#d9a441" stroke-width="3"/>
+  <path d="M0 470c150-34 240-78 400-76s230 54 380 34 240-70 420-58v260H0z" fill="#6b7f5e" opacity=".3"/>
+  <path d="M0 522c170-24 260-52 420-48s240 46 400 30 260-50 380-42v168H0z" fill="#6b7f5e" opacity=".45"/>
+  <g fill="none" stroke="#3c3630" stroke-width="4" stroke-linecap="round">
+    <circle cx="700" cy="430" r="15"/><path d="M700 445v40M700 485l-14 32M700 485l14 32M684 458l32-4"/>
+  </g>
+  <g fill="none" stroke="#8c4a5f" stroke-width="4" stroke-linecap="round">
+    <circle cx="762" cy="424" r="16"/><path d="M762 440v42M762 482l-15 34M762 482l15 34M745 454l34-5"/>
+    <path d="M742 412h40" stroke="#e5764f" stroke-width="6"/>
+  </g>
+  <text x="80" y="150" font-family="'Nunito Sans',sans-serif" font-size="21" letter-spacing="9" fill="#7d7168">THE LONG WALK · SIX KILOMETRES</text>
+  <text x="80" y="270" font-family="Newsreader,serif" font-size="82" fill="#3c3630">A walk with her is</text>
+  <text x="80" y="356" font-family="Newsreader,serif" font-size="82" fill="#3c3630">never <tspan font-style="italic" fill="#e5764f">only</tspan> a walk</text>
+  <text x="82" y="412" font-family="'Nunito Sans',sans-serif" font-size="24" fill="#7d7168">15:40 → 19:20 · afternoon to dusk, as you scroll</text>
+  <g transform="translate(80,560)">
+    <rect width="1040" height="4" rx="2" fill="#3c3630" opacity=".18"/>
+    <rect width="700" height="4" rx="2" fill="#e5764f"/>
+    <circle cx="700" cy="2" r="9" fill="#e5764f"/>
+  </g>
+</svg>

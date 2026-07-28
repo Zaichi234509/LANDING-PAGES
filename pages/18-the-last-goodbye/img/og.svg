@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="The Last Goodbye — Goodbye, Gently">
+  <defs><radialGradient id="w" cx="50%" cy="42%" r="60%">
+    <stop offset="0%" stop-color="#fdfbf9"/><stop offset="100%" stop-color="#efe9e4"/></radialGradient></defs>
+  <rect width="1200" height="630" fill="url(#w)"/>
+  <g transform="translate(940,300)">
+    <ellipse cx="0" cy="-96" rx="26" ry="46" fill="#e0913f" opacity=".7"/>
+    <ellipse cx="0" cy="-84" rx="13" ry="24" fill="#fff6e2"/>
+    <path d="M0 -48v20" stroke="#5b4a3c" stroke-width="6"/>
+    <rect x="-44" y="-28" width="88" height="200" rx="8" fill="#f7f3ef" stroke="#c8b8a8" stroke-width="4"/>
+    <path d="M-44 -14c20 12 68 12 88 0" fill="none" stroke="#c8b8a8" stroke-width="4"/>
+    <ellipse cx="0" cy="176" rx="76" ry="14" fill="#c8b8a8" opacity=".4"/>
+  </g>
+  <text x="86" y="150" font-family="Figtree,sans-serif" font-size="20" letter-spacing="10" fill="#847a72">GOODBYE, GENTLY · A HOUSE FOR ENDINGS</text>
+  <line x1="86" y1="176" x2="360" y2="176" stroke="#a8555c" stroke-width="1.6"/>
+  <text x="86" y="290" font-family="'Crimson Pro',serif" font-size="74" fill="#2e2a28">The last goodbye</text>
+  <text x="86" y="372" font-family="'Crimson Pro',serif" font-size="74" fill="#2e2a28">should be allowed</text>
+  <text x="86" y="454" font-family="'Crimson Pro',serif" font-style="italic" font-size="74" fill="#a8555c">to be small</text>
+  <text x="88" y="518" font-family="Figtree,sans-serif" font-size="23" fill="#847a72">Six memories, four objects, and one candle to blow out.</text>
+</svg>

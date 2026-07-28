@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>A Walk with Hu Tao — The Long Walk | Six Kilometres, Afternoon to Dusk</title>
+<meta name="description" content="The Long Walk is one continuous six-kilometre walk from the harbour gate to the hill, told as you scroll. The sky moves from afternoon to dusk and she picks things up along the way.">
+<meta name="theme-color" content="#f6efe4">
+<meta name="color-scheme" content="light dark">
+<link rel="canonical" href="https://thelongwalk.example/a-walk">
+<meta property="og:type" content="article">
+<meta property="og:title" content="A Walk with Hu Tao — The Long Walk">
+<meta property="og:description" content="Six kilometres. Four hours. One conversation that keeps stopping and restarting.">
+<meta property="og:image" content="img/og.svg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="img/og.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;1,6..72,300&family=Nunito+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23f6efe4'/%3E%3Ccircle cx='16' cy='13' r='7' fill='%23e5764f'/%3E%3Cpath d='M6 26h20' stroke='%233c3630' stroke-width='2'/%3E%3C/svg%3E">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"ItemList","name":"The Long Walk — Things Picked Up Along the Way","itemListElement":[
+{"@type":"ListItem","position":1,"item":{"@type":"Product","name":"Km 1 — The Walking Scarf","offers":{"@type":"Offer","price":"68","priceCurrency":"USD","availability":"https://schema.org/InStock"}}},
+{"@type":"ListItem","position":2,"item":{"@type":"Product","name":"Km 3 — Pocket Notebook & Pencil","offers":{"@type":"Offer","price":"24","priceCurrency":"USD","availability":"https://schema.org/InStock"}}},
+{"@type":"ListItem","position":3,"item":{"@type":"Product","name":"Km 6 — The Dusk Flask","offers":{"@type":"Offer","price":"52","priceCurrency":"USD","availability":"https://schema.org/InStock"}}}]}
+</script>
+<style>
+*,*::before,*::after{box-sizing:border-box}
+:root{
+  --paper:#f6efe4; --ink:#3c3630; --soft:#7d7168; --rule:rgba(60,54,48,.16);
+  --clay:#e5764f; --plum:#8c4a5f; --leaf:#6b7f5e; --gold:#d9a441;
+  --sky1:#bfd8e8; --sky2:#f6efe4;
+  --g:clamp(18px,5vw,90px);
+}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);
+  font-family:'Nunito Sans',system-ui,sans-serif;font-weight:300;font-size:17px;line-height:1.78;
+  overflow-x:hidden;-webkit-font-smoothing:antialiased;transition:background 1.4s linear,color 1.4s linear}
+h1,h2,h3{margin:0;font-family:Newsreader,serif;font-weight:400;line-height:1.16}
+a{color:inherit}
+img{display:block;max-width:100%}
+::selection{background:var(--clay);color:#fff}
+:focus-visible{outline:2px solid var(--clay);outline-offset:4px}
+.skip{position:absolute;left:-9999px;background:var(--ink);color:var(--paper);padding:10px 18px;z-index:300}
+.skip:focus{left:14px;top:14px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* the sky is the page background and changes as you scroll */
+#skyfill{position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:linear-gradient(180deg,var(--sky1) 0%,var(--sky2) 62%);opacity:.85;transition:none}
+.grainy{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.35;mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)' opacity='.28'/%3E%3C/svg%3E")}
+
+/* ---------- loader: a door opening ---------- */
+#gate{position:fixed;inset:0;z-index:500;background:var(--paper);display:grid;place-items:center;
+  transition:opacity .8s,visibility .8s}
+#gate.gone{opacity:0;visibility:hidden}
+.door{width:min(140px,36vw);aspect-ratio:2/3;border:2px solid var(--ink);border-bottom:none;
+  position:relative;overflow:hidden;border-radius:70px 70px 0 0}
+.door::after{content:'';position:absolute;inset:0;background:var(--clay);transform-origin:left;
+  animation:swing 1.6s .3s cubic-bezier(.5,0,.2,1) forwards}
+@keyframes swing{to{transform:perspective(400px) rotateY(-88deg)}}
+.gcap{position:absolute;bottom:14vh;left:0;right:0;text-align:center;font-family:Newsreader,serif;
+  font-style:italic;font-size:1.1rem;color:var(--soft);opacity:0;animation:gfade 1s .8s forwards}
+@keyframes gfade{to{opacity:1}}
+
+/* ---------- distance rail ---------- */
+.rail{position:fixed;left:0;right:0;bottom:0;z-index:60;height:52px;display:flex;align-items:center;
+  gap:14px;padding:0 var(--g);background:rgba(246,239,228,.86);backdrop-filter:blur(10px);
+  border-top:1px solid var(--rule);transition:background 1.4s linear}
+.rail .km{font-family:Newsreader,serif;font-size:1.02rem;white-space:nowrap}
+.rail .km b{color:var(--clay)}
+.rail .line{flex:1;height:2px;background:var(--rule);position:relative;border-radius:2px}
+.rail .line i{position:absolute;left:0;top:0;bottom:0;background:var(--clay);border-radius:2px;width:0;
+  transition:width .25s linear}
+.rail .walker{position:absolute;top:50%;left:0;transform:translate(-50%,-50%);width:22px;height:22px;
+  transition:left .25s linear}
+.rail .walker svg{width:100%;height:100%}
+.rail .time{font-family:Newsreader,serif;font-size:1rem;color:var(--soft);white-space:nowrap;
+  font-variant-numeric:tabular-nums}
+@media(max-width:620px){.rail .km{display:none}}
+
+/* ---------- hero ---------- */
+.hero{position:relative;z-index:2;min-height:100svh;display:grid;align-content:center;
+  padding:clamp(70px,10vh,120px) var(--g) clamp(90px,14vh,150px);gap:clamp(16px,3vh,28px)}
+.hero .meta{display:flex;flex-wrap:wrap;gap:8px 26px;font-size:.72rem;letter-spacing:.24em;
+  text-transform:uppercase;color:var(--soft)}
+.hero h1{font-size:clamp(2.5rem,8.4vw,6.6rem);letter-spacing:-.02em;max-width:15ch;font-weight:300}
+.hero h1 em{font-style:italic;color:var(--clay)}
+.hero .lede{max-width:52ch;font-size:clamp(1.06rem,1.8vw,1.28rem);margin:0;color:var(--ink)}
+.hero .byline{font-family:Newsreader,serif;font-style:italic;color:var(--soft);margin:0}
+.startwalk{align-self:start;display:inline-flex;align-items:center;gap:12px;border:1px solid var(--ink);
+  background:transparent;color:var(--ink);font-family:Newsreader,serif;font-size:1.02rem;padding:13px 26px;
+  border-radius:999px;cursor:pointer;transition:background .5s,color .5s,gap .4s,transform .4s}
+.startwalk:hover{background:var(--ink);color:var(--paper);gap:20px;transform:translateY(-2px)}
+.hillside{position:absolute;left:0;right:0;bottom:52px;z-index:-1;pointer-events:none;opacity:.5}
+.hillside svg{width:100%;height:auto;display:block}
+
+/* ---------- the walk: alternating stops ---------- */
+.walk{position:relative;z-index:2;padding-bottom:clamp(40px,8vh,90px)}
+.stop{position:relative;padding:clamp(40px,9vh,110px) var(--g);display:grid;gap:clamp(22px,4vw,60px);
+  grid-template-columns:repeat(auto-fit,minmax(min(290px,100%),1fr));align-items:center}
+.stop:nth-child(even) .fig{order:-1}
+@media(max-width:700px){.stop:nth-child(even) .fig{order:0}}
+.stop .marker{font-size:.72rem;letter-spacing:.28em;text-transform:uppercase;color:var(--clay);
+  display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.stop .marker::before{content:'';width:30px;height:1px;background:var(--clay)}
+.stop h2{font-size:clamp(1.5rem,3.8vw,2.7rem);margin-bottom:14px;font-weight:300}
+.stop h2 em{font-style:italic;color:var(--plum)}
+.stop p{margin:0 0 14px;max-width:50ch;color:var(--ink)}
+.stop .said{font-family:Newsreader,serif;font-style:italic;font-size:clamp(1.1rem,2.2vw,1.44rem);
+  color:var(--plum);border-left:2px solid var(--clay);padding-left:18px;margin:20px 0 0;max-width:44ch}
+.fig{position:relative}
+.fig svg{width:100%;height:auto;display:block;overflow:visible}
+.fig .draw{stroke-dasharray:1200;stroke-dashoffset:1200;transition:stroke-dashoffset 2.2s ease-out}
+.stop.in .fig .draw{stroke-dashoffset:0}
+.stop{opacity:0;transform:translateY(30px);transition:opacity 1s,transform 1s cubic-bezier(.16,1,.3,1)}
+.stop.in{opacity:1;transform:none}
+
+/* ---------- pocket: things she picked up ---------- */
+.pocket{position:relative;z-index:2;padding:clamp(50px,10vh,130px) var(--g);
+  border-top:1px solid var(--rule)}
+.pocket .ph{max-width:56ch;margin-bottom:clamp(28px,5vh,58px)}
+.pocket h2{font-size:clamp(1.8rem,5vw,3.4rem);font-weight:300;margin-bottom:12px}
+.pocket h2 em{font-style:italic;color:var(--clay)}
+.pocket .ph p{margin:0;color:var(--soft)}
+.things{display:grid;gap:clamp(16px,3vw,34px);grid-template-columns:repeat(auto-fit,minmax(min(250px,100%),1fr))}
+.thing{position:relative;background:rgba(255,255,255,.5);border:1px solid var(--rule);border-radius:3px;
+  padding:22px;display:flex;flex-direction:column;gap:12px;
+  transition:transform .6s cubic-bezier(.16,1,.3,1),box-shadow .6s,background .6s}
+.thing:hover{transform:translateY(-7px) rotate(-.5deg);box-shadow:0 22px 44px -22px rgba(60,54,48,.4);
+  background:rgba(255,255,255,.8)}
+.thing .tag{position:absolute;top:-10px;right:18px;background:var(--clay);color:#fff;font-size:.62rem;
+  letter-spacing:.18em;text-transform:uppercase;padding:3px 11px;border-radius:999px}
+.thing .sketch{height:132px;display:grid;place-items:center}
+.thing .sketch svg{height:100%;width:auto;overflow:visible}
+.thing h3{font-size:1.32rem;font-weight:400}
+.thing p{margin:0;color:var(--soft);font-size:.92rem;flex:1}
+.thing .buy{display:flex;align-items:baseline;justify-content:space-between;gap:12px;
+  padding-top:14px;border-top:1px solid var(--rule)}
+.thing .pr{font-family:Newsreader,serif;font-size:1.32rem}
+.thing button{border:1px solid var(--ink);background:transparent;color:var(--ink);font-family:inherit;
+  font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;padding:9px 17px;border-radius:999px;
+  cursor:pointer;transition:.35s}
+.thing button:hover{background:var(--ink);color:var(--paper)}
+.thing button.taken{background:var(--leaf);border-color:var(--leaf);color:#fff}
+
+/* ---------- the end of the walk ---------- */
+.dusk{position:relative;z-index:2;padding:clamp(60px,12vh,150px) var(--g);text-align:center;
+  border-top:1px solid var(--rule)}
+.dusk h2{font-size:clamp(1.7rem,5.4vw,3.6rem);font-weight:300;max-width:18ch;margin:0 auto 18px}
+.dusk h2 em{font-style:italic;color:var(--clay)}
+.dusk p{color:var(--soft);max-width:48ch;margin:0 auto clamp(26px,4vh,44px)}
+.walkform{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;max-width:520px;margin:0 auto}
+.walkform input{flex:1 1 220px;background:rgba(255,255,255,.6);border:1px solid var(--rule);
+  color:var(--ink);padding:14px 16px;border-radius:999px;font-family:inherit;font-size:1rem}
+.walkform input:focus{outline:none;border-color:var(--clay)}
+.walkform button{border:none;background:var(--clay);color:#fff;font-family:Newsreader,serif;font-size:1rem;
+  padding:14px 30px;border-radius:999px;cursor:pointer;transition:.4s}
+.walkform button:hover{background:var(--plum);transform:translateY(-2px)}
+.walkmsg{min-height:1.5em;margin-top:16px;font-family:Newsreader,serif;font-style:italic;color:var(--plum)}
+
+/* ---------- footer ---------- */
+footer{position:relative;z-index:2;padding:clamp(40px,8vh,90px) var(--g) 84px;border-top:1px solid var(--rule)}
+.fw{display:grid;gap:26px;grid-template-columns:repeat(auto-fit,minmax(min(190px,100%),1fr));padding-bottom:26px}
+.fw h4{margin:0 0 10px;font-family:'Nunito Sans',sans-serif;font-weight:600;font-size:.66rem;
+  letter-spacing:.26em;text-transform:uppercase;color:var(--clay)}
+.fw ul{list-style:none;margin:0;padding:0;display:grid;gap:7px}
+.fw a{color:var(--soft);font-size:.92rem;text-decoration:none;transition:color .3s}
+.fw a:hover{color:var(--ink)}
+.fw .sig{font-family:Newsreader,serif;font-size:1.5rem;line-height:1.35;max-width:22ch;font-style:italic}
+.fbo{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;padding-top:20px;
+  border-top:1px solid var(--rule);font-size:.8rem;color:var(--soft)}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;
+    transition-duration:.001ms!important}
+  .stop{opacity:1;transform:none}
+  .fig .draw{stroke-dashoffset:0}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#pocket">Skip to the things she picked up</a>
+<div id="skyfill" aria-hidden="true"></div>
+<div class="grainy" aria-hidden="true"></div>
+
+<div id="gate" role="status" aria-label="Loading">
+  <div class="door" aria-hidden="true"></div>
+  <p class="gcap">“Ready? It's about six kilometres. Bring nothing.”</p>
+</div>
+
+<main>
+  <section class="hero" aria-labelledby="wt">
+    <p class="meta"><span>The Long Walk</span><span>Six kilometres</span><span>15:40 → 19:20</span></p>
+    <h1 id="wt">A walk with her is never <em>only</em> a walk</h1>
+    <p class="lede">It starts at the harbour gate at twenty to four with no plan, and finishes on the hill after sunset with a pocket full of things neither of us set out to collect. Scroll and the afternoon goes with you.</p>
+    <p class="byline">— written down afterwards, from memory, badly</p>
+    <button class="startwalk" id="startWalk">Start walking →</button>
+    <div class="hillside" aria-hidden="true">
+      <svg viewBox="0 0 1200 180" preserveAspectRatio="none">
+        <path d="M0 150c120-30 180-70 300-70s180 50 300 40 200-70 320-64 180 44 280 40v84H0z" fill="#6b7f5e" opacity=".35"/>
+        <path d="M0 168c140-20 210-46 340-44s200 40 330 30 200-44 330-38 160 30 200 28v36H0z" fill="#6b7f5e" opacity=".5"/>
+      </svg>
+    </div>
+  </section>
+
+  <section class="walk" id="walk" aria-label="The walk, kilometre by kilometre">
+    <article class="stop" data-km="1" data-t="15:40" data-sky="#bfd8e8,#f6efe4">
+      <div>
+        <p class="marker">Km 1 · the harbour gate</p>
+        <h2>She sets off in the <em>wrong direction</em> on purpose</h2>
+        <p>Two hundred metres the wrong way, so that we pass the noodle stall she likes and can claim it was on the route. There is a system to this. The system is: she does what she wants and narrates it as fate.</p>
+        <blockquote class="said">“Detours aren't detours if you never said where we were going.”</blockquote>
+      </div>
+      <div class="fig">
+        <svg viewBox="0 0 400 300" role="img" aria-label="Line drawing of a harbour gate with hanging lanterns and two figures setting off">
+          <g fill="none" stroke="#3c3630" stroke-width="2" stroke-linecap="round" class="draw">
+            <path d="M40 250h320M70 250V90h260v160M50 90h300M90 70l110-26 110 26"/>
+            <path d="M120 90v40M180 90v40M240 90v40M300 90v40"/>
+          </g>
+          <g fill="none" stroke="#e5764f" stroke-width="2.4" class="draw">
+            <ellipse cx="120" cy="142" rx="13" ry="16"/><ellipse cx="240" cy="142" rx="13" ry="16"/>
+          </g>
+          <g fill="none" stroke="#3c3630" stroke-width="2.2" stroke-linecap="round">
+            <path d="M170 250v-46M170 204l-12 22M170 204l12 22M170 204v-22"/>
+            <circle cx="170" cy="170" r="12"/>
+            <path d="M215 250v-48M215 202l-13 24M215 202l13 24M215 202v-24"/>
+            <circle cx="215" cy="166" r="13"/><path d="M202 158a13 13 0 0126 0" stroke="#8c4a5f"/>
+          </g>
+        </svg>
+      </div>
+    </article>
+
+    <article class="stop" data-km="2" data-t="16:25" data-sky="#c9d9e0,#f7ecdd">
+      <div>
+        <p class="marker">Km 2 · the long stair</p>
+        <h2>Two hundred steps and a <em>full running commentary</em></h2>
+        <p>She counts them out loud, gets bored at forty, restarts at one, and by the top has convinced herself the stair is one hundred and eleven steps because that number is funnier. I checked later. It is two hundred and four.</p>
+        <blockquote class="said">“If you're out of breath you're doing it right. If I'm out of breath, you walked too fast.”</blockquote>
+      </div>
+      <div class="fig">
+        <svg viewBox="0 0 400 300" role="img" aria-label="Line drawing of a long stone staircase climbing between trees">
+          <g fill="none" stroke="#3c3630" stroke-width="2" stroke-linecap="round" class="draw">
+            <path d="M20 280h60v-24h60v-24h60v-24h60v-24h60v-24h60v-24"/>
+            <path d="M20 280v-14M80 256v-14M140 232v-14M200 208v-14M260 184v-14M320 160v-14"/>
+          </g>
+          <g fill="none" stroke="#6b7f5e" stroke-width="2.4" class="draw">
+            <path d="M60 240c0-30 14-46 14-72M74 168c-16 4-24 16-24 30M74 168c16 6 22 18 22 32"/>
+            <path d="M330 130c0-28 12-44 12-68M342 62c-14 4-22 14-22 28M342 62c14 6 20 16 20 30"/>
+          </g>
+          <g fill="none" stroke="#8c4a5f" stroke-width="2.2" stroke-linecap="round">
+            <path d="M196 208v-40M196 172l-12 20M196 172l12 20"/><circle cx="196" cy="156" r="12"/>
+          </g>
+        </svg>
+      </div>
+    </article>
+
+    <article class="stop" data-km="4" data-t="17:35" data-sky="#e3cdb4,#f9e4cd">
+      <div>
+        <p class="marker">Km 4 · the field before the ridge</p>
+        <h2>We stop because the <em>light gets good</em></h2>
+        <p>No other reason. She sits in the grass with her hat over her face, says she is thinking about work, and is very obviously asleep for eleven minutes. I write three lines in a notebook and get them wrong.</p>
+        <blockquote class="said">“Wake me at gold. Not amber, not pink. Gold.”</blockquote>
+      </div>
+      <div class="fig">
+        <svg viewBox="0 0 400 300" role="img" aria-label="Line drawing of a grass field with a figure resting and a low sun">
+          <circle cx="316" cy="106" r="42" fill="#d9a441" opacity=".28"/>
+          <circle cx="316" cy="106" r="26" fill="none" stroke="#d9a441" stroke-width="2.4" class="draw"/>
+          <g fill="none" stroke="#6b7f5e" stroke-width="2" stroke-linecap="round" class="draw">
+            <path d="M20 250c40-6 70-2 100-16M40 258c30-10 54-6 82-22M120 254c34-8 60-4 92-20M230 258c36-10 62-4 94-24"/>
+          </g>
+          <g fill="none" stroke="#3c3630" stroke-width="2.2" stroke-linecap="round">
+            <path d="M120 232h84M132 232c0-16 10-24 24-26M204 232c-8-10-22-14-38-14"/>
+            <circle cx="176" cy="206" r="14"/><path d="M158 200h38" stroke="#e5764f" stroke-width="3"/>
+          </g>
+        </svg>
+      </div>
+    </article>
+
+    <article class="stop" data-km="6" data-t="19:20" data-sky="#8f7aa0,#e0a07f">
+      <div>
+        <p class="marker">Km 6 · the top, after sunset</p>
+        <h2>She stops talking for <em>the last two hundred metres</em></h2>
+        <p>Which is the only genuinely surprising thing that happens all day. At the top she sits on the wall, swings her legs, and says the one sentence she has clearly been saving since the harbour gate.</p>
+        <blockquote class="said">“See? Nothing happened. That's the whole point of a good day — you can't tell anyone about it afterwards.”</blockquote>
+      </div>
+      <div class="fig">
+        <svg viewBox="0 0 400 300" role="img" aria-label="Line drawing of two figures sitting on a wall at dusk under early stars">
+          <g fill="#d9a441" opacity=".85">
+            <circle cx="60" cy="50" r="2.4"/><circle cx="130" cy="34" r="1.8"/><circle cx="300" cy="46" r="2.2"/>
+            <circle cx="356" cy="86" r="1.6"/><circle cx="210" cy="26" r="1.6"/></g>
+          <g fill="none" stroke="#3c3630" stroke-width="2" stroke-linecap="round" class="draw">
+            <path d="M20 232h360M40 232v34M120 232v34M200 232v34M280 232v34M360 232v34M20 266h360"/>
+          </g>
+          <g fill="none" stroke="#3c3630" stroke-width="2.2" stroke-linecap="round">
+            <path d="M168 232v-34M168 232l-8 26M168 198l-10 14M168 198l12 12"/><circle cx="168" cy="184" r="12"/>
+            <path d="M214 232v-34M214 232l10 26M214 198l-12 12M214 198l12 14" stroke="#8c4a5f"/>
+            <circle cx="214" cy="182" r="13" stroke="#8c4a5f"/>
+            <path d="M198 174h32" stroke="#e5764f" stroke-width="3.4"/>
+          </g>
+        </svg>
+      </div>
+    </article>
+  </section>
+
+  <section class="pocket" id="pocket" aria-labelledby="pk">
+    <div class="ph">
+      <h2 id="pk">Things that ended up in a <em>pocket</em></h2>
+      <p>Not souvenirs — nobody bought anything as a souvenir. These are the four objects that were actually carried, used, argued about or slept on during the six kilometres. We had them made properly afterwards.</p>
+    </div>
+    <div class="things">
+      <article class="thing">
+        <span class="tag">Km 1</span>
+        <div class="sketch"><svg viewBox="0 0 120 120" aria-hidden="true">
+          <path d="M22 30c18-8 58-8 76 0-4 22-6 44-4 62-24 8-44 8-68 0 2-18 0-40-4-62z" fill="none" stroke="#e5764f" stroke-width="2.6"/>
+          <path d="M30 46c18 6 42 6 60 0M30 62c18 6 42 6 60 0M30 78c18 6 42 6 60 0" fill="none" stroke="#8c4a5f" stroke-width="1.8"/></svg></div>
+        <h3>The Walking Scarf</h3>
+        <p>Lightweight brushed cotton in dusk plum. Wide enough to sit on, long enough to be dramatic with.</p>
+        <div class="buy"><span class="pr">$68</span><button>Pocket it</button></div>
+      </article>
+      <article class="thing">
+        <span class="tag">Km 2</span>
+        <div class="sketch"><svg viewBox="0 0 120 120" aria-hidden="true">
+          <rect x="26" y="20" width="56" height="80" rx="4" fill="none" stroke="#3c3630" stroke-width="2.6"/>
+          <path d="M38 40h32M38 54h32M38 68h22" fill="none" stroke="#7d7168" stroke-width="2"/>
+          <path d="M92 26l10 8-38 48-12 4 3-12z" fill="none" stroke="#d9a441" stroke-width="2.4"/></svg></div>
+        <h3>Notebook &amp; Pencil</h3>
+        <p>Pocket-size, 96 pages of cream stock, elastic closure. For the three lines you will get wrong.</p>
+        <div class="buy"><span class="pr">$24</span><button>Pocket it</button></div>
+      </article>
+      <article class="thing">
+        <span class="tag">Km 4</span>
+        <div class="sketch"><svg viewBox="0 0 120 120" aria-hidden="true">
+          <ellipse cx="60" cy="66" rx="42" ry="16" fill="none" stroke="#6b7f5e" stroke-width="2.6"/>
+          <path d="M18 66c0-20 18-34 42-34s42 14 42 34" fill="none" stroke="#6b7f5e" stroke-width="2.6"/>
+          <path d="M46 34c4-10 24-10 28 0" fill="none" stroke="#e5764f" stroke-width="2.4"/>
+          <path d="M18 66c6 10 26 16 42 16s36-6 42-16" fill="none" stroke="#3c3630" stroke-width="2"/></svg></div>
+        <h3>The Wide Hat</h3>
+        <p>Woven straw with a crimson band and a chin cord. Doubles, provably, as a face-covering nap device.</p>
+        <div class="buy"><span class="pr">$79</span><button>Pocket it</button></div>
+      </article>
+      <article class="thing">
+        <span class="tag">Km 6</span>
+        <div class="sketch"><svg viewBox="0 0 120 120" aria-hidden="true">
+          <rect x="42" y="14" width="16" height="14" rx="3" fill="none" stroke="#3c3630" stroke-width="2.4"/>
+          <path d="M34 28h52c4 22 6 46 4 70-20 6-40 6-60 0-2-24 0-48 4-70z" fill="none" stroke="#3c3630" stroke-width="2.6"/>
+          <path d="M44 56h32M44 72h32" fill="none" stroke="#d9a441" stroke-width="2.2"/></svg></div>
+        <h3>The Dusk Flask</h3>
+        <p>350ml vacuum flask, matte clay finish. Keeps tea hot for the whole descent, which matters more than it sounds.</p>
+        <div class="buy"><span class="pr">$52</span><button>Pocket it</button></div>
+      </article>
+    </div>
+  </section>
+
+  <section class="dusk" aria-labelledby="dk">
+    <h2 id="dk">We do this again on the <em>first clear evening</em> of every month</h2>
+    <p>Different route, same rules: no plan, no rush, and whatever ends up in a pocket gets written down. Leave an address and we'll tell you where we're starting from.</p>
+    <form class="walkform" id="walkForm" novalidate>
+      <label class="sr" for="we">Email address</label>
+      <input id="we" type="email" placeholder="you@somewhere" autocomplete="email" required>
+      <button type="submit">Come along</button>
+    </form>
+    <p class="walkmsg" id="walkMsg" role="status"></p>
+  </section>
+</main>
+
+<footer>
+  <div class="fw">
+    <div><p class="sig">The Long Walk<br>— six kilometres, once a month</p></div>
+    <div><h4>The route</h4><ul><li><a href="#walk">This month's walk</a></li><li><a href="#">Previous routes</a></li><li><a href="#">Walk with us</a></li></ul></div>
+    <div><h4>Pocket</h4><ul><li><a href="#pocket">Everything carried</a></li><li><a href="#">Shipping</a></li><li><a href="#">Repairs</a></li></ul></div>
+    <div><h4>Elsewhere</h4><ul><li><a href="../../index.html">The other 24 studios</a></li><li><a href="#wt">Back to the gate</a></li></ul></div>
+  </div>
+  <div class="fbo"><span>Fan project · not affiliated with HoYoverse</span><span>Walk slowly. It's not far.</span></div>
+</footer>
+
+<nav class="rail" aria-label="Distance walked">
+  <span class="km">Km <b id="kmNow">0.0</b> of 6.0</span>
+  <span class="line"><i id="lineFill"></i>
+    <span class="walker" id="walker"><svg viewBox="0 0 24 24" aria-hidden="true">
+      <g fill="none" stroke="#e5764f" stroke-width="2" stroke-linecap="round">
+        <circle cx="12" cy="5" r="3"/><path d="M12 8v7M12 15l-4 6M12 15l4 6M8 11l8-1"/></g></svg></span>
+  </span>
+  <span class="time" id="clockNow">15:40</span>
+</nav>
+
+<script>
+(function(){
+var RM=matchMedia('(prefers-reduced-motion:reduce)').matches;
+
+/* loader */
+var g=document.getElementById('gate');
+function open(){g.classList.add('gone');}
+if(RM) setTimeout(open,200); else addEventListener('load',function(){setTimeout(open,1650);});
+setTimeout(open,4000);
+
+/* stops reveal */
+var stops=[].slice.call(document.querySelectorAll('.stop'));
+if('IntersectionObserver' in window){
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){
+    if(e.isIntersecting) e.target.classList.add('in');});},{threshold:.25});
+  stops.forEach(function(s){io.observe(s);});
+} else stops.forEach(function(s){s.classList.add('in');});
+
+/* sky + distance driven by scroll */
+var sky=document.getElementById('skyfill'),
+    fill=document.getElementById('lineFill'), walker=document.getElementById('walker'),
+    kmNow=document.getElementById('kmNow'), clockNow=document.getElementById('clockNow');
+var STAGES=[
+  {p:0.00,a:[191,216,232],b:[246,239,228],t:'15:40'},
+  {p:0.28,a:[201,217,224],b:[247,236,221],t:'16:25'},
+  {p:0.56,a:[227,205,180],b:[249,228,205],t:'17:35'},
+  {p:0.78,a:[224,160,127],b:[247,214,178],t:'18:30'},
+  {p:1.00,a:[92,79,116],b:[214,138,110],t:'19:20'}
+];
+function mix(a,b,t){return a.map(function(v,i){return Math.round(v+(b[i]-v)*t);});}
+function rgb(c){return 'rgb('+c[0]+','+c[1]+','+c[2]+')';}
+var raf=false;
+function onScroll(){
+  if(raf) return; raf=true;
+  requestAnimationFrame(function(){
+    raf=false;
+    var max=document.documentElement.scrollHeight-innerHeight;
+    var p=Math.min(Math.max(scrollY/Math.max(max,1),0),1);
+    /* sky interpolation */
+    var i=0; while(i<STAGES.length-2 && p>STAGES[i+1].p) i++;
+    var s0=STAGES[i], s1=STAGES[i+1];
+    var t=(p-s0.p)/Math.max(s1.p-s0.p,.0001);
+    t=Math.min(Math.max(t,0),1);
+    sky.style.background='linear-gradient(180deg,'+rgb(mix(s0.a,s1.a,t))+' 0%,'+rgb(mix(s0.b,s1.b,t))+' 62%)';
+    /* body ink darkens toward dusk */
+    var dark=Math.max(0,(p-.62)/.38);
+    document.body.style.color='rgb('+Math.round(60+dark*180)+','+Math.round(54+dark*172)+','+Math.round(48+dark*160)+')';
+    /* rail */
+    fill.style.width=(p*100)+'%';
+    walker.style.left=(p*100)+'%';
+    kmNow.textContent=(p*6).toFixed(1);
+    clockNow.textContent=s0.t;
+  });
+}
+addEventListener('scroll',onScroll,{passive:true});
+addEventListener('resize',onScroll);
+onScroll();
+
+/* start walking */
+document.getElementById('startWalk').addEventListener('click',function(){
+  document.getElementById('walk').scrollIntoView({behavior:RM?'auto':'smooth'});
+});
+
+/* pocket buttons */
+document.querySelectorAll('.thing button').forEach(function(b){
+  b.addEventListener('click',function(){
+    b.textContent='In the pocket ✓'; b.classList.add('taken');
+    setTimeout(function(){b.textContent='Pocket it';b.classList.remove('taken');},2200);
+  });
+});
+
+/* newsletter */
+document.getElementById('walkForm').addEventListener('submit',function(e){
+  e.preventDefault();
+  var v=document.getElementById('we').value.trim();
+  document.getElementById('walkMsg').textContent =
+    /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v)
+      ? 'Lovely. We start at the harbour gate. Wear something you can sit down in.'
+      : 'That address does not look like it will reach you.';
+});
+})();
+</script>
+</body>
+</html>

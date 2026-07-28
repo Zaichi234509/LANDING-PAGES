@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The Last Goodbye — Goodbye, Gently | Objects for Saying It Properly</title>
+<meta name="description" content="Goodbye, Gently makes a small number of objects for endings: a candle, a keepsake, a folded letter and a box to keep them in. Read the six memories, then blow the candle out.">
+<meta name="theme-color" content="#efe9e4">
+<meta name="color-scheme" content="light">
+<link rel="canonical" href="https://goodbyegently.example/the-last-goodbye">
+<meta property="og:type" content="article">
+<meta property="og:title" content="The Last Goodbye — Goodbye, Gently">
+<meta property="og:description" content="Six memories, one candle, and permission to put it down.">
+<meta property="og:image" content="img/og.svg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="img/og.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,200;0,300;0,400;1,300&family=Figtree:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23efe9e4'/%3E%3Crect x='13' y='14' width='6' height='14' fill='%23c8b8a8'/%3E%3Cellipse cx='16' cy='9' rx='3' ry='5' fill='%23e0913f'/%3E%3C/svg%3E">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"ItemList","name":"Goodbye, Gently — Four Objects","itemListElement":[
+{"@type":"ListItem","position":1,"item":{"@type":"Product","name":"The Hour Candle","offers":{"@type":"Offer","price":"46","priceCurrency":"USD","availability":"https://schema.org/InStock"}}},
+{"@type":"ListItem","position":2,"item":{"@type":"Product","name":"The Keepsake Pendant","offers":{"@type":"Offer","price":"128","priceCurrency":"USD","availability":"https://schema.org/InStock"}}},
+{"@type":"ListItem","position":3,"item":{"@type":"Product","name":"The Unsent Letter Set","offers":{"@type":"Offer","price":"34","priceCurrency":"USD","availability":"https://schema.org/InStock"}}},
+{"@type":"ListItem","position":4,"item":{"@type":"Product","name":"The Small Box","offers":{"@type":"Offer","price":"96","priceCurrency":"USD","availability":"https://schema.org/InStock"}}}]}
+</script>
+<style>
+*,*::before,*::after{box-sizing:border-box}
+:root{
+  --paper:#efe9e4; --warm:#f7f3ef; --ink:#2e2a28; --soft:#847a72; --rule:rgba(46,42,40,.14);
+  --flame:#e0913f; --rose:#a8555c; --moss:#6f7b6a;
+  --g:clamp(20px,6vw,110px);
+  --dim:0;
+}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);
+  font-family:Figtree,system-ui,sans-serif;font-weight:300;font-size:17px;line-height:1.82;
+  overflow-x:hidden;-webkit-font-smoothing:antialiased}
+h1,h2,h3{margin:0;font-family:'Crimson Pro',serif;font-weight:300;line-height:1.18}
+a{color:inherit}
+::selection{background:var(--rose);color:#fff}
+:focus-visible{outline:2px solid var(--rose);outline-offset:4px}
+.skip{position:absolute;left:-9999px;background:var(--ink);color:var(--paper);padding:10px 18px;z-index:300}
+.skip:focus{left:14px;top:14px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* the whole page dims as the candle burns down */
+#dimmer{position:fixed;inset:0;z-index:90;pointer-events:none;
+  background:radial-gradient(ellipse 70% 55% at 50% 45%,transparent 20%,rgba(20,16,14,.94) 100%);
+  opacity:var(--dim);transition:opacity 2.4s ease}
+
+/* ---------- loader: a wick catching ---------- */
+#light{position:fixed;inset:0;z-index:500;background:var(--paper);display:grid;place-items:center;
+  transition:opacity .9s,visibility .9s}
+#light.gone{opacity:0;visibility:hidden}
+.wick{position:relative;width:36px;height:120px}
+.wick .stick{position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:22px;height:82px;
+  background:linear-gradient(#f7f3ef,#ddd2c6);border-radius:3px}
+.wick .fl{position:absolute;bottom:82px;left:50%;width:20px;height:32px;transform:translateX(-50%) scale(0);
+  transform-origin:bottom;border-radius:50% 50% 44% 44%;
+  background:radial-gradient(60% 70% at 50% 76%,#fff6e2,var(--flame) 46%,rgba(168,85,92,.15) 82%);
+  filter:blur(.7px);animation:catch .9s .4s cubic-bezier(.2,1.5,.4,1) forwards,flick .2s .9s infinite alternate}
+@keyframes catch{to{transform:translateX(-50%) scale(1)}}
+@keyframes flick{to{transform:translateX(-50%) scale(1.08,.95)}}
+.lcap{position:absolute;bottom:14vh;left:0;right:0;text-align:center;font-family:'Crimson Pro',serif;
+  font-style:italic;font-size:1.12rem;color:var(--soft);opacity:0;animation:lf 1s .8s forwards}
+@keyframes lf{to{opacity:1}}
+
+/* ---------- minimal nav ---------- */
+.nav{position:fixed;top:0;left:0;right:0;z-index:70;display:flex;align-items:center;
+  justify-content:space-between;gap:16px;padding:18px var(--g);
+  background:linear-gradient(180deg,rgba(239,233,228,.9),transparent);mix-blend-mode:normal}
+.nav .mk{font-family:'Crimson Pro',serif;font-size:1.16rem;letter-spacing:.02em}
+.nav .mk em{font-style:italic;color:var(--rose)}
+.nav a.shop{font-size:.72rem;letter-spacing:.24em;text-transform:uppercase;color:var(--soft);
+  text-decoration:none;border-bottom:1px solid var(--rule);padding-bottom:3px;transition:color .4s,border-color .4s}
+.nav a.shop:hover{color:var(--ink);border-color:var(--rose)}
+
+/* ---------- hero ---------- */
+.hero{position:relative;z-index:2;min-height:100svh;display:grid;place-items:center;text-align:center;
+  padding:clamp(100px,15vh,160px) var(--g) clamp(60px,10vh,120px)}
+.hero .in{max-width:900px}
+.hero .top{font-size:.68rem;letter-spacing:.44em;text-transform:uppercase;color:var(--soft);
+  margin-bottom:clamp(26px,5vh,52px)}
+.hero h1{font-size:clamp(2.4rem,8.6vw,6.4rem);letter-spacing:-.015em;font-weight:200}
+.hero h1 em{font-style:italic;color:var(--rose)}
+.hero .lede{max-width:46ch;margin:clamp(22px,4vh,42px) auto 0;color:var(--soft);
+  font-size:clamp(1.02rem,1.6vw,1.16rem)}
+.hero .down{margin-top:clamp(30px,6vh,60px);font-size:.68rem;letter-spacing:.34em;text-transform:uppercase;
+  color:var(--soft);display:inline-flex;flex-direction:column;align-items:center;gap:12px}
+.hero .down::after{content:'';width:1px;height:52px;background:linear-gradient(var(--rose),transparent)}
+.candleart{width:min(120px,26vw);margin:0 auto clamp(24px,5vh,44px)}
+.candleart svg{width:100%;overflow:visible}
+.candleart .flame{transform-origin:50% 100%;animation:sway2 3.4s ease-in-out infinite}
+@keyframes sway2{50%{transform:rotate(-3deg) scaleY(1.06)}}
+
+/* ---------- memories: they fade as they leave ---------- */
+.mems{position:relative;z-index:2;padding:clamp(30px,6vh,80px) 0 clamp(50px,10vh,120px)}
+.mem{position:relative;padding:clamp(34px,7vh,90px) var(--g);max-width:1100px;margin:0 auto;
+  opacity:.06;filter:blur(3px);transform:translateY(20px);
+  transition:opacity 1.2s ease,filter 1.2s ease,transform 1.2s cubic-bezier(.16,1,.3,1)}
+.mem.now{opacity:1;filter:none;transform:none}
+.mem.past{opacity:.18;filter:blur(2.4px)}
+.mem .n{font-family:'Crimson Pro',serif;font-size:clamp(2.6rem,7vw,4.6rem);color:var(--rose);
+  opacity:.32;line-height:1;margin-bottom:-.36em}
+.mem h2{font-size:clamp(1.5rem,4.2vw,2.9rem);font-weight:200;max-width:20ch;margin-bottom:18px}
+.mem h2 em{font-style:italic}
+.mem p{margin:0 0 14px;max-width:58ch;font-size:clamp(1rem,1.5vw,1.1rem)}
+.mem .whisper{font-family:'Crimson Pro',serif;font-style:italic;color:var(--rose);
+  font-size:clamp(1.06rem,2vw,1.34rem);max-width:44ch;margin-top:20px}
+.mem:nth-child(even){text-align:right}
+.mem:nth-child(even) h2,.mem:nth-child(even) p,.mem:nth-child(even) .whisper{margin-left:auto}
+@media(max-width:640px){.mem:nth-child(even){text-align:left}
+  .mem:nth-child(even) h2,.mem:nth-child(even) p,.mem:nth-child(even) .whisper{margin-left:0}}
+
+/* ---------- four objects ---------- */
+.objects{position:relative;z-index:2;padding:clamp(50px,10vh,130px) var(--g);background:var(--warm);
+  border-block:1px solid var(--rule)}
+.oh{max-width:52ch;margin:0 auto clamp(30px,6vh,64px);text-align:center}
+.oh h2{font-size:clamp(1.8rem,5vw,3.2rem);font-weight:200;margin-bottom:14px}
+.oh h2 em{font-style:italic;color:var(--rose)}
+.oh p{margin:0;color:var(--soft)}
+.four{display:grid;gap:1px;background:var(--rule);border:1px solid var(--rule);max-width:1080px;margin:0 auto;
+  grid-template-columns:repeat(auto-fit,minmax(min(240px,100%),1fr))}
+.obj{background:var(--warm);padding:clamp(22px,3.4vw,34px);display:flex;flex-direction:column;gap:14px;
+  transition:background .6s}
+.obj:hover{background:#fdfbf9}
+.obj .draw{height:120px;display:grid;place-items:center}
+.obj .draw svg{height:100%;width:auto;overflow:visible}
+.obj .draw svg *{transition:stroke-dashoffset 1.6s ease}
+.obj h3{font-size:1.34rem;font-weight:400}
+.obj .made{font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--moss)}
+.obj p{margin:0;color:var(--soft);font-size:.92rem;flex:1}
+.obj .foot{display:flex;align-items:baseline;justify-content:space-between;gap:12px;padding-top:14px;
+  border-top:1px solid var(--rule)}
+.obj .pr{font-family:'Crimson Pro',serif;font-size:1.36rem}
+.obj button{border:none;background:none;color:var(--rose);font-family:inherit;font-size:.72rem;
+  letter-spacing:.18em;text-transform:uppercase;cursor:pointer;padding:6px 0;
+  border-bottom:1px solid var(--rose);transition:color .4s,border-color .4s}
+.obj button:hover{color:var(--ink);border-color:var(--ink)}
+.obj button.kept{color:var(--moss);border-color:var(--moss)}
+
+/* ---------- the candle: blow it out ---------- */
+.ending{position:relative;z-index:95;padding:clamp(70px,14vh,180px) var(--g);text-align:center}
+.ending h2{font-size:clamp(1.7rem,5vw,3.4rem);font-weight:200;max-width:18ch;margin:0 auto 16px}
+.ending h2 em{font-style:italic;color:var(--rose)}
+.ending p{color:var(--soft);max-width:44ch;margin:0 auto clamp(30px,5vh,50px)}
+.bigcandle{width:min(160px,42vw);margin:0 auto clamp(24px,4vh,44px);position:relative}
+.bigcandle svg{width:100%;overflow:visible}
+.bigcandle .bigflame{transform-origin:50% 100%;transition:opacity .5s}
+.bigcandle.out .bigflame{opacity:0}
+.bigcandle .smoke{opacity:0}
+.bigcandle.out .smoke{animation:smoke 3.4s ease-out forwards}
+@keyframes smoke{0%{opacity:.8;transform:translateY(0) scaleX(1)}
+  100%{opacity:0;transform:translateY(-90px) scaleX(2.2)}}
+.blow{border:1px solid var(--ink);background:transparent;color:var(--ink);font-family:'Crimson Pro',serif;
+  font-size:1.06rem;padding:14px 34px;border-radius:999px;cursor:pointer;
+  transition:background .5s,color .5s,transform .4s,border-color .5s}
+.blow:hover{background:var(--ink);color:var(--paper);transform:translateY(-2px)}
+.blow.done{border-color:var(--soft);color:var(--soft);background:transparent}
+.afterword{max-width:40ch;margin:clamp(28px,5vh,48px) auto 0;font-family:'Crimson Pro',serif;font-style:italic;
+  font-size:clamp(1.1rem,2.2vw,1.5rem);color:var(--rose);opacity:0;transform:translateY(10px);
+  transition:opacity 1.6s ease 1s,transform 1.6s ease 1s}
+.afterword.show{opacity:1;transform:none}
+.relight{margin-top:22px;background:none;border:none;color:var(--soft);font-family:inherit;font-size:.72rem;
+  letter-spacing:.2em;text-transform:uppercase;cursor:pointer;border-bottom:1px solid var(--rule);
+  padding-bottom:3px;opacity:0;transition:opacity 1s 2s}
+.relight.show{opacity:1}
+
+/* ---------- keep in touch ---------- */
+.keep{position:relative;z-index:95;padding:0 var(--g) clamp(60px,11vh,140px);text-align:center}
+.keepbox{max-width:620px;margin:0 auto;border:1px solid var(--rule);padding:clamp(26px,5vw,48px);
+  background:var(--warm)}
+.keepbox h3{font-size:clamp(1.3rem,3.4vw,2rem);font-weight:300;margin-bottom:12px}
+.keepbox p{color:var(--soft);margin:0 0 24px;font-size:.96rem}
+.kform{display:flex;flex-wrap:wrap;gap:9px;justify-content:center}
+.kform input{flex:1 1 210px;background:var(--paper);border:1px solid var(--rule);color:var(--ink);
+  padding:13px 16px;font-family:inherit;font-size:1rem}
+.kform input:focus{outline:none;border-color:var(--rose)}
+.kform button{border:1px solid var(--rose);background:var(--rose);color:#fff;font-family:'Crimson Pro',serif;
+  font-size:1rem;padding:13px 28px;cursor:pointer;transition:.4s}
+.kform button:hover{background:transparent;color:var(--rose)}
+.kmsg{min-height:1.5em;margin-top:14px;font-family:'Crimson Pro',serif;font-style:italic;color:var(--moss)}
+
+/* ---------- footer ---------- */
+footer{position:relative;z-index:95;padding:clamp(36px,7vh,80px) var(--g) 34px;border-top:1px solid var(--rule)}
+.fcols{display:grid;gap:26px;grid-template-columns:repeat(auto-fit,minmax(min(180px,100%),1fr));padding-bottom:26px}
+.fcols h4{margin:0 0 10px;font-family:Figtree,sans-serif;font-weight:500;font-size:.64rem;
+  letter-spacing:.26em;text-transform:uppercase;color:var(--rose)}
+.fcols ul{list-style:none;margin:0;padding:0;display:grid;gap:7px}
+.fcols a{color:var(--soft);font-size:.9rem;text-decoration:none;transition:color .3s}
+.fcols a:hover{color:var(--ink)}
+.fcols .sig{font-family:'Crimson Pro',serif;font-size:1.5rem;font-style:italic;line-height:1.4;max-width:20ch}
+.fb{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;padding-top:20px;
+  border-top:1px solid var(--rule);font-size:.8rem;color:var(--soft)}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;
+    transition-duration:.001ms!important}
+  .mem{opacity:1;filter:none;transform:none}
+  #dimmer{display:none}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#objects">Skip to the four objects</a>
+<div id="dimmer" aria-hidden="true"></div>
+
+<div id="light" role="status" aria-label="Loading">
+  <div class="wick" aria-hidden="true"><span class="stick"></span><span class="fl"></span></div>
+  <p class="lcap">Goodbye, gently.</p>
+</div>
+
+<header class="nav">
+  <span class="mk">Goodbye, <em>Gently</em></span>
+  <a class="shop" href="#objects">Four objects</a>
+</header>
+
+<main>
+  <section class="hero" aria-labelledby="gt">
+    <div class="in">
+      <p class="top">A small house for endings · est. quietly</p>
+      <div class="candleart" aria-hidden="true">
+        <svg viewBox="0 0 100 160">
+          <g class="flame"><ellipse cx="50" cy="26" rx="11" ry="19" fill="#e0913f" opacity=".85"/>
+            <ellipse cx="50" cy="30" rx="5.4" ry="10" fill="#fff6e2"/></g>
+          <path d="M50 46v8" stroke="#5b4a3c" stroke-width="2.6"/>
+          <rect x="33" y="54" width="34" height="86" rx="4" fill="#f7f3ef" stroke="#c8b8a8" stroke-width="2"/>
+          <path d="M33 62c8 6 26 6 34 0" fill="none" stroke="#c8b8a8" stroke-width="2"/>
+          <ellipse cx="50" cy="146" rx="30" ry="7" fill="#c8b8a8" opacity=".4"/>
+        </svg>
+      </div>
+      <h1 id="gt">The last goodbye should be <em>allowed to be small</em></h1>
+      <p class="lede">We make four objects for the end of something. Not grand, not loud, not designed to be photographed. Just things solid enough to hold while you say it.</p>
+      <p class="down">Six memories first</p>
+    </div>
+  </section>
+
+  <section class="mems" id="mems" aria-label="Six memories">
+    <article class="mem">
+      <p class="n">i.</p>
+      <h2>You were <em>late</em>, and she waited anyway</h2>
+      <p>Forty minutes past the arranged time, in the rain, under an awning that leaked in exactly one place — the place she was standing. She did not mention it once. She mentioned it every single day for the next four years.</p>
+      <p class="whisper">“I wasn't waiting. I was standing. Different thing entirely.”</p>
+    </article>
+    <article class="mem">
+      <p class="n">ii.</p>
+      <h2>The tea was <em>always too strong</em></h2>
+      <p>You said so the first time and then never again, because the third time you noticed she had started leaving the pot to stand for a minute less. Neither of you acknowledged it. That was the whole friendship, really, in one pot of tea.</p>
+      <p class="whisper">“It's supposed to hurt slightly. That's how you know you're awake.”</p>
+    </article>
+    <article class="mem">
+      <p class="n">iii.</p>
+      <h2>She talked about <em>endings constantly</em></h2>
+      <p>At dinner, on walks, in the middle of other people's good news. It was never morbid; it was the opposite. She was the only person you knew who treated an ending as a thing you could plan well, like a meal, or a route home.</p>
+      <p class="whisper">“Everyone gets one. Might as well make yours good.”</p>
+    </article>
+    <article class="mem">
+      <p class="n">iv.</p>
+      <h2>There was a <em>song she hummed</em> and never named</h2>
+      <p>Four notes, always the same four, always slightly off. You looked for it for years afterwards and never found it, which is probably correct. Some things are meant to only exist in one throat.</p>
+      <p class="whisper">“It's not a real song. I made it up when I was nine and I refuse to improve it.”</p>
+    </article>
+    <article class="mem">
+      <p class="n">v.</p>
+      <h2>The last time was an <em>ordinary Tuesday</em></h2>
+      <p>No speeches. She was halfway through a sentence about a delivery of paper and got distracted by a bird. You left first. You said, “see you next week,” and you meant it, and that is the kindest possible way for it to have happened.</p>
+      <p class="whisper">“Go on. It's cold and you're hovering.”</p>
+    </article>
+    <article class="mem">
+      <p class="n">vi.</p>
+      <h2>You still <em>set out two cups</em></h2>
+      <p>Not every day. Not sadly. Just sometimes, on a Tuesday, out of a habit your hands kept when the rest of you moved on. This is not a problem to be fixed. It is just the shape a person leaves behind.</p>
+      <p class="whisper">“Keep the habit. Lose the guilt. Those are separable.”</p>
+    </article>
+  </section>
+
+  <section class="objects" id="objects" aria-labelledby="ob">
+    <div class="oh">
+      <h2 id="ob">Four objects, and <em>nothing else</em></h2>
+      <p>We have been asked to make more. We would rather these four were right. Each is made in small batches, packed in unbleached card, and shipped without a marketing insert.</p>
+    </div>
+    <div class="four">
+      <article class="obj">
+        <div class="draw"><svg viewBox="0 0 100 130" aria-hidden="true">
+          <ellipse cx="50" cy="22" rx="9" ry="15" fill="#e0913f" opacity=".7"/>
+          <rect x="32" y="42" width="36" height="76" rx="4" fill="none" stroke="#2e2a28" stroke-width="2.4"/>
+          <path d="M50 32v10M36 60h28M36 78h28M36 96h28" fill="none" stroke="#847a72" stroke-width="1.8"/></svg></div>
+        <h3>The Hour Candle</h3>
+        <span class="made">Beeswax · 60 minutes</span>
+        <p>Marked at ten-minute intervals so an hour of sitting with something has a shape and an end. Unscented, deliberately.</p>
+        <div class="foot"><span class="pr">$46</span><button>Keep it</button></div>
+      </article>
+      <article class="obj">
+        <div class="draw"><svg viewBox="0 0 100 130" aria-hidden="true">
+          <path d="M20 20h60" fill="none" stroke="#2e2a28" stroke-width="2.4"/>
+          <path d="M50 20v30" fill="none" stroke="#847a72" stroke-width="1.8"/>
+          <circle cx="50" cy="72" r="22" fill="none" stroke="#a8555c" stroke-width="2.6"/>
+          <path d="M50 60l4.4 8.6L64 70l-7 6.6 1.7 9.4L50 81.6 41.3 86l1.7-9.4-7-6.6 9.6-1.4z" fill="#a8555c" opacity=".55"/></svg></div>
+        <h3>The Keepsake Pendant</h3>
+        <span class="made">Silver · opens</span>
+        <p>A plain disc that unscrews. Whatever fits in eight millimetres fits in this. Most people use a piece of paper.</p>
+        <div class="foot"><span class="pr">$128</span><button>Keep it</button></div>
+      </article>
+      <article class="obj">
+        <div class="draw"><svg viewBox="0 0 100 130" aria-hidden="true">
+          <rect x="16" y="34" width="68" height="52" rx="3" fill="none" stroke="#2e2a28" stroke-width="2.4"/>
+          <path d="M16 38l34 26 34-26" fill="none" stroke="#847a72" stroke-width="2"/>
+          <circle cx="50" cy="66" r="9" fill="#a8555c" opacity=".8"/>
+          <path d="M28 100h44M34 112h32" fill="none" stroke="#847a72" stroke-width="1.8"/></svg></div>
+        <h3>The Unsent Letter Set</h3>
+        <span class="made">Six sheets · six seals</span>
+        <p>For letters that are not going to be posted. Heavy enough that writing on it feels like it counted.</p>
+        <div class="foot"><span class="pr">$34</span><button>Keep it</button></div>
+      </article>
+      <article class="obj">
+        <div class="draw"><svg viewBox="0 0 100 130" aria-hidden="true">
+          <path d="M18 52h64v56H18z" fill="none" stroke="#2e2a28" stroke-width="2.4"/>
+          <path d="M18 52l10-14h44l10 14" fill="none" stroke="#2e2a28" stroke-width="2.4"/>
+          <path d="M18 70h64" fill="none" stroke="#847a72" stroke-width="1.8"/>
+          <rect x="44" y="60" width="12" height="18" rx="2" fill="#6f7b6a" opacity=".7"/></svg></div>
+        <h3>The Small Box</h3>
+        <span class="made">Ash wood · 14 × 9 cm</span>
+        <p>Fits the other three exactly. Lid is friction-fit, so it closes with a sound rather than a click.</p>
+        <div class="foot"><span class="pr">$96</span><button>Keep it</button></div>
+      </article>
+    </div>
+  </section>
+
+  <section class="ending" aria-labelledby="en">
+    <h2 id="en">When you're ready, <em>blow it out</em></h2>
+    <p>No countdown, no confirmation dialog. The page will get darker and then it will be over, which is roughly how it works.</p>
+    <div class="bigcandle" id="bigCandle">
+      <svg viewBox="0 0 120 200" role="img" aria-label="A lit candle">
+        <g class="smoke" style="transform-origin:60px 40px">
+          <path d="M60 40c-8-12 8-18 0-30" fill="none" stroke="#847a72" stroke-width="3" stroke-linecap="round" opacity=".6"/>
+        </g>
+        <g class="bigflame"><ellipse cx="60" cy="34" rx="13" ry="24" fill="#e0913f" opacity=".85"/>
+          <ellipse cx="60" cy="40" rx="6.4" ry="12" fill="#fff6e2"/></g>
+        <path d="M60 58v10" stroke="#5b4a3c" stroke-width="3"/>
+        <rect x="38" y="68" width="44" height="110" rx="5" fill="#f7f3ef" stroke="#c8b8a8" stroke-width="2.4"/>
+        <path d="M38 78c10 7 34 7 44 0" fill="none" stroke="#c8b8a8" stroke-width="2.4"/>
+        <ellipse cx="60" cy="184" rx="38" ry="8" fill="#c8b8a8" opacity=".4"/>
+      </svg>
+    </div>
+    <button class="blow" id="blowBtn">Blow out the candle</button>
+    <p class="afterword" id="afterword">“Thank you for staying to the end of it. Not everyone does.”</p>
+    <button class="relight" id="relight">Light it again</button>
+  </section>
+
+  <section class="keep" aria-labelledby="kp">
+    <div class="keepbox">
+      <h3 id="kp">If you'd like to hear from us</h3>
+      <p>Four or five letters a year. No offers, no urgency, no countdown timers. Usually just a note about what we made and why it took so long.</p>
+      <form class="kform" id="kform" novalidate>
+        <label class="sr" for="ke">Email address</label>
+        <input id="ke" type="email" placeholder="your address" autocomplete="email" required>
+        <button type="submit">Write to me</button>
+      </form>
+      <p class="kmsg" id="kmsg" role="status"></p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="fcols">
+    <div><p class="sig">Goodbye, Gently<br>— a small house for endings</p></div>
+    <div><h4>Objects</h4><ul><li><a href="#objects">The four</a></li><li><a href="#">Refills</a></li><li><a href="#">Engraving</a></li></ul></div>
+    <div><h4>House</h4><ul><li><a href="#mems">Why we started</a></li><li><a href="#">Shipping</a></li><li><a href="#">Returns, no reason needed</a></li></ul></div>
+    <div><h4>Elsewhere</h4><ul><li><a href="../../index.html">The other 24 studios</a></li><li><a href="#gt">Back to the beginning</a></li></ul></div>
+  </div>
+  <div class="fb"><span>Fan project · not affiliated with HoYoverse</span><span>Take your time.</span></div>
+</footer>
+
+<script>
+(function(){
+var RM=matchMedia('(prefers-reduced-motion:reduce)').matches;
+
+/* loader */
+var l=document.getElementById('light');
+function go(){l.classList.add('gone');}
+if(RM) setTimeout(go,200); else addEventListener('load',function(){setTimeout(go,1700);});
+setTimeout(go,4000);
+
+/* memories: only the one in view is sharp */
+var mems=[].slice.call(document.querySelectorAll('.mem'));
+if('IntersectionObserver' in window && !RM){
+  var io=new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      if(e.isIntersecting){ e.target.classList.add('now'); e.target.classList.remove('past'); }
+      else if(e.target.classList.contains('now')){
+        e.target.classList.remove('now'); e.target.classList.add('past');
+      }
+    });
+  },{threshold:.42,rootMargin:'-12% 0px -12% 0px'});
+  mems.forEach(function(m){io.observe(m);});
+} else mems.forEach(function(m){m.classList.add('now');});
+
+/* keep buttons */
+document.querySelectorAll('.obj button').forEach(function(b){
+  b.addEventListener('click',function(){
+    b.textContent='Kept ✓'; b.classList.add('kept');
+    setTimeout(function(){b.textContent='Keep it';b.classList.remove('kept');},2200);
+  });
+});
+
+/* the candle */
+var candle=document.getElementById('bigCandle'), blow=document.getElementById('blowBtn'),
+    after=document.getElementById('afterword'), relight=document.getElementById('relight'),
+    root=document.documentElement;
+function blowOut(){
+  candle.classList.add('out');
+  blow.textContent='Out.'; blow.classList.add('done'); blow.disabled=true;
+  root.style.setProperty('--dim','.88');
+  after.classList.add('show'); relight.classList.add('show');
+}
+function lightAgain(){
+  candle.classList.remove('out');
+  blow.textContent='Blow out the candle'; blow.classList.remove('done'); blow.disabled=false;
+  root.style.setProperty('--dim','0');
+  after.classList.remove('show'); relight.classList.remove('show');
+}
+blow.addEventListener('click',blowOut);
+relight.addEventListener('click',lightAgain);
+
+/* newsletter */
+document.getElementById('kform').addEventListener('submit',function(e){
+  e.preventDefault();
+  var v=document.getElementById('ke').value.trim();
+  document.getElementById('kmsg').textContent =
+    /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v)
+      ? 'Noted, gently. We will not write often.'
+      : 'That address will not reach you, we think.';
+});
+})();
+</script>
+</body>
+</html>
