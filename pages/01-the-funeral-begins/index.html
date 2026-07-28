@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The Funeral Begins — Wangsheng Pictures | Hu Tao Collection</title>
+<meta name="description" content="A three-act cinematic release. The Wangsheng Pictures Hu Tao collection: lacquered collector cases, embroidered coats and lantern-light artefacts, presented as a film.">
+<meta name="theme-color" content="#07090c">
+<meta name="color-scheme" content="dark">
+<link rel="canonical" href="https://wangsheng.pictures/the-funeral-begins">
+<meta property="og:type" content="website">
+<meta property="og:title" content="The Funeral Begins — Wangsheng Pictures">
+<meta property="og:description" content="Three acts. One collection. A cinematic Hu Tao merchandise release.">
+<meta property="og:image" content="img/poster.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The Funeral Begins — Wangsheng Pictures">
+<meta name="twitter:image" content="img/poster.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="image" href="img/hero.jpg" fetchpriority="high">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Barlow+Condensed:wght@300;400;600&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ctext y='26' font-size='26'%3E%F0%9F%A6%8B%3C/text%3E%3C/svg%3E">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"ItemList","name":"The Funeral Begins — Collection","itemListElement":[
+{"@type":"ListItem","position":1,"item":{"@type":"Product","name":"Act I Lacquer Reliquary Case","image":"img/product-case.jpg","description":"Hand-lacquered collector case with brass clasps and crimson velvet interior.","offers":{"@type":"Offer","price":"289.00","priceCurrency":"USD","availability":"https://schema.org/LimitedAvailability"}}},
+{"@type":"ListItem","position":2,"item":{"@type":"Product","name":"Act II Director's Coat","image":"img/product-coat.jpg","description":"Crimson and black embroidered long coat with gold plum-blossom stitching.","offers":{"@type":"Offer","price":"640.00","priceCurrency":"USD","availability":"https://schema.org/PreOrder"}}},
+{"@type":"ListItem","position":3,"item":{"@type":"Product","name":"Act III Lantern of Passage","image":"img/product-lantern.jpg","description":"Warm-lit paper lantern with hardwood frame and gold motif.","offers":{"@type":"Offer","price":"175.00","priceCurrency":"USD","availability":"https://schema.org/InStock"}}}]}
+</script>
+<style>
+*,*::before,*::after{box-sizing:border-box}
+:root{
+  --ink:#07090c; --ink-2:#0d1116; --fog:#8c9aa8; --bone:#e8e3dc;
+  --crimson:#c0243a; --ember:#ff7a3d; --teal:#2f6f7d;
+  --edge:rgba(232,227,220,.13);
+  --pad:clamp(20px,5vw,90px);
+  --t-title:clamp(2.6rem,10.5vw,10.5rem);
+}
+html{-webkit-text-size-adjust:100%}
+html:focus-within{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--ink); color:var(--bone);
+  font-family:'Barlow Condensed',ui-sans-serif,system-ui,sans-serif;
+  font-size:clamp(1rem,.55vw + .92rem,1.16rem); line-height:1.65;
+  overflow-x:hidden; -webkit-font-smoothing:antialiased;
+}
+img{max-width:100%;display:block;height:auto}
+a{color:inherit;text-decoration:none}
+h1,h2,h3{font-family:Cinzel,serif;font-weight:700;line-height:.94;margin:0;letter-spacing:-.01em}
+::selection{background:var(--crimson);color:#fff}
+:focus-visible{outline:2px solid var(--ember);outline-offset:4px;border-radius:2px}
+.skip{position:absolute;left:-9999px;top:0;z-index:999;background:var(--crimson);color:#fff;padding:12px 20px}
+.skip:focus{left:12px;top:12px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* ---------- FILM GRAIN + LETTERBOX ---------- */
+.grain{position:fixed;inset:-120%;z-index:120;pointer-events:none;opacity:.055;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation:grainShift 700ms steps(4) infinite}
+@keyframes grainShift{0%{transform:translate(0,0)}25%{transform:translate(-3%,2%)}50%{transform:translate(2%,-3%)}75%{transform:translate(-2%,-2%)}100%{transform:translate(3%,1%)}}
+.vignette{position:fixed;inset:0;z-index:110;pointer-events:none;
+  background:radial-gradient(130% 95% at 50% 45%,transparent 40%,rgba(0,0,0,.72) 100%)}
+.bars{position:fixed;left:0;right:0;z-index:115;height:clamp(18px,4.4vh,52px);background:#000;pointer-events:none;
+  transition:transform 1.1s cubic-bezier(.16,1,.3,1)}
+.bars.t{top:0}.bars.b{bottom:0}
+body.wide .bars.t{transform:translateY(-100%)}
+body.wide .bars.b{transform:translateY(100%)}
+
+/* ---------- CURSOR ---------- */
+.reticle{position:fixed;top:0;left:0;width:46px;height:46px;margin:-23px 0 0 -23px;z-index:130;pointer-events:none;
+  opacity:0;transition:opacity .3s,width .3s,height .3s}
+.reticle::before,.reticle::after{content:'';position:absolute;inset:0;border:1px solid rgba(232,227,220,.55)}
+.reticle::before{clip-path:polygon(0 0,34% 0,34% 3px,3px 3px,3px 34%,0 34%,0 100%,34% 100%,34% calc(100% - 3px),3px calc(100% - 3px),3px 66%,0 66%)}
+.reticle::after{transform:scaleX(-1);clip-path:polygon(0 0,34% 0,34% 3px,3px 3px,3px 34%,0 34%,0 100%,34% 100%,34% calc(100% - 3px),3px calc(100% - 3px),3px 66%,0 66%)}
+.reticle i{position:absolute;left:50%;top:50%;width:3px;height:3px;margin:-1.5px;background:var(--crimson);border-radius:50%}
+body.cursor .reticle{opacity:1}
+body.cursor.hot .reticle{width:74px;height:74px;margin:-37px 0 0 -37px}
+@media (hover:none){.reticle{display:none!important}}
+
+/* ---------- BUTTERFLY CANVAS ---------- */
+#flock{position:fixed;inset:0;z-index:60;pointer-events:none}
+
+/* ---------- PRELOADER ---------- */
+#boot{position:fixed;inset:0;z-index:200;background:#000;display:grid;place-items:center;
+  transition:opacity .9s ease,visibility .9s}
+#boot.gone{opacity:0;visibility:hidden}
+.boot-in{text-align:center;padding:24px}
+.slate{font-family:Cinzel,serif;font-size:clamp(.62rem,1.5vw,.82rem);letter-spacing:.62em;
+  color:var(--fog);text-transform:uppercase;margin-bottom:30px}
+.cnt{font-family:Cinzel,serif;font-size:clamp(3.4rem,14vw,9rem);font-weight:900;line-height:1;
+  color:var(--bone);font-variant-numeric:tabular-nums}
+.cnt span{color:var(--crimson)}
+.boot-bar{width:min(360px,68vw);height:1px;background:rgba(232,227,220,.16);margin:34px auto 0;overflow:hidden}
+.boot-bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--crimson),var(--ember))}
+.boot-lbl{margin-top:16px;font-size:.7rem;letter-spacing:.42em;text-transform:uppercase;color:#4d5560}
+
+/* ---------- NAV : vertical left rail ---------- */
+.rail{position:fixed;left:0;top:0;bottom:0;width:clamp(56px,6vw,84px);z-index:100;
+  display:flex;flex-direction:column;align-items:center;justify-content:space-between;
+  padding:calc(clamp(18px,4.4vh,52px) + 18px) 0 calc(clamp(18px,4.4vh,52px) + 18px);
+  border-right:1px solid var(--edge);background:rgba(7,9,12,.42);backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px)}
+.mark{font-family:Cinzel,serif;font-weight:900;font-size:1.06rem;color:var(--crimson);letter-spacing:.04em}
+.rail nav{display:flex;flex-direction:column;gap:clamp(18px,3.2vh,34px)}
+.rail nav a{writing-mode:vertical-rl;font-size:.66rem;letter-spacing:.38em;text-transform:uppercase;
+  color:var(--fog);transition:color .35s,transform .35s}
+.rail nav a:hover,.rail nav a:focus-visible{color:var(--bone);transform:translateX(-3px)}
+.rail nav a.on{color:var(--crimson)}
+.rail-b{writing-mode:vertical-rl;font-size:.6rem;letter-spacing:.3em;color:#3c434c;text-transform:uppercase}
+@media(max-width:820px){
+  .rail{flex-direction:row;inset:auto 0 0 0;width:auto;height:60px;padding:0 16px;
+    border-right:0;border-top:1px solid var(--edge)}
+  .rail nav{flex-direction:row;gap:20px}
+  .rail nav a{writing-mode:horizontal-tb;font-size:.6rem;letter-spacing:.22em}
+  .rail-b{display:none}
+}
+main{margin-left:clamp(56px,6vw,84px)}
+@media(max-width:820px){main{margin-left:0;margin-bottom:60px}}
+
+/* ---------- HERO ---------- */
+.hero{position:relative;min-height:100svh;display:grid;align-items:end;overflow:hidden}
+.hero-media{position:absolute;inset:-8%;z-index:0}
+.hero-media img{width:100%;height:100%;object-fit:cover;filter:saturate(.92) contrast(1.06);
+  transform:scale(1.06);animation:slowPush 26s ease-in-out infinite alternate}
+@keyframes slowPush{to{transform:scale(1.15)}}
+.hero::after{content:'';position:absolute;inset:0;z-index:1;
+  background:linear-gradient(180deg,rgba(7,9,12,.8) 0%,rgba(7,9,12,.2) 34%,rgba(7,9,12,.86) 82%,var(--ink) 100%)}
+.hero-in{position:relative;z-index:3;padding:0 var(--pad) clamp(50px,10vh,110px);width:100%}
+.eyebrow{display:flex;align-items:center;gap:14px;font-size:.68rem;letter-spacing:.48em;
+  text-transform:uppercase;color:var(--fog);margin-bottom:clamp(16px,3vh,30px)}
+.eyebrow::before{content:'';width:clamp(28px,6vw,74px);height:1px;background:var(--crimson)}
+.hero h1{font-size:var(--t-title);font-weight:900;text-transform:uppercase;letter-spacing:-.035em;
+  max-width:16ch;text-shadow:0 24px 90px rgba(0,0,0,.75)}
+.hero h1 .ln{display:block;overflow:hidden}
+.hero h1 .ln>span{display:block;transform:translateY(105%);
+  animation:riseIn 1.25s cubic-bezier(.16,1,.3,1) forwards}
+.hero h1 .ln:nth-child(2)>span{animation-delay:.11s}
+.hero h1 .ln:nth-child(3)>span{animation-delay:.22s;color:var(--crimson)}
+@keyframes riseIn{to{transform:translateY(0)}}
+.hero-foot{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;
+  gap:clamp(20px,4vw,60px);margin-top:clamp(24px,5vh,52px)}
+.logline{max-width:44ch;color:#b3bcc6;font-weight:300;font-size:clamp(1rem,1.5vw,1.22rem);
+  opacity:0;animation:fadeUp 1s .6s cubic-bezier(.16,1,.3,1) forwards}
+@keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+.hero-cta{display:flex;flex-wrap:wrap;gap:14px;opacity:0;animation:fadeUp 1s .78s cubic-bezier(.16,1,.3,1) forwards}
+.btn{position:relative;display:inline-flex;align-items:center;gap:12px;padding:16px 30px;
+  font-family:Cinzel,serif;font-size:.74rem;font-weight:700;letter-spacing:.24em;text-transform:uppercase;
+  border:1px solid var(--edge);background:rgba(232,227,220,.03);overflow:hidden;cursor:pointer;
+  color:var(--bone);transition:color .4s,border-color .4s;backdrop-filter:blur(8px)}
+.btn i{position:absolute;inset:0;background:var(--crimson);transform:translateY(101%);
+  transition:transform .55s cubic-bezier(.16,1,.3,1);z-index:-1}
+.btn span{position:relative;z-index:1}
+.btn:hover,.btn:focus-visible{border-color:var(--crimson);color:#fff}
+.btn:hover i,.btn:focus-visible i{transform:translateY(0)}
+.btn.solid{background:var(--crimson);border-color:var(--crimson);color:#fff}
+.btn.solid i{background:var(--ink)}
+.scroll-hint{position:absolute;right:var(--pad);bottom:clamp(50px,10vh,110px);z-index:3;
+  writing-mode:vertical-rl;font-size:.62rem;letter-spacing:.4em;text-transform:uppercase;color:var(--fog);
+  display:flex;align-items:center;gap:12px}
+.scroll-hint::after{content:'';width:1px;height:60px;background:linear-gradient(var(--crimson),transparent);
+  animation:drip 2.2s ease-in-out infinite}
+@keyframes drip{0%,100%{transform:scaleY(.35);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}}
+@media(max-width:700px){.scroll-hint{display:none}}
+
+/* ---------- ACT SECTIONS (scroll camera) ---------- */
+.act{position:relative;min-height:190svh}
+.act-sticky{position:sticky;top:0;height:100svh;overflow:hidden;display:grid;place-items:center}
+.act-bg{position:absolute;inset:0}
+.act-bg img{width:100%;height:100%;object-fit:cover;transform:scale(1.2);will-change:transform;filter:saturate(.9)}
+.act-sticky::after{content:'';position:absolute;inset:0;background:radial-gradient(90% 70% at 50% 50%,transparent,rgba(7,9,12,.9))}
+.act-copy{position:relative;z-index:4;text-align:center;padding:0 var(--pad);max-width:60ch}
+.act-no{font-family:Cinzel,serif;font-size:clamp(4.5rem,20vw,17rem);font-weight:900;line-height:.8;
+  color:transparent;-webkit-text-stroke:1px rgba(232,227,220,.22);margin-bottom:-.18em}
+.act-copy h2{font-size:clamp(1.9rem,5.6vw,4.6rem);text-transform:uppercase;letter-spacing:-.02em}
+.act-copy h2 em{font-style:normal;color:var(--crimson)}
+.act-copy p{color:#aab3bd;font-weight:300;font-size:clamp(1rem,1.5vw,1.28rem);max-width:46ch;margin:22px auto 0}
+.reveal{opacity:0;transform:translateY(34px);transition:opacity 1.1s cubic-bezier(.16,1,.3,1),transform 1.1s cubic-bezier(.16,1,.3,1)}
+.reveal.in{opacity:1;transform:none}
+
+/* ---------- MARQUEE ---------- */
+.strip{border-block:1px solid var(--edge);overflow:hidden;padding:20px 0;background:#05070a}
+.strip-in{display:flex;gap:52px;width:max-content;animation:slide 34s linear infinite;
+  font-family:Cinzel,serif;font-size:clamp(.9rem,2.4vw,1.7rem);font-weight:700;letter-spacing:.16em;
+  text-transform:uppercase;color:transparent;-webkit-text-stroke:1px rgba(232,227,220,.3)}
+.strip-in b{color:var(--crimson);-webkit-text-stroke:0;font-weight:700}
+@keyframes slide{to{transform:translateX(-50%)}}
+.strip:hover .strip-in{animation-play-state:paused}
+
+/* ---------- PRODUCTS : cinematic slate list ---------- */
+.reel{padding:clamp(70px,13vh,150px) var(--pad)}
+.sec-head{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;
+  gap:24px;padding-bottom:clamp(26px,5vh,58px);border-bottom:1px solid var(--edge)}
+.sec-head h2{font-size:clamp(1.8rem,5.5vw,4.2rem);text-transform:uppercase}
+.sec-head p{margin:0;max-width:36ch;color:var(--fog);font-weight:300}
+.slate-row{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:clamp(18px,4vw,48px);
+  padding:clamp(22px,4vh,40px) 0;border-bottom:1px solid var(--edge);position:relative;cursor:pointer}
+.slate-row .no{font-family:Cinzel,serif;font-size:.72rem;letter-spacing:.3em;color:var(--crimson)}
+.slate-row h3{font-size:clamp(1.35rem,4.6vw,3.1rem);text-transform:uppercase;transition:transform .5s cubic-bezier(.16,1,.3,1),color .4s}
+.slate-row .meta{display:flex;flex-direction:column;align-items:flex-end;gap:4px;text-align:right}
+.slate-row .price{font-family:Cinzel,serif;font-size:clamp(.95rem,2.2vw,1.4rem);font-weight:700}
+.slate-row .tag{font-size:.62rem;letter-spacing:.28em;text-transform:uppercase;color:var(--fog)}
+.slate-row:hover h3,.slate-row:focus-visible h3{transform:translateX(clamp(8px,1.6vw,26px));color:var(--crimson)}
+.slate-row .peek{position:fixed;width:clamp(200px,22vw,330px);aspect-ratio:16/10;pointer-events:none;
+  z-index:70;opacity:0;transform:translate(-50%,-50%) scale(.9) rotate(-3deg);
+  transition:opacity .4s,transform .55s cubic-bezier(.16,1,.3,1);
+  border:1px solid var(--edge);box-shadow:0 40px 90px rgba(0,0,0,.7);overflow:hidden}
+.slate-row .peek img{width:100%;height:100%;object-fit:cover}
+.slate-row.live .peek{opacity:1;transform:translate(-50%,-50%) scale(1) rotate(0)}
+@media(max-width:860px){
+  .slate-row{grid-template-columns:1fr;gap:8px}
+  .slate-row .meta{align-items:flex-start;text-align:left;flex-direction:row;gap:16px;align-items:baseline}
+  .slate-row .peek{display:none}
+}
+.mob-shot{display:none}
+@media(max-width:860px){.mob-shot{display:block;margin-top:14px;aspect-ratio:16/10;overflow:hidden;border:1px solid var(--edge)}
+.mob-shot img{width:100%;height:100%;object-fit:cover}}
+
+/* ---------- POSTER / CREDITS SPLIT ---------- */
+.credits{display:grid;grid-template-columns:1.05fr .95fr;gap:0;border-top:1px solid var(--edge)}
+@media(max-width:900px){.credits{grid-template-columns:1fr}}
+.credits-art{position:relative;overflow:hidden;min-height:min(120svh,860px)}
+.credits-art img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;will-change:transform}
+.credits-art::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent 55%,var(--ink))}
+@media(max-width:900px){.credits-art{min-height:70svh}.credits-art::after{background:linear-gradient(180deg,transparent 50%,var(--ink))}}
+.credits-txt{padding:clamp(50px,10vh,120px) var(--pad);display:flex;flex-direction:column;justify-content:center;gap:34px}
+.cr-line{display:grid;grid-template-columns:1fr auto;gap:16px;padding-bottom:14px;border-bottom:1px solid var(--edge)}
+.cr-line dt{font-size:.64rem;letter-spacing:.34em;text-transform:uppercase;color:var(--fog)}
+.cr-line dd{margin:0;font-family:Cinzel,serif;font-weight:700;font-size:clamp(.95rem,2vw,1.25rem);text-align:right}
+.pull{font-family:Cinzel,serif;font-size:clamp(1.3rem,3.2vw,2.3rem);line-height:1.22;font-weight:500}
+.pull b{color:var(--crimson);font-weight:700}
+
+/* ---------- SCREENING / newsletter ---------- */
+.screening{padding:clamp(70px,13vh,150px) var(--pad);text-align:center;position:relative;overflow:hidden;
+  border-top:1px solid var(--edge)}
+.screening::before{content:'';position:absolute;left:50%;top:-40%;width:min(120vw,1100px);aspect-ratio:1;
+  transform:translateX(-50%);background:radial-gradient(circle,rgba(192,36,58,.2),transparent 62%);
+  filter:blur(30px);pointer-events:none}
+.screening h2{font-size:clamp(1.9rem,6vw,5rem);text-transform:uppercase;position:relative}
+.screening p{color:var(--fog);max-width:44ch;margin:20px auto 38px;font-weight:300;position:relative}
+.subscribe{position:relative;display:flex;gap:10px;max-width:520px;margin:0 auto;flex-wrap:wrap;justify-content:center}
+.subscribe input{flex:1 1 240px;min-width:0;padding:16px 20px;background:rgba(232,227,220,.05);
+  border:1px solid var(--edge);color:var(--bone);font-family:inherit;font-size:1rem;letter-spacing:.04em}
+.subscribe input::placeholder{color:#5d666f}
+.subscribe input:focus{outline:none;border-color:var(--crimson);background:rgba(192,36,58,.08)}
+.note{margin-top:18px;font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:#4d5560;position:relative}
+
+/* ---------- FOOTER ---------- */
+footer{border-top:1px solid var(--edge);padding:clamp(44px,8vh,90px) var(--pad) 40px;background:#04060a}
+.f-top{display:grid;grid-template-columns:1.4fr repeat(3,auto);gap:clamp(26px,5vw,70px);align-items:start}
+@media(max-width:860px){.f-top{grid-template-columns:1fr 1fr}}
+@media(max-width:520px){.f-top{grid-template-columns:1fr}}
+.f-mark{font-family:Cinzel,serif;font-size:clamp(1.5rem,4vw,2.4rem);font-weight:900;text-transform:uppercase;line-height:1}
+.f-mark span{color:var(--crimson)}
+.f-top p{color:#69727c;max-width:32ch;margin-top:14px;font-size:.95rem}
+.f-col h4{font-family:Cinzel,serif;font-size:.66rem;letter-spacing:.32em;text-transform:uppercase;
+  color:var(--fog);margin:0 0 16px}
+.f-col a{display:block;padding:5px 0;color:#98a2ac;font-size:.94rem;transition:color .3s,padding-left .3s}
+.f-col a:hover,.f-col a:focus-visible{color:var(--crimson);padding-left:8px}
+.f-bot{margin-top:clamp(34px,6vh,70px);padding-top:26px;border-top:1px solid var(--edge);
+  display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between;
+  font-size:.66rem;letter-spacing:.24em;text-transform:uppercase;color:#4d5560}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;
+    transition-duration:.001ms!important;scroll-behavior:auto!important}
+  .hero h1 .ln>span{transform:none}
+  .logline,.hero-cta{opacity:1}
+  .reveal{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<div id="boot" role="status" aria-live="polite">
+  <div class="boot-in">
+    <p class="slate">Wangsheng Pictures · Reel 01 · Take 77</p>
+    <div class="cnt"><span id="bootN">0</span><span>%</span></div>
+    <div class="boot-bar"><i id="bootBar"></i></div>
+    <p class="boot-lbl" id="bootLbl">Threading the projector</p>
+  </div>
+</div>
+
+<div class="grain" aria-hidden="true"></div>
+<div class="vignette" aria-hidden="true"></div>
+<div class="bars t" aria-hidden="true"></div>
+<div class="bars b" aria-hidden="true"></div>
+<div class="reticle" id="ret" aria-hidden="true"><i></i></div>
+<canvas id="flock" aria-hidden="true"></canvas>
+
+<aside class="rail">
+  <a href="#top" class="mark" aria-label="Wangsheng Pictures, home">W<span style="color:var(--bone)">P</span></a>
+  <nav aria-label="Film sections">
+    <a href="#act1" data-nav>Act I</a>
+    <a href="#act2" data-nav>Act II</a>
+    <a href="#act3" data-nav>Act III</a>
+    <a href="#reel" data-nav>The Reel</a>
+    <a href="#screening" data-nav>Screening</a>
+  </nav>
+  <span class="rail-b">Est. 77 AE</span>
+</aside>
+
+<main id="main">
+<section class="hero" id="top">
+  <div class="hero-media" data-par="0.18">
+    <img src="img/hero.jpg" alt="A funeral director in crimson and black stands in a fog-filled lantern hall at midnight." fetchpriority="high" width="1376" height="768">
+  </div>
+  <div class="hero-in">
+    <p class="eyebrow">Wangsheng Pictures presents · A collection in three acts</p>
+    <h1>
+      <span class="ln"><span>The</span></span>
+      <span class="ln"><span>Funeral</span></span>
+      <span class="ln"><span>Begins</span></span>
+    </h1>
+    <div class="hero-foot">
+      <p class="logline">She does not mourn the ending. She stages it — with lacquer, silk and lantern-light, so that the last scene is the most beautiful one you will ever wear.</p>
+      <div class="hero-cta">
+        <a class="btn solid" href="#reel"><i></i><span>Enter the reel</span></a>
+        <a class="btn" href="#act1"><i></i><span>Watch Act I</span></a>
+      </div>
+    </div>
+  </div>
+  <p class="scroll-hint">Scroll to roll film</p>
+</section>
+
+<section class="act" id="act1" aria-labelledby="a1h">
+  <div class="act-sticky">
+    <div class="act-bg"><img src="img/act-1.jpg" alt="An empty candlelit parlour with white lanterns rising through fog." loading="lazy" width="1376" height="768" data-cam></div>
+    <div class="act-copy reveal">
+      <p class="act-no">I</p>
+      <h2 id="a1h">The <em>Parlour</em></h2>
+      <p>Every piece begins in a quiet room at midnight. Wood is cut, lacquer is laid nine times over, and nothing leaves until the grain holds light like still water.</p>
+    </div>
+  </div>
+</section>
+
+<div class="strip" aria-hidden="true">
+  <div class="strip-in">
+    <span>Nine coats of lacquer</span><b>·</b><span>Hand embroidered</span><b>·</b><span>Numbered to 777</span><b>·</b>
+    <span>Nine coats of lacquer</span><b>·</b><span>Hand embroidered</span><b>·</b><span>Numbered to 777</span><b>·</b>
+  </div>
+</div>
+
+<section class="act" id="act2" aria-labelledby="a2h">
+  <div class="act-sticky">
+    <div class="act-bg"><img src="img/act-2.jpg" alt="A spiral of glowing crimson butterflies rising through a dark bamboo forest." loading="lazy" width="1376" height="768" data-cam></div>
+    <div class="act-copy reveal">
+      <p class="act-no">II</p>
+      <h2 id="a2h">The <em>Procession</em></h2>
+      <p>Ten thousand wings leave at once. We chased that colour for a year — a crimson that reads warm under lantern-light and near-black in daylight. It is the only red we use.</p>
+    </div>
+  </div>
+</section>
+
+<section class="reel" id="reel" aria-labelledby="reelh">
+  <div class="sec-head reveal">
+    <h2 id="reelh">The Reel</h2>
+    <p>Three artefacts, released as a single feature. Each one shipped in a sealed film canister with a numbered certificate.</p>
+  </div>
+
+  <article class="slate-row" tabindex="0" data-shot="img/product-case.jpg">
+    <span class="no">01</span>
+    <h3>Lacquer Reliquary Case</h3>
+    <div class="meta"><span class="price">$289</span><span class="tag">Edition of 777</span></div>
+    <div class="peek"><img src="img/product-case.jpg" alt="Black lacquered collector case with crimson plum blossom inlay, open to a velvet interior." loading="lazy"></div>
+    <div class="mob-shot"><img src="img/product-case.jpg" alt="" loading="lazy"></div>
+  </article>
+
+  <article class="slate-row" tabindex="0" data-shot="img/product-coat.jpg">
+    <span class="no">02</span>
+    <h3>Director&rsquo;s Long Coat</h3>
+    <div class="meta"><span class="price">$640</span><span class="tag">Pre-order · Autumn</span></div>
+    <div class="peek"><img src="img/product-coat.jpg" alt="Crimson and black embroidered long coat lit by a single spotlight." loading="lazy"></div>
+    <div class="mob-shot"><img src="img/product-coat.jpg" alt="" loading="lazy"></div>
+  </article>
+
+  <article class="slate-row" tabindex="0" data-shot="img/product-lantern.jpg">
+    <span class="no">03</span>
+    <h3>Lantern of Passage</h3>
+    <div class="meta"><span class="price">$175</span><span class="tag">In stock</span></div>
+    <div class="peek"><img src="img/product-lantern.jpg" alt="A glowing crimson paper lantern suspended in darkness above fog." loading="lazy"></div>
+    <div class="mob-shot"><img src="img/product-lantern.jpg" alt="" loading="lazy"></div>
+  </article>
+
+  <article class="slate-row" tabindex="0" data-shot="img/product-mask.jpg">
+    <span class="no">04</span>
+    <h3>Porcelain Opera Mask</h3>
+    <div class="meta"><span class="price">$210</span><span class="tag">Final 40</span></div>
+    <div class="peek"><img src="img/product-mask.jpg" alt="A crimson and black porcelain opera mask on a stone pedestal in fog." loading="lazy"></div>
+    <div class="mob-shot"><img src="img/product-mask.jpg" alt="" loading="lazy"></div>
+  </article>
+</section>
+
+<section class="act" id="act3" aria-labelledby="a3h">
+  <div class="act-sticky">
+    <div class="act-bg"><img src="img/act-3.jpg" alt="Dawn over misty mountains with a small distant figure on a cliff." loading="lazy" width="1376" height="768" data-cam></div>
+    <div class="act-copy reveal">
+      <p class="act-no">III</p>
+      <h2 id="a3h">The <em>Dawn</em></h2>
+      <p>An ending, properly staged, is indistinguishable from a beginning. That is the whole business. That is the whole collection.</p>
+    </div>
+  </div>
+</section>
+
+<section class="credits" aria-labelledby="crh">
+  <div class="credits-art"><img src="img/poster.jpg" alt="Poster artwork: a figure surrounded by a vortex of crimson butterflies beneath rising lanterns." loading="lazy" data-par="0.12"></div>
+  <div class="credits-txt">
+    <h2 id="crh" class="pull reveal">&ldquo;We are not selling objects. We are selling the <b>last five minutes</b> of a very good film.&rdquo;</h2>
+    <dl style="margin:0;display:grid;gap:20px">
+      <div class="cr-line reveal"><dt>Direction</dt><dd>Wangsheng Pictures</dd></div>
+      <div class="cr-line reveal"><dt>Lacquer &amp; joinery</dt><dd>Chihu Atelier</dd></div>
+      <div class="cr-line reveal"><dt>Embroidery</dt><dd>Silkflower House</dd></div>
+      <div class="cr-line reveal"><dt>Run time</dt><dd>777 editions</dd></div>
+      <div class="cr-line reveal"><dt>Certification</dt><dd>Numbered &amp; sealed</dd></div>
+    </dl>
+    <a class="btn solid reveal" href="#reel" style="align-self:flex-start"><i></i><span>Reserve a print</span></a>
+  </div>
+</section>
+
+<section class="screening" id="screening" aria-labelledby="scrh">
+  <h2 id="scrh" class="reveal">Private Screening</h2>
+  <p class="reveal">Act IV has not been announced. Subscribers see the reel forty-eight hours before the doors open.</p>
+  <form class="subscribe reveal" id="subForm" novalidate>
+    <label class="sr" for="em">Email address</label>
+    <input id="em" name="email" type="email" placeholder="your@email.com" autocomplete="email" required>
+    <button class="btn solid" type="submit"><i></i><span id="subBtn">Request seat</span></button>
+  </form>
+  <p class="note reveal">No spam. One transmission per act.</p>
+</section>
+</main>
+
+<footer>
+  <div class="f-top">
+    <div>
+      <p class="f-mark">Wangsheng<br><span>Pictures</span></p>
+      <p>A funeral parlour that happens to make beautiful things. Liyue Harbour, dock nine.</p>
+    </div>
+    <div class="f-col"><h4>The Reel</h4>
+      <a href="#reel">Reliquary Case</a><a href="#reel">Director&rsquo;s Coat</a><a href="#reel">Lantern</a><a href="#reel">Opera Mask</a></div>
+    <div class="f-col"><h4>Production</h4>
+      <a href="#act1">Act I</a><a href="#act2">Act II</a><a href="#act3">Act III</a><a href="#screening">Screening</a></div>
+    <div class="f-col"><h4>Service</h4>
+      <a href="#">Shipping</a><a href="#">Returns</a><a href="#">Authenticity</a><a href="#">Contact</a></div>
+  </div>
+  <div class="f-bot">
+    <span>&copy; 77 AE Wangsheng Pictures</span>
+    <span>Filmed on location · Liyue</span>
+    <span><a href="../../index.html">← All 25 studios</a></span>
+  </div>
+</footer>
+
+<script>
+(function(){
+'use strict';
+var RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* ---------- BOOT ---------- */
+var boot=document.getElementById('boot'),bn=document.getElementById('bootN'),
+    bb=document.getElementById('bootBar'),bl=document.getElementById('bootLbl');
+var labels=['Threading the projector','Colour-grading act one','Releasing the butterflies','Dimming the house lights'];
+var p=0, li=0;
+var tick=setInterval(function(){
+  p=Math.min(100,p+Math.random()*11+3);
+  bn.textContent=Math.floor(p);
+  bb.style.width=p+'%';
+  var nl=Math.min(3,Math.floor(p/26));
+  if(nl!==li){li=nl;bl.textContent=labels[nl];}
+  if(p>=100){clearInterval(tick);setTimeout(done,420);}
+},RM?40:135);
+function done(){
+  boot.classList.add('gone');
+  document.body.classList.add('wide');
+  setTimeout(function(){boot.remove();},1000);
+}
+
+/* ---------- CURSOR RETICLE ---------- */
+var ret=document.getElementById('ret'),rx=0,ry=0,tx=0,ty=0,hasCursor=matchMedia('(hover:hover)').matches;
+if(hasCursor&&!RM){
+  document.body.classList.add('cursor');
+  addEventListener('mousemove',function(e){tx=e.clientX;ty=e.clientY;},{passive:true});
+  (function loop(){rx+=(tx-rx)*.19;ry+=(ty-ry)*.19;
+    ret.style.transform='translate3d('+rx+'px,'+ry+'px,0)';requestAnimationFrame(loop);})();
+  document.querySelectorAll('a,button,input,.slate-row').forEach(function(el){
+    el.addEventListener('mouseenter',function(){document.body.classList.add('hot');});
+    el.addEventListener('mouseleave',function(){document.body.classList.remove('hot');});
+  });
+}
+
+/* ---------- BUTTERFLY FLOCK (cursor-aware) ---------- */
+var cv=document.getElementById('flock'),ctx=cv.getContext('2d'),W=0,H=0,DPR=Math.min(devicePixelRatio||1,2);
+var flies=[],mouse={x:-999,y:-999};
+function size(){W=cv.width=innerWidth*DPR;H=cv.height=innerHeight*DPR;
+  cv.style.width=innerWidth+'px';cv.style.height=innerHeight+'px';}
+function seed(){
+  var n = innerWidth<700?12:(innerWidth<1200?20:30);
+  flies=[];
+  for(var i=0;i<n;i++){
+    flies.push({x:Math.random()*W,y:Math.random()*H,
+      vx:(Math.random()-.5)*.5,vy:(Math.random()-.5)*.5,
+      s:(Math.random()*7+5)*DPR,ph:Math.random()*6.28,
+      sp:Math.random()*.05+.06,a:Math.random()*.4+.25});
+  }
+}
+function draw(){
+  ctx.clearRect(0,0,W,H);
+  for(var i=0;i<flies.length;i++){
+    var f=flies[i];
+    f.ph+=f.sp;
+    /* wander */
+    f.vx+=Math.cos(f.ph)*.035; f.vy+=Math.sin(f.ph*.7)*.03;
+    /* soft attraction to pointer */
+    if(mouse.x>0){
+      var dx=mouse.x*DPR-f.x, dy=mouse.y*DPR-f.y, d=Math.hypot(dx,dy);
+      if(d<340*DPR&&d>1){ f.vx+=dx/d*.13; f.vy+=dy/d*.13; }
+    }
+    f.vx*=.955; f.vy*=.955;
+    f.x+=f.vx; f.y+=f.vy;
+    if(f.x<-40)f.x=W+40; if(f.x>W+40)f.x=-40;
+    if(f.y<-40)f.y=H+40; if(f.y>H+40)f.y=-40;
+    var flap=Math.abs(Math.sin(f.ph*2.4));
+    ctx.save(); ctx.translate(f.x,f.y);
+    ctx.rotate(Math.atan2(f.vy,f.vx)+1.57);
+    ctx.globalAlpha=f.a*(.55+flap*.45);
+    ctx.fillStyle='rgba(214,58,74,1)';
+    ctx.shadowBlur=14*DPR; ctx.shadowColor='rgba(255,122,61,.9)';
+    ctx.beginPath();
+    ctx.ellipse(-f.s*.55*flap,0,f.s*.62*flap+1,f.s*.9,0,0,6.29);
+    ctx.ellipse(f.s*.55*flap,0,f.s*.62*flap+1,f.s*.9,0,0,6.29);
+    ctx.fill();
+    ctx.restore();
+  }
+  requestAnimationFrame(draw);
+}
+if(!RM){
+  size();seed();draw();
+  addEventListener('resize',function(){size();seed();},{passive:true});
+  addEventListener('mousemove',function(e){mouse.x=e.clientX;mouse.y=e.clientY;},{passive:true});
+  addEventListener('mouseleave',function(){mouse.x=-999;});
+}else{cv.style.display='none';}
+
+/* ---------- SCROLL: parallax + act camera ---------- */
+var pars=[].slice.call(document.querySelectorAll('[data-par]'));
+var cams=[].slice.call(document.querySelectorAll('[data-cam]'));
+var ticking=false;
+function onScroll(){
+  if(ticking)return; ticking=true;
+  requestAnimationFrame(function(){
+    var y=scrollY, vh=innerHeight;
+    pars.forEach(function(el){
+      var r=el.getBoundingClientRect();
+      if(r.bottom>-200&&r.top<vh+200){
+        el.style.transform='translate3d(0,'+((r.top-vh/2)*-parseFloat(el.dataset.par))+'px,0)';
+      }
+    });
+    cams.forEach(function(el){
+      var host=el.closest('.act'), r=host.getBoundingClientRect();
+      var prog=Math.min(1,Math.max(0,(-r.top)/(r.height-vh)));
+      var sc=1.2-prog*.22, ty=(prog-.5)*-9;
+      el.style.transform='scale('+sc+') translate3d(0,'+ty+'%,0)';
+      el.style.filter='saturate(.9) brightness('+(0.72+prog*.42)+')';
+    });
+    ticking=false;
+  });
+}
+if(!RM){addEventListener('scroll',onScroll,{passive:true});onScroll();}
+
+/* ---------- REVEAL ---------- */
+var io=new IntersectionObserver(function(es){
+  es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});
+},{threshold:.18,rootMargin:'0px 0px -8% 0px'});
+document.querySelectorAll('.reveal').forEach(function(el){io.observe(el);});
+
+/* ---------- PRODUCT PEEK follows pointer ---------- */
+document.querySelectorAll('.slate-row').forEach(function(row){
+  var peek=row.querySelector('.peek');
+  if(!peek||!hasCursor)return;
+  row.addEventListener('mouseenter',function(){row.classList.add('live');});
+  row.addEventListener('mouseleave',function(){row.classList.remove('live');});
+  row.addEventListener('mousemove',function(e){
+    peek.style.left=e.clientX+'px'; peek.style.top=e.clientY+'px';
+  });
+});
+
+/* ---------- NAV ACTIVE STATE ---------- */
+var links=[].slice.call(document.querySelectorAll('[data-nav]'));
+var secs=links.map(function(a){return document.querySelector(a.getAttribute('href'));}).filter(Boolean);
+var nio=new IntersectionObserver(function(es){
+  es.forEach(function(e){
+    if(e.isIntersecting){
+      links.forEach(function(l){l.classList.toggle('on',l.getAttribute('href')==='#'+e.target.id);});
+    }
+  });
+},{threshold:.3});
+secs.forEach(function(s){nio.observe(s);});
+
+/* ---------- FORM ---------- */
+var form=document.getElementById('subForm');
+form.addEventListener('submit',function(e){
+  e.preventDefault();
+  var i=document.getElementById('em'), b=document.getElementById('subBtn');
+  if(!i.value||!/^\S+@\S+\.\S+$/.test(i.value)){i.focus();b.textContent='Check address';
+    setTimeout(function(){b.textContent='Request seat';},1800);return;}
+  b.textContent='Seat reserved ✦'; i.value=''; i.blur();
+  setTimeout(function(){b.textContent='Request seat';},3200);
+});
+})();
+</script>
+</body>
+</html>

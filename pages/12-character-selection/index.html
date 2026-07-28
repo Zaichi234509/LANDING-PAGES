@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>SELECT SCREEN — Choose Your Hu Tao Edition | Roster &amp; Loadouts</title>
+<meta name="description" content="Five editions. One roster. Pick a Hu Tao variant, read its stat radar, preview the bundle contents and lock in your pick before the timer runs out.">
+<meta name="theme-color" content="#080b16">
+<meta name="color-scheme" content="dark">
+<link rel="canonical" href="https://selectscreen.gg/hutao">
+<meta property="og:type" content="website">
+<meta property="og:title" content="SELECT SCREEN — Choose Your Hu Tao Edition">
+<meta property="og:description" content="Five editions. Stat radars. Lock in your pick.">
+<meta property="og:image" content="img/og.svg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="img/og.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;600;700&family=Saira:wght@200;400;800;900&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23080b16'/%3E%3Cpath d='M16 5l10 6v10l-10 6-10-6V11z' fill='none' stroke='%23ff2e63' stroke-width='2.5'/%3E%3C/svg%3E">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"ItemList","name":"Hu Tao Edition Roster","itemListElement":[
+{"@type":"ListItem","position":1,"item":{"@type":"Product","name":"Standard Edition","offers":{"@type":"Offer","price":"59","priceCurrency":"USD","availability":"https://schema.org/InStock"}}},
+{"@type":"ListItem","position":2,"item":{"@type":"Product","name":"Collector Edition","offers":{"@type":"Offer","price":"189","priceCurrency":"USD","availability":"https://schema.org/InStock"}}},
+{"@type":"ListItem","position":3,"item":{"@type":"Product","name":"Ultimate Edition","offers":{"@type":"Offer","price":"349","priceCurrency":"USD","availability":"https://schema.org/LimitedAvailability"}}}]}
+</script>
+<style>
+*,*::before,*::after{box-sizing:border-box}
+:root{
+  --bg:#080b16; --bg2:#0d1224; --line:rgba(120,150,255,.16);
+  --txt:#dbe4ff; --dim:#7688b8; --hot:#ff2e63; --el:#08d9d6; --gold:#ffc93c; --vio:#9d4edd;
+}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--txt);font-family:Saira,system-ui,sans-serif;
+  font-size:16px;line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+/* animated arena backdrop */
+.bgfx{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.bgfx::before{content:'';position:absolute;inset:-30%;
+  background:
+    radial-gradient(50% 40% at 20% 20%,rgba(255,46,99,.16),transparent 60%),
+    radial-gradient(45% 40% at 80% 30%,rgba(8,217,214,.14),transparent 60%),
+    radial-gradient(60% 50% at 50% 90%,rgba(157,78,221,.16),transparent 65%);
+  animation:drift 22s ease-in-out infinite alternate}
+@keyframes drift{to{transform:translate3d(3%,-3%,0) scale(1.12)}}
+.bgfx::after{content:'';position:absolute;inset:0;opacity:.4;
+  background-image:linear-gradient(rgba(120,150,255,.07) 1px,transparent 1px),
+                   linear-gradient(90deg,rgba(120,150,255,.07) 1px,transparent 1px);
+  background-size:64px 64px;
+  transform:perspective(600px) rotateX(62deg) translateY(28%) scale(2.4);
+  transform-origin:50% 100%;
+  mask-image:linear-gradient(transparent 44%,#000);-webkit-mask-image:linear-gradient(transparent 44%,#000)}
+h1,h2,h3{margin:0;font-family:Saira,sans-serif;font-weight:900;line-height:.96;letter-spacing:-.03em}
+a{color:inherit;text-decoration:none}
+img,svg{display:block;max-width:100%}
+.tech{font-family:'Chakra Petch',monospace}
+::selection{background:var(--hot);color:#fff}
+:focus-visible{outline:2px solid var(--el);outline-offset:3px}
+.skip{position:absolute;left:-9999px;background:var(--hot);color:#fff;padding:11px 20px;z-index:999}
+.skip:focus{left:12px;top:12px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.wrap{position:relative;z-index:2;max-width:1400px;margin:0 auto;padding:0 clamp(15px,3vw,36px)}
+
+/* ---- INTRO ---- */
+#intro{position:fixed;inset:0;z-index:400;background:#04060d;display:grid;place-items:center;
+  transition:opacity .6s,visibility .6s}
+#intro.gone{opacity:0;visibility:hidden}
+.intro-in{text-align:center;width:min(520px,88vw)}
+.hexspin{width:90px;height:90px;margin:0 auto 26px;position:relative}
+.hexspin svg{position:absolute;inset:0;animation:spin 2.4s linear infinite}
+.hexspin svg:nth-child(2){animation-duration:3.6s;animation-direction:reverse;opacity:.55}
+@keyframes spin{to{transform:rotate(360deg)}}
+.intro-in h2{font-size:1.1rem;letter-spacing:.4em;text-transform:uppercase;color:var(--el);font-weight:400;
+  font-family:'Chakra Petch',monospace}
+.ibar{margin-top:20px;height:3px;background:rgba(120,150,255,.16);overflow:hidden}
+.ibar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--hot),var(--el))}
+.ipct{margin-top:10px;font-family:'Chakra Petch',monospace;font-size:.8rem;color:var(--dim);letter-spacing:.2em}
+
+/* ---- TOP HUD ---- */
+.top{position:relative;z-index:50;display:flex;align-items:center;gap:16px;
+  padding:16px clamp(15px,3vw,36px);border-bottom:1px solid var(--line)}
+.mark{display:flex;align-items:center;gap:10px;font-family:'Chakra Petch',monospace;font-weight:700;
+  letter-spacing:.18em;font-size:.94rem;white-space:nowrap}
+.mark svg{width:26px;height:26px;flex:0 0 auto}
+.top .mid{margin-left:auto;display:flex;gap:6px}
+.top .mid a{font-family:'Chakra Petch',monospace;font-size:.78rem;letter-spacing:.12em;color:var(--dim);
+  padding:7px 13px;border:1px solid transparent;transition:.24s;text-transform:uppercase}
+.top .mid a:hover{color:var(--el);border-color:var(--line);background:rgba(8,217,214,.07)}
+@media(max-width:900px){.top .mid{display:none}}
+.timer{font-family:'Chakra Petch',monospace;font-size:.82rem;color:var(--dim);letter-spacing:.1em;
+  border:1px solid var(--line);padding:7px 14px;white-space:nowrap}
+.timer b{color:var(--gold);font-weight:700}
+.timer.low b{color:var(--hot);animation:flash .7s steps(1) infinite}
+@keyframes flash{50%{opacity:.25}}
+
+/* ---- HERO STRIP ---- */
+.head{padding:clamp(26px,5vh,58px) 0 clamp(18px,3vh,32px);text-align:center}
+.kick{font-family:'Chakra Petch',monospace;font-size:.76rem;letter-spacing:.44em;color:var(--el);
+  text-transform:uppercase;margin:0 0 14px}
+.head h1{font-size:clamp(2.4rem,9vw,7rem);text-transform:uppercase}
+.head h1 span{-webkit-text-stroke:2px var(--hot);color:transparent;
+  animation:pulseStroke 3s ease-in-out infinite}
+@keyframes pulseStroke{50%{-webkit-text-stroke-color:var(--el)}}
+.head p{color:var(--dim);max-width:52ch;margin:16px auto 0;font-weight:200;font-size:clamp(1rem,1.6vw,1.14rem)}
+
+/* ---- ROSTER ---- */
+.roster{display:grid;grid-template-columns:repeat(5,1fr);gap:clamp(8px,1.2vw,16px);
+  padding:clamp(18px,3vh,34px) 0}
+@media(max-width:1000px){.roster{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:620px){.roster{grid-template-columns:repeat(2,1fr)}}
+.pick{position:relative;background:var(--bg2);border:1px solid var(--line);cursor:pointer;padding:0;
+  aspect-ratio:.72;overflow:hidden;transition:transform .3s cubic-bezier(.2,1,.3,1),border-color .3s;
+  transform-style:preserve-3d;color:inherit;text-align:left;display:block}
+.pick svg.portrait{width:100%;height:100%;transition:transform .45s cubic-bezier(.2,1,.3,1)}
+.pick::after{content:'';position:absolute;inset:0;
+  background:linear-gradient(180deg,transparent 40%,rgba(8,11,22,.94));pointer-events:none}
+.pick .nm{position:absolute;left:10px;right:10px;bottom:34px;z-index:3;font-weight:900;
+  font-size:clamp(.82rem,1.5vw,1.12rem);text-transform:uppercase;line-height:1;letter-spacing:-.02em}
+.pick .tier{position:absolute;left:10px;bottom:14px;z-index:3;font-family:'Chakra Petch',monospace;
+  font-size:.66rem;letter-spacing:.18em;color:var(--ac)}
+.pick .pr{position:absolute;right:10px;bottom:12px;z-index:3;font-family:'Chakra Petch',monospace;
+  font-size:.86rem;color:var(--gold);font-weight:700}
+.pick .num{position:absolute;top:8px;left:10px;z-index:3;font-family:'Chakra Petch',monospace;
+  font-size:.68rem;color:var(--dim)}
+.pick:hover,.pick:focus-visible{border-color:var(--ac);transform:translateY(-8px)}
+.pick:hover svg.portrait{transform:scale(1.07)}
+.pick[aria-pressed="true"]{border-color:var(--ac);box-shadow:0 0 0 1px var(--ac) inset,0 14px 44px -14px var(--ac)}
+.pick[aria-pressed="true"]::before{content:'';position:absolute;inset:0;z-index:2;
+  border:2px solid var(--ac);animation:scanBox 1.8s ease-in-out infinite}
+@keyframes scanBox{50%{opacity:.4}}
+.pick .lock{position:absolute;top:8px;right:8px;z-index:4;font-family:'Chakra Petch',monospace;
+  font-size:.6rem;background:var(--ac);color:#04060d;padding:2px 7px;opacity:0;transition:.25s;font-weight:700}
+.pick[aria-pressed="true"] .lock{opacity:1}
+
+/* ---- DETAIL PANEL ---- */
+.detail{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(18px,3vw,44px);
+  padding:clamp(24px,4vh,50px);border:1px solid var(--line);background:rgba(13,18,36,.72);
+  backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  clip-path:polygon(0 0,calc(100% - 26px) 0,100% 26px,100% 100%,26px 100%,0 calc(100% - 26px));
+  margin-bottom:clamp(30px,6vh,70px)}
+@media(max-width:920px){.detail{grid-template-columns:1fr}}
+.d-left h2{font-size:clamp(1.9rem,5.4vw,3.6rem);text-transform:uppercase;margin-bottom:6px}
+.d-tier{font-family:'Chakra Petch',monospace;font-size:.76rem;letter-spacing:.24em;color:var(--ac);
+  text-transform:uppercase;margin-bottom:18px}
+.d-desc{color:var(--dim);font-weight:200;font-size:clamp(1rem,1.5vw,1.1rem);margin:0 0 22px;max-width:46ch}
+.contents{list-style:none;margin:0 0 24px;padding:0;display:grid;gap:7px}
+.contents li{display:flex;gap:11px;align-items:baseline;font-size:.94rem;padding:8px 12px;
+  background:rgba(8,11,22,.6);border-left:2px solid var(--ac);font-weight:200}
+.contents li b{font-family:'Chakra Petch',monospace;font-size:.68rem;color:var(--ac);letter-spacing:.1em;
+  flex:0 0 auto;font-weight:700}
+.d-buy{display:flex;flex-wrap:wrap;gap:14px;align-items:center}
+.price{font-family:'Chakra Petch',monospace;font-size:clamp(1.8rem,4.4vw,2.8rem);font-weight:700;color:var(--gold)}
+.price s{font-size:.44em;color:var(--dim);margin-left:8px}
+.lockin{background:var(--hot);color:#fff;border:0;padding:16px 36px;cursor:pointer;
+  font-family:'Chakra Petch',monospace;font-weight:700;font-size:.96rem;letter-spacing:.14em;
+  clip-path:polygon(12px 0,100% 0,100% calc(100% - 12px),calc(100% - 12px) 100%,0 100%,0 12px);
+  position:relative;overflow:hidden;transition:transform .12s,filter .2s}
+.lockin:hover{filter:brightness(1.16)}
+.lockin:active{transform:scale(.96)}
+.lockin.ok{background:var(--el);color:#04262a}
+
+/* radar */
+.d-right{display:flex;flex-direction:column;gap:14px}
+.radar-wrap{position:relative;aspect-ratio:1;max-width:340px;margin:0 auto;width:100%}
+.radar-wrap svg{width:100%;height:100%;overflow:visible}
+.rpoly{fill:var(--ac);fill-opacity:.2;stroke:var(--ac);stroke-width:2;
+  transition:all .7s cubic-bezier(.2,1,.3,1)}
+.rlabel{font-family:'Chakra Petch',monospace;font-size:9px;fill:var(--dim);letter-spacing:.08em}
+.rgrid{fill:none;stroke:rgba(120,150,255,.18);stroke-width:1}
+.rspoke{stroke:rgba(120,150,255,.14);stroke-width:1}
+.bars{display:grid;gap:7px}
+.brow{display:grid;grid-template-columns:74px 1fr 34px;gap:10px;align-items:center;
+  font-family:'Chakra Petch',monospace;font-size:.72rem;letter-spacing:.08em;color:var(--dim)}
+.brow .bt{height:6px;background:rgba(120,150,255,.13);position:relative;overflow:hidden}
+.brow .bt i{position:absolute;inset:0 auto 0 0;width:0;background:var(--ac);
+  transition:width .75s cubic-bezier(.2,1,.3,1)}
+.brow b{color:var(--txt);text-align:right;font-weight:700}
+
+/* ---- COMPARE TABLE ---- */
+.compare{padding:0 0 clamp(40px,8vh,90px)}
+.compare h2{font-size:clamp(1.6rem,4.6vw,2.8rem);text-transform:uppercase;margin-bottom:20px}
+.tblwrap{overflow-x:auto;border:1px solid var(--line)}
+table{border-collapse:collapse;width:100%;min-width:660px;font-size:.9rem}
+th,td{padding:13px 16px;text-align:left;border-bottom:1px solid var(--line)}
+thead th{font-family:'Chakra Petch',monospace;font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--dim);background:rgba(13,18,36,.9);position:sticky;top:0}
+tbody tr{transition:background .2s}
+tbody tr:hover{background:rgba(8,217,214,.05)}
+td:first-child{font-weight:800}
+.yes{color:var(--el);font-family:'Chakra Petch',monospace}
+.no{color:#3d4870;font-family:'Chakra Petch',monospace}
+
+/* ---- FOOTER ---- */
+footer{border-top:1px solid var(--line);background:rgba(4,6,13,.9);position:relative;z-index:2;
+  padding:clamp(30px,6vh,60px) 0 24px}
+.fg{display:grid;grid-template-columns:1.6fr repeat(3,1fr);gap:26px}
+@media(max-width:820px){.fg{grid-template-columns:1fr 1fr}}
+@media(max-width:520px){.fg{grid-template-columns:1fr}}
+.fg h4{font-family:'Chakra Petch',monospace;font-size:.7rem;letter-spacing:.22em;color:var(--el);
+  text-transform:uppercase;margin:0 0 12px;font-weight:700}
+.fg a{display:block;padding:4px 0;color:var(--dim);font-size:.92rem;font-weight:200;transition:.2s}
+.fg a:hover{color:var(--txt);transform:translateX(5px)}
+.fg p{color:var(--dim);font-weight:200;font-size:.92rem;max-width:30ch;margin:8px 0 0}
+.fmark{font-size:1.5rem;font-weight:900;text-transform:uppercase;letter-spacing:-.02em}
+.fmark span{color:var(--hot)}
+.fbot{margin-top:28px;padding-top:18px;border-top:1px solid var(--line);display:flex;flex-wrap:wrap;
+  gap:12px;justify-content:space-between;font-family:'Chakra Petch',monospace;font-size:.7rem;
+  letter-spacing:.14em;color:#3d4870;text-transform:uppercase}
+
+#note{position:fixed;left:50%;bottom:24px;transform:translate(-50%,150%);z-index:200;
+  background:var(--bg2);border:1px solid var(--el);color:var(--el);padding:12px 24px;
+  font-family:'Chakra Petch',monospace;font-size:.84rem;letter-spacing:.08em;
+  transition:transform .45s cubic-bezier(.3,1.4,.5,1)}
+#note.up{transform:translate(-50%,0)}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;
+    transition-duration:.001ms!important}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="bgfx" aria-hidden="true"></div>
+
+<div id="intro">
+  <div class="intro-in">
+    <div class="hexspin" aria-hidden="true">
+      <svg viewBox="0 0 100 100"><path d="M50 6l38 22v44L50 94 12 72V28z" fill="none" stroke="#ff2e63" stroke-width="3"/></svg>
+      <svg viewBox="0 0 100 100"><path d="M50 20l26 15v30L50 80 24 65V35z" fill="none" stroke="#08d9d6" stroke-width="3"/></svg>
+    </div>
+    <h2>Loading roster</h2>
+    <div class="ibar"><i id="ib"></i></div>
+    <p class="ipct" id="ip">0% · syncing editions</p>
+  </div>
+</div>
+
+<header class="top">
+  <a href="#top" class="mark">
+    <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 3l11 6.5v13L16 29 5 22.5v-13z" fill="none" stroke="#ff2e63" stroke-width="2.4"/><circle cx="16" cy="16" r="3.4" fill="#08d9d6"/></svg>
+    SELECT SCREEN
+  </a>
+  <nav class="mid" aria-label="Primary">
+    <a href="#roster">Roster</a><a href="#detail">Loadout</a><a href="#compare">Compare</a>
+  </nav>
+  <span class="timer" id="timer">LOCK IN <b id="tsec">02:00</b></span>
+</header>
+
+<main id="main">
+<section class="head wrap" id="top">
+  <p class="kick">Roster 01 · Five editions available</p>
+  <h1>CHOOSE YOUR<br><span>HU TAO</span></h1>
+  <p>Each edition is a different loadout of the same collection. Hover a portrait to preview, click to load its stat radar, then lock in before the selection timer expires.</p>
+</section>
+
+<section class="wrap" id="roster">
+  <h2 class="sr">Edition roster</h2>
+  <div class="roster" id="rosterGrid" role="group" aria-label="Choose an edition"></div>
+</section>
+
+<section class="wrap" id="detail">
+  <div class="detail">
+    <div class="d-left">
+      <h2 id="dName">—</h2>
+      <p class="d-tier" id="dTier">—</p>
+      <p class="d-desc" id="dDesc">—</p>
+      <ul class="contents" id="dContents"></ul>
+      <div class="d-buy">
+        <span class="price" id="dPrice">$—</span>
+        <button class="lockin" id="lockBtn">LOCK IN ▶</button>
+      </div>
+    </div>
+    <div class="d-right">
+      <div class="radar-wrap">
+        <svg viewBox="0 0 200 200" role="img" aria-labelledby="radarT">
+          <title id="radarT">Stat radar for the selected edition</title>
+          <g id="rgrid"></g>
+          <polygon class="rpoly" id="rpoly" points=""/>
+          <g id="rlabels"></g>
+        </svg>
+      </div>
+      <div class="bars" id="dBars"></div>
+    </div>
+  </div>
+</section>
+
+<section class="compare wrap" id="compare">
+  <h2>Edition comparison</h2>
+  <div class="tblwrap">
+    <table>
+      <caption class="sr">Feature comparison across all five editions</caption>
+      <thead><tr><th scope="col">Edition</th><th scope="col">Price</th><th scope="col">Pin set</th><th scope="col">Artbook</th><th scope="col">Plush</th><th scope="col">Staff replica</th><th scope="col">Numbered</th></tr></thead>
+      <tbody>
+        <tr><td>Standard</td><td>$59</td><td class="yes">✓</td><td class="no">—</td><td class="no">—</td><td class="no">—</td><td class="no">—</td></tr>
+        <tr><td>Wayfarer</td><td>$99</td><td class="yes">✓</td><td class="yes">✓</td><td class="no">—</td><td class="no">—</td><td class="no">—</td></tr>
+        <tr><td>Collector</td><td>$189</td><td class="yes">✓</td><td class="yes">✓</td><td class="yes">✓</td><td class="no">—</td><td class="yes">✓</td></tr>
+        <tr><td>Spirit</td><td>$249</td><td class="yes">✓</td><td class="yes">✓</td><td class="yes">✓</td><td class="no">—</td><td class="yes">✓</td></tr>
+        <tr><td>Ultimate</td><td>$349</td><td class="yes">✓</td><td class="yes">✓</td><td class="yes">✓</td><td class="yes">✓</td><td class="yes">✓</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="fg">
+      <div>
+        <p class="fmark">SELECT <span>SCREEN</span></p>
+        <p>A storefront shaped like a character select. Five editions, one roster, no microtransactions.</p>
+      </div>
+      <div><h4>Roster</h4><a href="#roster">All editions</a><a href="#compare">Compare</a><a href="#detail">Loadouts</a></div>
+      <div><h4>Support</h4><a href="#">Shipping</a><a href="#">Returns</a><a href="#">Track order</a></div>
+      <div><h4>More</h4><a href="#">Press kit</a><a href="#">Terms</a><a href="../../index.html">← All 25 studios</a></div>
+    </div>
+    <div class="fbot"><span>© 77 Select Screen</span><span>Build 2.7.7</span><span>Physical goods only</span></div>
+  </div>
+</footer>
+
+<div id="note" role="status" aria-live="polite"></div>
+
+<script>
+(function(){
+'use strict';
+var RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* ---------- portrait art ---------- */
+function portrait(a,b,c,mode){
+  var s='<svg class="portrait" viewBox="0 0 140 195" preserveAspectRatio="xMidYMid slice" aria-hidden="true">';
+  s+='<defs><linearGradient id="bgp'+mode+'" x1="0" y1="0" x2="0" y2="1">'+
+     '<stop offset="0%" stop-color="'+c+'"/><stop offset="100%" stop-color="#080b16"/></linearGradient></defs>';
+  s+='<rect width="140" height="195" fill="url(#bgp'+mode+')"/>';
+  /* rays */
+  s+='<g opacity=".3">';
+  for(var i=0;i<7;i++){s+='<path d="M70 200L'+(i*24-10)+' 20h14z" fill="'+a+'" opacity=".22"/>';}
+  s+='</g>';
+  /* hat */
+  s+='<path d="M40 88h60l-6 16H46z" fill="'+a+'"/>';
+  s+='<rect x="49" y="52" width="42" height="38" rx="4" fill="#141a2e"/>';
+  s+='<path d="M55 60h30v7H55z" fill="'+a+'" opacity=".9"/>';
+  s+='<circle cx="70" cy="78" r="5" fill="'+b+'"/>';
+  /* hair */
+  s+='<path d="M44 104c0-14 12-22 26-22s26 8 26 22v52c-8-6-16-4-26-4s-18-2-26 4z" fill="'+a+'" opacity=".92"/>';
+  s+='<path d="M38 110c-6 24-4 48 2 70l10-6c-6-20-8-42-4-62z" fill="'+a+'" opacity=".7"/>';
+  s+='<path d="M102 110c6 24 4 48-2 70l-10-6c6-20 8-42 4-62z" fill="'+a+'" opacity=".7"/>';
+  /* face */
+  s+='<ellipse cx="70" cy="112" rx="17" ry="19" fill="#f4e0d4"/>';
+  s+='<circle cx="63" cy="110" r="3" fill="#1b2138"/><circle cx="77" cy="110" r="3" fill="#1b2138"/>';
+  s+='<path d="M65 120q5 4 10 0" stroke="#1b2138" stroke-width="1.8" fill="none" stroke-linecap="round"/>';
+  /* body */
+  s+='<path d="M46 150c4-10 14-14 24-14s20 4 24 14v45H46z" fill="#141a2e"/>';
+  s+='<path d="M62 140h16l-4 55h-8z" fill="'+b+'" opacity=".85"/>';
+  /* accents per mode */
+  if(mode>2){s+='<g opacity=".9">';
+    for(var j=0;j<5;j++){var bx=16+j*26,by=26+((j*37)%50);
+      s+='<ellipse cx="'+bx+'" cy="'+by+'" rx="6" ry="4" fill="'+b+'" opacity=".7"/>';}
+    s+='</g>';}
+  if(mode>3){s+='<rect x="16" y="20" width="3" height="160" fill="'+b+'" opacity=".5"/>'+
+    '<rect x="121" y="20" width="3" height="160" fill="'+b+'" opacity=".5"/>';}
+  return s+'</svg>';
+}
+
+var STATS=['DRIP','LORE','SHELF','RARITY','VALUE','CHAOS'];
+var EDITIONS=[
+ {n:'Standard',t:'Common · Unlimited',ac:'#7688b8',p:59,was:0,c:['#5a6a9e','#a8b6e0','#1a2038'],
+  d:'The entry loadout. One pin set, one poster, one sticker sheet — the pieces people actually use daily.',
+  items:[['PIN','Spirit butterfly enamel pin']  ,['PRINT','A3 key art poster'],['DECK','6 die-cut vinyl stickers']],
+  s:[52,30,40,15,92,35]},
+ {n:'Wayfarer',t:'Uncommon · 2,000 units',ac:'#08d9d6',p:99,was:0,c:['#0f7a8a','#08d9d6','#0d2430'],
+  d:'Adds the field artbook and the ceramic mug. Built for the person whose desk is their personality.',
+  items:[['PIN','Spirit butterfly enamel pin'],['BOOK','120pg field artbook'],['MUG','Heat-reactive stoneware mug'],['DECK','12 vinyl stickers']],
+  s:[64,68,62,38,80,44]},
+ {n:'Collector',t:'Rare · 800 units',ac:'#ffc93d',p:189,was:229,c:['#8a6a12','#ffc93d','#2a2210'],
+  d:'Numbered box, weighted plush, silk scarf and the full 180-page smyth-sewn artbook. The sweet spot.',
+  items:[['BOX','Numbered rigid collector box'],['PLUSH','32cm weighted ghost plush'],['SILK','19-momme printed scarf'],['BOOK','180pg smyth-sewn artbook'],['PIN','3-pin graduated set']],
+  s:[82,88,86,72,66,58]},
+ {n:'Spirit',t:'Epic · 300 units',ac:'#9d4edd',p:249,was:0,c:['#5b2a8a','#c89bff','#1d1230'],
+  d:'Everything in Collector plus the lantern, the incense set and a hand-signed certificate card.',
+  items:[['BOX','Numbered rigid collector box'],['LANTERN','Warm-LED paper lantern'],['INCENSE','30-stick set + iron tray'],['CERT','Hand-signed certificate'],['PLUSH','32cm weighted ghost plush'],['SILK','19-momme printed scarf']],
+  s:[90,92,94,88,52,72]},
+ {n:'Ultimate',t:'Legendary · 40 units',ac:'#ff2e63',p:349,was:449,c:['#8a1230','#ff2e63','#2a0d16'],
+  d:'The full vault: the 1.4m staff replica, the lacquer reliquary, and every item from every tier below.',
+  items:[['STAFF','1.4m weighted staff replica'],['CASE','Lacquer reliquary with brass clasps'],['ALL','Every item from tiers 1–4'],['CERT','Numbered 1–40, hand signed'],['EARLY','48h early access to next drop']],
+  s:[100,96,100,100,44,90]}
+];
+
+/* ---------- build roster ---------- */
+var grid=document.getElementById('rosterGrid');
+EDITIONS.forEach(function(e,i){
+  var b=document.createElement('button');
+  b.className='pick';b.type='button';b.dataset.i=i;
+  b.style.setProperty('--ac',e.ac);
+  b.setAttribute('aria-pressed','false');
+  b.setAttribute('aria-label',e.n+' edition, $'+e.p+', '+e.t);
+  b.innerHTML=portrait(e.c[0],e.c[1],e.c[2],i)+
+    '<span class="num">0'+(i+1)+'</span><span class="lock">SELECTED</span>'+
+    '<span class="nm">'+e.n+'</span><span class="tier">'+e.t.split(' · ')[0]+'</span><span class="pr">$'+e.p+'</span>';
+  grid.appendChild(b);
+});
+
+/* ---------- radar geometry ---------- */
+var CX=100,CY=100,R=68,N=6;
+function pt(i,v){var a=-Math.PI/2+i*2*Math.PI/N;return [CX+Math.cos(a)*R*v,CY+Math.sin(a)*R*v];}
+(function buildGrid(){
+  var g=document.getElementById('rgrid'),h='';
+  [.25,.5,.75,1].forEach(function(lv){
+    var p=[];for(var i=0;i<N;i++){var q=pt(i,lv);p.push(q[0].toFixed(1)+','+q[1].toFixed(1));}
+    h+='<polygon class="rgrid" points="'+p.join(' ')+'"/>';
+  });
+  for(var i=0;i<N;i++){var q=pt(i,1);h+='<line class="rspoke" x1="'+CX+'" y1="'+CY+'" x2="'+q[0].toFixed(1)+'" y2="'+q[1].toFixed(1)+'"/>';}
+  g.innerHTML=h;
+  var l=document.getElementById('rlabels'),lh='';
+  for(var k=0;k<N;k++){
+    var q=pt(k,1.22);
+    lh+='<text class="rlabel" x="'+q[0].toFixed(1)+'" y="'+q[1].toFixed(1)+'" text-anchor="middle" dominant-baseline="middle">'+STATS[k]+'</text>';
+  }
+  l.innerHTML=lh;
+})();
+
+/* ---------- selection ---------- */
+var cur=-1,locked=false;
+function pick(i,quiet){
+  cur=i;var e=EDITIONS[i];
+  document.querySelectorAll('.pick').forEach(function(b){
+    b.setAttribute('aria-pressed',b.dataset.i==i?'true':'false');
+  });
+  var d=document.querySelector('.detail');
+  d.style.setProperty('--ac',e.ac);
+  document.getElementById('dName').textContent=e.n+' Edition';
+  document.getElementById('dTier').textContent=e.t;
+  document.getElementById('dDesc').textContent=e.d;
+  document.getElementById('dContents').innerHTML=e.items.map(function(it){
+    return '<li><b>'+it[0]+'</b><span>'+it[1]+'</span></li>';}).join('');
+  document.getElementById('dPrice').innerHTML='$'+e.p+(e.was?'<s>$'+e.was+'</s>':'');
+  /* radar */
+  var pts=[];for(var k=0;k<N;k++){var q=pt(k,e.s[k]/100);pts.push(q[0].toFixed(1)+','+q[1].toFixed(1));}
+  var poly=document.getElementById('rpoly');
+  poly.setAttribute('points',pts.join(' '));
+  poly.style.setProperty('--ac',e.ac);
+  poly.style.fill=e.ac;poly.style.stroke=e.ac;
+  /* bars */
+  document.getElementById('dBars').innerHTML=STATS.map(function(s,k){
+    return '<div class="brow"><span>'+s+'</span><span class="bt"><i style="background:'+e.ac+'" data-w="'+e.s[k]+'"></i></span><b>'+e.s[k]+'</b></div>';
+  }).join('');
+  requestAnimationFrame(function(){
+    document.querySelectorAll('.brow .bt i').forEach(function(el){el.style.width=el.dataset.w+'%';});
+  });
+  var lb=document.getElementById('lockBtn');
+  lb.textContent='LOCK IN ▶';lb.classList.remove('ok');locked=false;
+  if(!quiet)note(e.n.toUpperCase()+' EDITION LOADED');
+}
+grid.addEventListener('click',function(ev){
+  var b=ev.target.closest('.pick');if(!b)return;pick(+b.dataset.i);
+});
+/* keyboard arrows across roster */
+grid.addEventListener('keydown',function(ev){
+  if(ev.key!=='ArrowRight'&&ev.key!=='ArrowLeft')return;
+  ev.preventDefault();
+  var n=EDITIONS.length,i=(cur+(ev.key==='ArrowRight'?1:-1)+n)%n;
+  pick(i);document.querySelectorAll('.pick')[i].focus();
+});
+
+/* 3D tilt */
+if(matchMedia('(hover:hover)').matches&&!RM){
+  document.querySelectorAll('.pick').forEach(function(b){
+    b.addEventListener('mousemove',function(e){
+      var r=b.getBoundingClientRect();
+      var px=(e.clientX-r.left)/r.width-.5, py=(e.clientY-r.top)/r.height-.5;
+      b.style.transform='translateY(-8px) perspective(700px) rotateY('+(px*13)+'deg) rotateX('+(-py*13)+'deg)';
+    });
+    b.addEventListener('mouseleave',function(){b.style.transform='';});
+  });
+}
+
+/* ---------- lock in ---------- */
+document.getElementById('lockBtn').addEventListener('click',function(){
+  if(cur<0)return;
+  locked=true;this.textContent='LOCKED ✓';this.classList.add('ok');
+  note(EDITIONS[cur].n.toUpperCase()+' LOCKED IN · $'+EDITIONS[cur].p);
+});
+
+/* ---------- timer ---------- */
+var t=120,tEl=document.getElementById('tsec'),tw=document.getElementById('timer');
+setInterval(function(){
+  if(t>0)t--;
+  var m=String((t/60)|0).padStart(2,'0'),s=String(t%60).padStart(2,'0');
+  tEl.textContent=m+':'+s;
+  tw.classList.toggle('low',t<30);
+},1000);
+
+/* ---------- note ---------- */
+var nEl=document.getElementById('note'),nT;
+function note(m){nEl.textContent=m;nEl.classList.add('up');
+  clearTimeout(nT);nT=setTimeout(function(){nEl.classList.remove('up');},2000);}
+
+/* ---------- intro ---------- */
+var pr=0,ib=document.getElementById('ib'),ip=document.getElementById('ip');
+var msgs=['syncing editions','loading portraits','building stat tables','ready'];
+var it=setInterval(function(){
+  pr=Math.min(100,pr+Math.random()*14+6);
+  ib.style.width=pr+'%';
+  ip.textContent=Math.floor(pr)+'% · '+msgs[Math.min(3,Math.floor(pr/26))];
+  if(pr>=100){clearInterval(it);setTimeout(function(){
+    var el=document.getElementById('intro');el.classList.add('gone');
+    setTimeout(function(){el.remove();},700);
+    pick(2,true);
+  },300);}
+},RM?30:130);
+})();
+</script>
+</body>
+</html>
