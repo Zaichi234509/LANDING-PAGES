@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Our Little Adventure — Little Adventure | A Storybook You Can Buy Pieces Of</title>
+<meta name="description" content="Little Adventure is a five-page picture book about one small trip, and a scrapbook of stickers, patches and keepsakes from it. Turn the pages, then fill the scrapbook.">
+<meta name="theme-color" content="#fdf6ec">
+<meta name="color-scheme" content="light">
+<link rel="canonical" href="https://littleadventure.example/">
+<meta property="og:type" content="book">
+<meta property="og:title" content="Our Little Adventure — Little Adventure">
+<meta property="og:description" content="Five pages, one small trip, and a scrapbook you fill yourself.">
+<meta property="og:image" content="img/og.svg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="img/og.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400&family=Quicksand:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23fdf6ec'/%3E%3Cpath d='M6 24V8h20v16z' fill='none' stroke='%23e8734a' stroke-width='2'/%3E%3Cpath d='M16 8v16' stroke='%23e8734a' stroke-width='2'/%3E%3C/svg%3E">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"ItemList","name":"Little Adventure — Scrapbook Pieces","itemListElement":[
+{"@type":"ListItem","position":1,"item":{"@type":"Product","name":"The Picture Book","offers":{"@type":"Offer","price":"32","priceCurrency":"USD","availability":"https://schema.org/InStock"}}},
+{"@type":"ListItem","position":2,"item":{"@type":"Product","name":"Sticker Sheet — 24 pieces","offers":{"@type":"Offer","price":"11","priceCurrency":"USD","availability":"https://schema.org/InStock"}}},
+{"@type":"ListItem","position":3,"item":{"@type":"Product","name":"Iron-on Patch Set","offers":{"@type":"Offer","price":"19","priceCurrency":"USD","availability":"https://schema.org/InStock"}}}]}
+</script>
+<style>
+*,*::before,*::after{box-sizing:border-box}
+:root{
+  --cream:#fdf6ec; --page:#fffaf3; --ink:#4a3b32; --soft:#8f7d6f; --rule:rgba(74,59,50,.14);
+  --tang:#e8734a; --sky:#6fa8c4; --leaf:#7ea36a; --plum:#a2557a; --sun:#f0b93f;
+  --g:clamp(18px,5vw,88px);
+}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--cream);color:var(--ink);font-family:Quicksand,system-ui,sans-serif;
+  font-weight:500;font-size:17px;line-height:1.72;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.5;
+  background-image:radial-gradient(rgba(74,59,50,.06) 1px,transparent 1px);background-size:18px 18px}
+h1,h2,h3{margin:0;font-family:Fraunces,serif;font-weight:600;line-height:1.14}
+a{color:inherit;text-decoration:none}
+::selection{background:var(--tang);color:#fff}
+:focus-visible{outline:3px solid var(--sky);outline-offset:3px;border-radius:6px}
+.skip{position:absolute;left:-9999px;background:var(--tang);color:#fff;padding:10px 18px;z-index:400}
+.skip:focus{left:12px;top:12px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* ---------- loader: book opens ---------- */
+#cover{position:fixed;inset:0;z-index:500;background:var(--cream);display:grid;place-items:center;
+  transition:opacity .8s,visibility .8s}
+#cover.gone{opacity:0;visibility:hidden}
+.bk{width:min(190px,46vw);aspect-ratio:4/5;position:relative;perspective:900px}
+.bk .bp{position:absolute;inset:0;background:var(--page);border:2px solid var(--ink);border-radius:4px 10px 10px 4px}
+.bk .bf{position:absolute;inset:0;background:var(--tang);border:2px solid var(--ink);border-radius:4px 10px 10px 4px;
+  transform-origin:left;animation:flip 1.4s .4s cubic-bezier(.5,0,.2,1) forwards;backface-visibility:hidden}
+@keyframes flip{to{transform:rotateY(-152deg)}}
+.ccap{position:absolute;bottom:12vh;left:0;right:0;text-align:center;font-family:Fraunces,serif;
+  font-style:italic;font-size:1.12rem;color:var(--soft);opacity:0;animation:cf 1s .7s forwards}
+@keyframes cf{to{opacity:1}}
+
+/* ---------- nav ---------- */
+.nav{position:fixed;top:0;left:0;right:0;z-index:70;display:flex;align-items:center;
+  justify-content:space-between;gap:14px;padding:14px var(--g);
+  background:rgba(253,246,236,.9);backdrop-filter:blur(10px);border-bottom:2px solid var(--rule)}
+.nav .lg{font-family:Fraunces,serif;font-size:1.16rem;display:flex;align-items:center;gap:9px}
+.nav .lg i{width:16px;height:16px;border-radius:50%;background:var(--tang);display:block;font-style:normal}
+.nav .pg{font-size:.78rem;color:var(--soft)}
+.nav .shopbtn{background:var(--tang);color:#fff;border:none;font-family:Quicksand,sans-serif;font-weight:600;
+  font-size:.8rem;padding:9px 18px;border-radius:999px;cursor:pointer;
+  transition:transform .2s cubic-bezier(.2,1.7,.4,1)}
+.nav .shopbtn:hover{transform:scale(1.06) rotate(-2deg)}
+
+/* ---------- hero ---------- */
+.hero{position:relative;z-index:2;padding:clamp(96px,15vh,150px) var(--g) clamp(40px,7vh,80px);
+  display:grid;gap:clamp(24px,5vw,70px);grid-template-columns:repeat(auto-fit,minmax(min(290px,100%),1fr));
+  align-items:center}
+.hero .tag{display:inline-flex;align-items:center;gap:8px;background:var(--sun);color:var(--ink);
+  font-weight:600;font-size:.76rem;padding:5px 14px;border-radius:999px;transform:rotate(-2deg);
+  margin-bottom:18px}
+.hero h1{font-size:clamp(2.3rem,7.6vw,5.4rem);letter-spacing:-.015em}
+.hero h1 em{font-style:italic;color:var(--tang)}
+.hero p.l{max-width:44ch;margin:20px 0 0;color:var(--soft);font-size:clamp(1rem,1.6vw,1.14rem)}
+.hero .btns{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
+.rbtn{border:none;font-family:Quicksand,sans-serif;font-weight:600;font-size:.9rem;padding:14px 28px;
+  border-radius:999px;cursor:pointer;transition:transform .2s cubic-bezier(.2,1.7,.4,1),box-shadow .3s}
+.rbtn.a{background:var(--tang);color:#fff}
+.rbtn.a:hover{transform:translateY(-3px);box-shadow:0 14px 30px -12px rgba(232,115,74,.8)}
+.rbtn.b{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 2px var(--rule)}
+.rbtn.b:hover{transform:translateY(-3px);box-shadow:inset 0 0 0 2px var(--tang)}
+.heroart svg{width:100%;height:auto;display:block;overflow:visible}
+.heroart .bob{animation:bob2 6s ease-in-out infinite}
+.heroart .bob2{animation:bob2 7.4s ease-in-out infinite .6s}
+@keyframes bob2{50%{transform:translateY(-10px)}}
+
+/* ---------- the book ---------- */
+.booksec{position:relative;z-index:2;padding:clamp(40px,8vh,110px) var(--g)}
+.bh{text-align:center;margin-bottom:clamp(22px,4vh,44px)}
+.bh h2{font-size:clamp(1.6rem,4.6vw,2.8rem)}
+.bh p{color:var(--soft);margin:10px auto 0;max-width:40ch}
+.spread{position:relative;max-width:1000px;margin:0 auto;background:var(--page);border:2px solid var(--rule);
+  border-radius:14px;box-shadow:0 30px 60px -40px rgba(74,59,50,.6);overflow:hidden}
+.spread::after{content:'';position:absolute;left:50%;top:0;bottom:0;width:2px;background:var(--rule);
+  transform:translateX(-50%)}
+@media(max-width:700px){.spread::after{display:none}}
+.pages{position:relative;display:grid;grid-template-columns:1fr 1fr;min-height:min(62svh,520px)}
+@media(max-width:700px){.pages{grid-template-columns:1fr}}
+.pg{padding:clamp(20px,3.4vw,40px);display:flex;flex-direction:column;justify-content:center;gap:14px}
+.pg .n{font-family:Fraunces,serif;font-style:italic;color:var(--soft);font-size:.9rem}
+.pg h3{font-size:clamp(1.3rem,3vw,2rem)}
+.pg h3 em{font-style:italic;color:var(--tang)}
+.pg p{margin:0;font-size:clamp(.96rem,1.5vw,1.06rem)}
+.pg .art{display:grid;place-items:center;min-height:min(40svh,320px)}
+.pg .art svg{width:100%;max-width:340px;height:auto;overflow:visible}
+.leaf{position:absolute;inset:0;display:grid;grid-template-columns:1fr 1fr;
+  opacity:0;visibility:hidden;transition:opacity .5s}
+.leaf.on{opacity:1;visibility:visible;position:relative}
+@media(max-width:700px){.leaf,.leaf.on{grid-template-columns:1fr}}
+.pgctrl{display:flex;align-items:center;justify-content:space-between;gap:14px;
+  padding:14px clamp(16px,3vw,30px);border-top:2px solid var(--rule);background:rgba(253,246,236,.6)}
+.pgctrl button{background:var(--ink);color:var(--cream);border:none;font-family:Quicksand,sans-serif;
+  font-weight:600;font-size:.8rem;padding:10px 20px;border-radius:999px;cursor:pointer;transition:.25s}
+.pgctrl button:hover:not(:disabled){background:var(--tang)}
+.pgctrl button:disabled{opacity:.35;cursor:not-allowed}
+.pgdots{display:flex;gap:7px}
+.pgdots i{width:9px;height:9px;border-radius:50%;background:var(--rule);display:block;transition:.3s}
+.pgdots i.on{background:var(--tang);transform:scale(1.35)}
+
+/* ---------- scrapbook ---------- */
+.scrap{position:relative;z-index:2;padding:clamp(40px,8vh,110px) var(--g)}
+.scraphead{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:14px;
+  margin-bottom:clamp(20px,4vh,40px)}
+.scraphead h2{font-size:clamp(1.6rem,4.6vw,2.8rem)}
+.scraphead h2 em{font-style:italic;color:var(--plum)}
+.scraphead p{margin:0;color:var(--soft);max-width:34ch}
+.board{position:relative;background:var(--page);border:2px dashed var(--rule);border-radius:16px;
+  min-height:clamp(200px,30vh,300px);padding:18px;display:flex;flex-wrap:wrap;gap:12px;align-content:flex-start}
+.board .empty{margin:auto;color:var(--soft);font-family:Fraunces,serif;font-style:italic;text-align:center}
+.board .chip{display:inline-flex;align-items:center;gap:9px;background:var(--cream);
+  border:2px solid var(--rule);border-radius:999px;padding:8px 15px;font-size:.86rem;font-weight:600;
+  animation:plop .4s cubic-bezier(.2,1.7,.4,1)}
+@keyframes plop{from{transform:scale(.4) rotate(-8deg);opacity:0}to{transform:none;opacity:1}}
+.board .chip b{width:14px;height:14px;border-radius:50%;display:block}
+.board .chip button{background:none;border:none;color:var(--soft);cursor:pointer;font-size:1rem;
+  line-height:1;padding:0 0 0 2px}
+.board .chip button:hover{color:var(--tang)}
+.pieces{display:grid;gap:clamp(12px,2.2vw,22px);grid-template-columns:repeat(auto-fit,minmax(min(220px,100%),1fr));
+  margin-top:clamp(20px,4vh,40px)}
+.pc{position:relative;background:var(--page);border:2px solid var(--rule);border-radius:16px;padding:18px;
+  display:flex;flex-direction:column;gap:10px;
+  transition:transform .35s cubic-bezier(.2,1.4,.3,1),box-shadow .35s,border-color .3s}
+.pc:hover{transform:translateY(-7px) rotate(-1deg);box-shadow:0 20px 34px -22px rgba(74,59,50,.5);
+  border-color:var(--pcc,var(--tang))}
+.pc .badge{position:absolute;top:-11px;left:16px;background:var(--pcc,var(--tang));color:#fff;
+  font-size:.66rem;font-weight:600;padding:3px 11px;border-radius:999px}
+.pc .ill{height:120px;display:grid;place-items:center}
+.pc .ill svg{height:100%;width:auto;overflow:visible}
+.pc h3{font-size:1.16rem}
+.pc p{margin:0;color:var(--soft);font-size:.88rem;flex:1}
+.pc .row{display:flex;align-items:center;justify-content:space-between;gap:10px;padding-top:12px;
+  border-top:2px solid var(--rule)}
+.pc .pr{font-family:Fraunces,serif;font-size:1.2rem}
+.pc button{background:var(--ink);color:var(--cream);border:none;font-family:Quicksand,sans-serif;font-weight:600;
+  font-size:.78rem;padding:9px 17px;border-radius:999px;cursor:pointer;transition:.25s}
+.pc button:hover{background:var(--pcc,var(--tang))}
+.pc button.in{background:var(--leaf)}
+
+/* ---------- ending ---------- */
+.ending{position:relative;z-index:2;padding:clamp(46px,9vh,120px) var(--g);text-align:center}
+.ending .cloudline svg{width:100%;height:auto;display:block;opacity:.7}
+.ending h2{font-size:clamp(1.6rem,4.8vw,3rem);max-width:20ch;margin:0 auto 14px}
+.ending h2 em{font-style:italic;color:var(--tang)}
+.ending p{color:var(--soft);max-width:44ch;margin:0 auto clamp(24px,4vh,42px)}
+.eform{display:flex;flex-wrap:wrap;gap:9px;justify-content:center;max-width:500px;margin:0 auto}
+.eform input{flex:1 1 210px;background:var(--page);border:2px solid var(--rule);color:var(--ink);
+  padding:13px 18px;border-radius:999px;font-family:inherit;font-weight:500;font-size:1rem}
+.eform input:focus{outline:none;border-color:var(--sky)}
+.emsg{min-height:1.5em;margin-top:14px;font-family:Fraunces,serif;font-style:italic;color:var(--leaf)}
+
+/* ---------- footer ---------- */
+footer{position:relative;z-index:2;padding:clamp(34px,6vh,72px) var(--g) 30px;border-top:2px solid var(--rule)}
+.fg{display:grid;gap:24px;grid-template-columns:repeat(auto-fit,minmax(min(170px,100%),1fr));padding-bottom:24px}
+.fg h4{margin:0 0 10px;font-family:Quicksand,sans-serif;font-weight:600;font-size:.72rem;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--tang)}
+.fg ul{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.fg a{color:var(--soft);font-size:.9rem;transition:color .3s}
+.fg a:hover{color:var(--ink)}
+.fg .sig{font-family:Fraunces,serif;font-size:1.4rem;line-height:1.35;max-width:20ch}
+.fb{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;padding-top:18px;
+  border-top:2px solid var(--rule);font-size:.8rem;color:var(--soft)}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;
+    transition-duration:.001ms!important}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#scrapbook">Skip to the scrapbook</a>
+
+<div id="cover" role="status" aria-label="Loading">
+  <div class="bk" aria-hidden="true"><span class="bp"></span><span class="bf"></span></div>
+  <p class="ccap">Once, on a Tuesday…</p>
+</div>
+
+<header class="nav">
+  <span class="lg"><i></i>Little Adventure</span>
+  <span class="pg">Page <b id="navPg">1</b> of 5</span>
+  <button class="shopbtn" id="shopTop">Scrapbook</button>
+</header>
+
+<main>
+  <section class="hero" aria-labelledby="lt">
+    <div>
+      <span class="tag">★ A picture book for grown-ups who miss them</span>
+      <h1 id="lt">Our <em>little</em> adventure</h1>
+      <p class="l">It was not a big adventure. We went four stops on the tram, got off at the wrong one on purpose, and were home by dark. It has been the best day of the year twice now.</p>
+      <div class="btns">
+        <button class="rbtn a" id="readBtn">Read the book →</button>
+        <a class="rbtn b" href="#scrapbook">Fill the scrapbook</a>
+      </div>
+    </div>
+    <div class="heroart">
+      <svg viewBox="0 0 460 400" role="img" aria-label="Two small figures walking with a lantern under a big sun and drifting clouds">
+        <circle cx="360" cy="92" r="56" fill="#f0b93f" opacity=".9"/>
+        <g class="bob"><ellipse cx="112" cy="80" rx="56" ry="24" fill="#fff" opacity=".95"/>
+          <ellipse cx="142" cy="68" rx="36" ry="20" fill="#fff" opacity=".95"/></g>
+        <g class="bob2"><ellipse cx="290" cy="152" rx="44" ry="18" fill="#fff" opacity=".8"/>
+          <ellipse cx="312" cy="142" rx="28" ry="15" fill="#fff" opacity=".8"/></g>
+        <path d="M0 330c60-22 110 8 180-8s130-30 200-12 80 16 80 16v74H0z" fill="#7ea36a" opacity=".38"/>
+        <path d="M0 356c70-16 120 12 190-4s140-24 210-8 60 12 60 12v44H0z" fill="#7ea36a" opacity=".6"/>
+        <g fill="none" stroke="#4a3b32" stroke-width="4" stroke-linecap="round">
+          <circle cx="176" cy="266" r="17"/><path d="M176 283v42M176 325l-14 34M176 325l14 34M158 296l36-6"/>
+        </g>
+        <g fill="none" stroke="#a2557a" stroke-width="4" stroke-linecap="round">
+          <circle cx="238" cy="258" r="18"/><path d="M238 276v44M238 320l-15 38M238 320l15 38M219 290l38-7"/>
+          <path d="M216 246h44" stroke="#e8734a" stroke-width="6"/>
+        </g>
+        <g><path d="M262 288h30" stroke="#4a3b32" stroke-width="3"/>
+          <ellipse cx="298" cy="300" rx="16" ry="20" fill="#f0b93f" stroke="#4a3b32" stroke-width="3"/>
+          <path d="M298 280v-8" stroke="#4a3b32" stroke-width="3"/></g>
+        <g fill="#e8734a" opacity=".9">
+          <circle cx="70" cy="228" r="5"/><circle cx="104" cy="200" r="4"/><circle cx="404" cy="248" r="5"/>
+          <circle cx="432" cy="212" r="3.6"/></g>
+      </svg>
+    </div>
+  </section>
+
+  <section class="booksec" id="book" aria-labelledby="bkh">
+    <div class="bh">
+      <h2 id="bkh">The book, five pages</h2>
+      <p>Turn the pages with the buttons, arrow keys, or by being patient enough to read them all.</p>
+    </div>
+    <div class="spread">
+      <div class="pages" id="pages" aria-live="polite">
+
+        <div class="leaf on" data-i="0">
+          <div class="pg">
+            <p class="n">page one</p>
+            <h3>It started with a <em>bad idea</em></h3>
+            <p>“Let's get on the tram and get off when it looks interesting,” she said, which is not a plan and everybody involved knew it was not a plan.</p>
+            <p>We got on. It was 11:04. There were four stops before it looked interesting and by then we had missed lunch.</p>
+          </div>
+          <div class="pg art">
+            <svg viewBox="0 0 340 300" role="img" aria-label="Illustration of a small tram with two passengers">
+              <rect x="34" y="86" width="272" height="132" rx="18" fill="#e8734a" stroke="#4a3b32" stroke-width="4"/>
+              <rect x="58" y="110" width="70" height="56" rx="8" fill="#fdf6ec" stroke="#4a3b32" stroke-width="4"/>
+              <rect x="146" y="110" width="70" height="56" rx="8" fill="#fdf6ec" stroke="#4a3b32" stroke-width="4"/>
+              <rect x="234" y="110" width="52" height="56" rx="8" fill="#fdf6ec" stroke="#4a3b32" stroke-width="4"/>
+              <circle cx="90" cy="234" r="20" fill="#4a3b32"/><circle cx="250" cy="234" r="20" fill="#4a3b32"/>
+              <circle cx="90" cy="234" r="8" fill="#fdf6ec"/><circle cx="250" cy="234" r="8" fill="#fdf6ec"/>
+              <path d="M170 86V44h50" fill="none" stroke="#4a3b32" stroke-width="4"/>
+              <g fill="#4a3b32"><circle cx="86" cy="136" r="9"/><circle cx="178" cy="136" r="9"/></g>
+              <path d="M14 254h312" stroke="#4a3b32" stroke-width="4" stroke-linecap="round"/>
+            </svg>
+          </div>
+        </div>
+
+        <div class="leaf" data-i="1">
+          <div class="pg">
+            <p class="n">page two</p>
+            <h3>The wrong stop was <em>excellent</em></h3>
+            <p>A street with three shops on it, all closed, and one bakery that was open and had exactly two things left. We bought both. One was mystery.</p>
+            <p>The mystery one turned out to be red bean. She had known. She had absolutely known.</p>
+          </div>
+          <div class="pg art">
+            <svg viewBox="0 0 340 300" role="img" aria-label="Illustration of a small bakery window with two buns">
+              <path d="M40 96l24-46h212l24 46z" fill="#f0b93f" stroke="#4a3b32" stroke-width="4"/>
+              <rect x="46" y="96" width="248" height="146" rx="8" fill="#fffaf3" stroke="#4a3b32" stroke-width="4"/>
+              <rect x="76" y="130" width="188" height="76" rx="8" fill="#fdf6ec" stroke="#4a3b32" stroke-width="4"/>
+              <ellipse cx="130" cy="170" rx="30" ry="24" fill="#e8b877" stroke="#4a3b32" stroke-width="4"/>
+              <ellipse cx="210" cy="170" rx="30" ry="24" fill="#d99a5f" stroke="#4a3b32" stroke-width="4"/>
+              <path d="M118 162c8 6 18 6 26 0M198 162c8 6 18 6 26 0" fill="none" stroke="#4a3b32" stroke-width="3"/>
+              <path d="M46 242h248M64 242v22M276 242v22" stroke="#4a3b32" stroke-width="4" stroke-linecap="round"/>
+              <g fill="#a2557a"><circle cx="170" cy="70" r="7"/></g>
+            </svg>
+          </div>
+        </div>
+
+        <div class="leaf" data-i="2">
+          <div class="pg">
+            <p class="n">page three</p>
+            <h3>We found a <em>very good hill</em></h3>
+            <p>Twenty minutes up, and at the top a bench with somebody's name carved into it and a view of absolutely nothing remarkable. We stayed for an hour.</p>
+            <p>She said the view being unremarkable was the entire reason it was good. Nobody was there to compete with us for it.</p>
+          </div>
+          <div class="pg art">
+            <svg viewBox="0 0 340 300" role="img" aria-label="Illustration of a bench on a small hill with two figures sitting">
+              <path d="M0 220c60-40 110-10 170-40s110-40 170-20v140H0z" fill="#7ea36a" opacity=".45"/>
+              <path d="M0 250c70-30 120 0 180-24s100-26 160-10v84H0z" fill="#7ea36a" opacity=".7"/>
+              <g stroke="#4a3b32" stroke-width="4" fill="none" stroke-linecap="round">
+                <path d="M106 214h128M106 232h128M116 214v40M224 214v40M116 200v14M224 200v14"/></g>
+              <g fill="none" stroke="#4a3b32" stroke-width="4" stroke-linecap="round">
+                <circle cx="146" cy="176" r="14"/><path d="M146 190v24M146 214l-10 22"/></g>
+              <g fill="none" stroke="#a2557a" stroke-width="4" stroke-linecap="round">
+                <circle cx="196" cy="172" r="15"/><path d="M196 187v27M196 214l10 22"/>
+                <path d="M178 162h36" stroke="#e8734a" stroke-width="6"/></g>
+              <g fill="#f0b93f"><circle cx="290" cy="70" r="30"/></g>
+            </svg>
+          </div>
+        </div>
+
+        <div class="leaf" data-i="3">
+          <div class="pg">
+            <p class="n">page four</p>
+            <h3>Then it <em>rained</em>, obviously</h3>
+            <p>Not gently. We got under an awning with a man selling umbrellas who found the situation extremely funny and refused, on principle, to sell us one.</p>
+            <p>Eleven minutes. Then sun, immediately, like nothing had happened. She said the weather was "showing off".</p>
+          </div>
+          <div class="pg art">
+            <svg viewBox="0 0 340 300" role="img" aria-label="Illustration of two figures sheltering under an awning in the rain">
+              <g stroke="#6fa8c4" stroke-width="4" stroke-linecap="round" opacity=".8">
+                <path d="M40 40l-12 34M90 24l-12 34M140 44l-12 34M250 30l-12 34M300 50l-12 34M200 20l-12 34"/>
+                <path d="M60 110l-10 28M120 120l-10 28M270 116l-10 28"/></g>
+              <path d="M40 140h260l-22 40H62z" fill="#e8734a" stroke="#4a3b32" stroke-width="4"/>
+              <path d="M62 180h216" stroke="#4a3b32" stroke-width="4"/>
+              <g fill="none" stroke="#4a3b32" stroke-width="4" stroke-linecap="round">
+                <circle cx="140" cy="214" r="14"/><path d="M140 228v30M140 258l-10 20M140 258l10 20"/></g>
+              <g fill="none" stroke="#a2557a" stroke-width="4" stroke-linecap="round">
+                <circle cx="196" cy="212" r="15"/><path d="M196 227v31M196 258l-10 20M196 258l10 20"/>
+                <path d="M178 202h36" stroke="#e8734a" stroke-width="6"/></g>
+              <path d="M20 286h300" stroke="#6fa8c4" stroke-width="4" stroke-linecap="round" opacity=".6"/>
+            </svg>
+          </div>
+        </div>
+
+        <div class="leaf" data-i="4">
+          <div class="pg">
+            <p class="n">page five · the end</p>
+            <h3>Home by <em>dark</em>, and that was it</h3>
+            <p>Four tram stops, one bakery, one hill, eleven minutes of rain. Nothing happened. Nobody learned anything. It cost about nine mora.</p>
+            <p>“Best kind of day,” she said at the door. “You can't summarise it, so nobody can take it off you.”</p>
+          </div>
+          <div class="pg art">
+            <svg viewBox="0 0 340 300" role="img" aria-label="Illustration of a doorway at dusk with a lantern and two figures parting">
+              <rect width="340" height="300" fill="none"/>
+              <g fill="#6fa8c4" opacity=".28"><rect y="0" width="340" height="300"/></g>
+              <path d="M104 260V116a66 66 0 01132 0v144z" fill="#fdf6ec" stroke="#4a3b32" stroke-width="4"/>
+              <path d="M170 116v144" stroke="#4a3b32" stroke-width="4"/>
+              <circle cx="152" cy="196" r="6" fill="#4a3b32"/><circle cx="188" cy="196" r="6" fill="#4a3b32"/>
+              <ellipse cx="170" cy="72" rx="18" ry="22" fill="#f0b93f" stroke="#4a3b32" stroke-width="4"/>
+              <path d="M170 50V36" stroke="#4a3b32" stroke-width="4"/>
+              <g fill="#f0b93f" opacity=".9">
+                <circle cx="58" cy="94" r="4"/><circle cx="284" cy="76" r="3.4"/><circle cx="42" cy="164" r="3"/>
+                <circle cx="300" cy="150" r="4"/></g>
+              <path d="M0 280h340" stroke="#4a3b32" stroke-width="4"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <div class="pgctrl">
+        <button id="prevPg" disabled>‹ Back a page</button>
+        <div class="pgdots" id="pgdots" aria-hidden="true"></div>
+        <button id="nextPg">Next page ›</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="scrap" id="scrapbook" aria-labelledby="sc">
+    <div class="scraphead">
+      <h2 id="sc">Fill the <em>scrapbook</em></h2>
+      <p>Everything from the book, made for real. Add pieces and they stick to the board above the shelf.</p>
+    </div>
+    <div class="board" id="board" aria-live="polite">
+      <p class="empty" id="boardEmpty">Nothing stuck on yet — add something below.</p>
+    </div>
+    <div class="pieces">
+      <article class="pc" style="--pcc:#e8734a">
+        <span class="badge">The book</span>
+        <div class="ill"><svg viewBox="0 0 100 100" aria-hidden="true" fill="none" stroke="#e8734a" stroke-width="4" stroke-linejoin="round">
+          <path d="M16 20h30v62H16zM54 20h30v62H54z"/><path d="M46 20c4-4 8-4 8 0v62c0-4-4-4-8 0z"/></svg></div>
+        <h3>The Picture Book</h3>
+        <p>40 pages, hardback, thread-sewn. All five pages plus fifteen more nobody has read yet.</p>
+        <div class="row"><span class="pr">$32</span><button data-c="#e8734a" data-n="Picture Book">Add</button></div>
+      </article>
+      <article class="pc" style="--pcc:#f0b93f">
+        <span class="badge">Page two</span>
+        <div class="ill"><svg viewBox="0 0 100 100" aria-hidden="true" fill="none" stroke="#f0b93f" stroke-width="4" stroke-linejoin="round">
+          <rect x="14" y="14" width="72" height="72" rx="6"/><circle cx="36" cy="36" r="10"/><circle cx="66" cy="40" r="8"/>
+          <path d="M28 68c10-10 34-10 44 0"/></svg></div>
+        <h3>Sticker Sheet · 24</h3>
+        <p>Matte vinyl, kiss-cut, weatherproof. Includes the mystery bun and the unhelpful umbrella man.</p>
+        <div class="row"><span class="pr">$11</span><button data-c="#f0b93f" data-n="Sticker Sheet">Add</button></div>
+      </article>
+      <article class="pc" style="--pcc:#7ea36a">
+        <span class="badge">Page three</span>
+        <div class="ill"><svg viewBox="0 0 100 100" aria-hidden="true" fill="none" stroke="#7ea36a" stroke-width="4" stroke-linejoin="round">
+          <path d="M14 70c14-24 30-8 40-28s20-24 32-14"/><circle cx="50" cy="50" r="34"/></svg></div>
+        <h3>Iron-on Patch Set</h3>
+        <p>Three woven patches: the hill, the bench, and one that just says "wrong stop" in small letters.</p>
+        <div class="row"><span class="pr">$19</span><button data-c="#7ea36a" data-n="Patch Set">Add</button></div>
+      </article>
+      <article class="pc" style="--pcc:#6fa8c4">
+        <span class="badge">Page four</span>
+        <div class="ill"><svg viewBox="0 0 100 100" aria-hidden="true" fill="none" stroke="#6fa8c4" stroke-width="4" stroke-linejoin="round">
+          <path d="M50 20a34 34 0 0134 34H16a34 34 0 0134-34z"/><path d="M50 54v22a8 8 0 0016 0"/></svg></div>
+        <h3>The Small Umbrella</h3>
+        <p>Folds to 21cm, wooden handle, eleven-minute rating (tested). Sold, unlike the one in the story.</p>
+        <div class="row"><span class="pr">$38</span><button data-c="#6fa8c4" data-n="Small Umbrella">Add</button></div>
+      </article>
+      <article class="pc" style="--pcc:#a2557a">
+        <span class="badge">Page five</span>
+        <div class="ill"><svg viewBox="0 0 100 100" aria-hidden="true" fill="none" stroke="#a2557a" stroke-width="4" stroke-linejoin="round">
+          <rect x="26" y="30" width="48" height="54" rx="10"/><path d="M50 16v14M38 90h24"/></svg></div>
+        <h3>Doorway Nightlight</h3>
+        <p>Warm 2200K, USB-C, dims to almost nothing. Shaped like the lantern over the door on the last page.</p>
+        <div class="row"><span class="pr">$44</span><button data-c="#a2557a" data-n="Nightlight">Add</button></div>
+      </article>
+      <article class="pc" style="--pcc:#4a3b32">
+        <span class="badge">Everything</span>
+        <div class="ill"><svg viewBox="0 0 100 100" aria-hidden="true" fill="none" stroke="#4a3b32" stroke-width="4" stroke-linejoin="round">
+          <rect x="14" y="30" width="72" height="54" rx="8"/><path d="M14 46h72M34 30V18h32v12"/></svg></div>
+        <h3>The Whole Day Box</h3>
+        <p>All five, boxed, with a paper tram ticket stamped 11:04. Saves $23 and a lot of deliberating.</p>
+        <div class="row"><span class="pr">$121</span><button data-c="#4a3b32" data-n="Whole Day Box">Add</button></div>
+      </article>
+    </div>
+  </section>
+
+  <section class="ending" aria-labelledby="en">
+    <div class="cloudline" aria-hidden="true">
+      <svg viewBox="0 0 1200 90" preserveAspectRatio="none">
+        <g fill="#6fa8c4" opacity=".25">
+          <ellipse cx="140" cy="56" rx="90" ry="26"/><ellipse cx="200" cy="44" rx="60" ry="22"/>
+          <ellipse cx="600" cy="60" rx="110" ry="26"/><ellipse cx="670" cy="46" rx="70" ry="22"/>
+          <ellipse cx="1050" cy="54" rx="86" ry="24"/><ellipse cx="1108" cy="44" rx="56" ry="20"/></g>
+      </svg>
+    </div>
+    <h2 id="en">There will be <em>another one</em></h2>
+    <p>We make one of these a year, about one small day. Leave an address and we'll tell you when the next tram leaves.</p>
+    <form class="eform" id="eform" novalidate>
+      <label class="sr" for="ee">Email address</label>
+      <input id="ee" type="email" placeholder="you@somewhere.nice" autocomplete="email" required>
+      <button class="rbtn a" type="submit">Tell me</button>
+    </form>
+    <p class="emsg" id="emsg" role="status"></p>
+  </section>
+</main>
+
+<footer>
+  <div class="fg">
+    <div><p class="sig">Little Adventure<br>— one small day a year</p></div>
+    <div><h4>The book</h4><ul><li><a href="#book">Read it</a></li><li><a href="#">Previous books</a></li><li><a href="#">Read-aloud version</a></li></ul></div>
+    <div><h4>Scrapbook</h4><ul><li><a href="#scrapbook">All pieces</a></li><li><a href="#">Shipping</a></li><li><a href="#">Gift wrap</a></li></ul></div>
+    <div><h4>Elsewhere</h4><ul><li><a href="../../index.html">The other 24 studios</a></li><li><a href="#lt">Back to the start</a></li></ul></div>
+  </div>
+  <div class="fb"><span>Fan project · not affiliated with HoYoverse</span><span>Get off at the wrong stop</span></div>
+</footer>
+
+<script>
+(function(){
+var RM=matchMedia('(prefers-reduced-motion:reduce)').matches;
+
+/* loader */
+var cv=document.getElementById('cover');
+function go(){cv.classList.add('gone');}
+if(RM) setTimeout(go,200); else addEventListener('load',function(){setTimeout(go,1750);});
+setTimeout(go,4200);
+
+/* book pages */
+var leaves=[].slice.call(document.querySelectorAll('.leaf'));
+var cur=0, dots=document.getElementById('pgdots');
+dots.innerHTML=leaves.map(function(){return '<i></i>';}).join('');
+var dotEls=[].slice.call(dots.children);
+function show(i){
+  cur=Math.max(0,Math.min(leaves.length-1,i));
+  leaves.forEach(function(l,j){l.classList.toggle('on',j===cur);});
+  dotEls.forEach(function(d,j){d.classList.toggle('on',j===cur);});
+  document.getElementById('prevPg').disabled = cur===0;
+  document.getElementById('nextPg').disabled = cur===leaves.length-1;
+  document.getElementById('navPg').textContent=cur+1;
+}
+show(0);
+document.getElementById('prevPg').addEventListener('click',function(){show(cur-1);});
+document.getElementById('nextPg').addEventListener('click',function(){show(cur+1);});
+addEventListener('keydown',function(e){
+  if(e.target.tagName==='INPUT') return;
+  if(e.key==='ArrowRight') show(cur+1);
+  if(e.key==='ArrowLeft') show(cur-1);
+});
+document.getElementById('readBtn').addEventListener('click',function(){
+  document.getElementById('book').scrollIntoView({behavior:RM?'auto':'smooth'});
+});
+document.getElementById('shopTop').addEventListener('click',function(){
+  document.getElementById('scrapbook').scrollIntoView({behavior:RM?'auto':'smooth'});
+});
+
+/* scrapbook board */
+var board=document.getElementById('board'), empty=document.getElementById('boardEmpty');
+var stuck=[];
+function render(){
+  empty.style.display = stuck.length ? 'none' : '';
+  board.querySelectorAll('.chip').forEach(function(c){c.remove();});
+  stuck.forEach(function(s,i){
+    var chip=document.createElement('span');
+    chip.className='chip';
+    chip.innerHTML='<b style="background:'+s.c+'"></b>'+s.n+'<button aria-label="Remove '+s.n+'">×</button>';
+    chip.style.transform='rotate('+((i%5)-2)*1.6+'deg)';
+    chip.querySelector('button').addEventListener('click',function(){
+      stuck.splice(i,1); render();
+    });
+    board.appendChild(chip);
+  });
+}
+document.querySelectorAll('.pc button').forEach(function(b){
+  b.addEventListener('click',function(){
+    stuck.push({n:b.dataset.n,c:b.dataset.c}); render();
+    b.textContent='Stuck on ✓'; b.classList.add('in');
+    setTimeout(function(){b.textContent='Add';b.classList.remove('in');},1700);
+  });
+});
+
+/* newsletter */
+document.getElementById('eform').addEventListener('submit',function(e){
+  e.preventDefault();
+  var v=document.getElementById('ee').value.trim();
+  document.getElementById('emsg').textContent =
+    /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v)
+      ? 'Lovely. Next one is in the spring, probably a Tuesday.'
+      : 'Hmm — that address does not look quite finished.';
+});
+})();
+</script>
+</body>
+</html>

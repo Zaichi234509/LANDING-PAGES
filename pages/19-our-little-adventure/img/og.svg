@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="Our Little Adventure — Little Adventure">
+  <rect width="1200" height="630" fill="#fdf6ec"/>
+  <circle cx="1000" cy="140" r="92" fill="#f0b93f" opacity=".9"/>
+  <g fill="#fff"><ellipse cx="230" cy="120" rx="96" ry="38"/><ellipse cx="290" cy="102" rx="62" ry="32"/>
+    <ellipse cx="760" cy="180" rx="72" ry="28"/><ellipse cx="800" cy="166" rx="46" ry="24"/></g>
+  <path d="M0 470c110-40 200 14 320-14s230-54 350-22 180 30 300 12 230 8 230 8v176H0z" fill="#7ea36a" opacity=".35"/>
+  <path d="M0 520c130-30 220 20 350-8s250-44 370-16 190 26 310 10 170 6 170 6v118H0z" fill="#7ea36a" opacity=".6"/>
+  <g fill="none" stroke="#4a3b32" stroke-width="7" stroke-linecap="round">
+    <circle cx="720" cy="418" r="26"/><path d="M720 444v62M720 506l-22 52M720 506l22 52M692 464l56-9"/></g>
+  <g fill="none" stroke="#a2557a" stroke-width="7" stroke-linecap="round">
+    <circle cx="820" cy="406" r="28"/><path d="M820 434v66M820 500l-23 58M820 500l23 58M790 452l60-10"/>
+    <path d="M786 388h68" stroke="#e8734a" stroke-width="10"/></g>
+  <g><path d="M856 452h46" stroke="#4a3b32" stroke-width="5"/>
+    <ellipse cx="920" cy="470" rx="25" ry="31" fill="#f0b93f" stroke="#4a3b32" stroke-width="5"/>
+    <path d="M920 439v-12" stroke="#4a3b32" stroke-width="5"/></g>
+  <rect x="70" y="150" width="360" height="42" rx="21" fill="#f0b93f" transform="rotate(-2 250 171)"/>
+  <text x="96" y="180" font-family="Quicksand,sans-serif" font-weight="600" font-size="22" fill="#4a3b32" transform="rotate(-2 250 171)">★ A PICTURE BOOK FOR GROWN-UPS</text>
+  <text x="70" y="320" font-family="Fraunces,serif" font-weight="600" font-size="94" fill="#4a3b32">Our <tspan font-style="italic" fill="#e8734a">little</tspan></text>
+  <text x="70" y="416" font-family="Fraunces,serif" font-weight="600" font-size="94" fill="#4a3b32">adventure</text>
+  <text x="72" y="472" font-family="Quicksand,sans-serif" font-weight="500" font-size="25" fill="#8f7d6f">Four tram stops · one hill · eleven minutes of rain</text>
+</svg>
