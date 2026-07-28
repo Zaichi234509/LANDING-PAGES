@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>25 Studios — Hu Tao Landing Page Collection</title>
+<meta name="description" content="Twenty-five completely different Hu Tao merchandise landing pages, each built as if by a different design studio: cinematic, luxury, gaming, emotional storytelling and Gen Z.">
+<meta name="theme-color" content="#0b0b0f">
+<meta name="color-scheme" content="dark">
+<link rel="canonical" href="https://example.com/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="25 Studios — Hu Tao Landing Page Collection">
+<meta property="og:description" content="Five language styles. Twenty-five distinct brands. One character.">
+<meta property="og:image" content="assets/shared/butterfly.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="assets/shared/butterfly.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230b0b0f'/%3E%3Ctext x='16' y='23' font-size='18' text-anchor='middle' fill='%23e5484d'%3E25%3C/text%3E%3C/svg%3E">
+<style>
+*,*::before,*::after{box-sizing:border-box}
+:root{
+  --bg:#0b0b0f; --card:#131319; --line:rgba(255,255,255,.1);
+  --txt:#ecedf0; --dim:#8b8d98; --accent:#e5484d;
+  --cin:#e5484d; --lux:#c9a961; --gam:#38bdf8; --emo:#f0956b; --gen:#c084fc;
+}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--txt);font-family:Inter,system-ui,sans-serif;
+  font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:radial-gradient(70% 50% at 50% -10%,rgba(229,72,77,.16),transparent 70%)}
+h1,h2,h3{margin:0;line-height:1.05;font-weight:400}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
+::selection{background:var(--accent);color:#fff}
+:focus-visible{outline:2px solid var(--accent);outline-offset:4px;border-radius:4px}
+.skip{position:absolute;left:-9999px;background:var(--accent);color:#fff;padding:11px 20px;z-index:99}
+.skip:focus{left:12px;top:12px}
+.wrap{position:relative;z-index:2;max-width:1360px;margin:0 auto;padding:0 clamp(18px,4vw,48px)}
+
+header.top{padding:clamp(50px,12vh,130px) 0 clamp(28px,5vh,56px)}
+.eyebrow{font-size:.72rem;letter-spacing:.32em;text-transform:uppercase;color:var(--dim);margin:0 0 22px;
+  display:flex;align-items:center;gap:12px}
+.eyebrow::before{content:'';width:44px;height:1px;background:var(--accent)}
+h1{font-family:'Instrument Serif',serif;font-size:clamp(2.8rem,9vw,7rem);letter-spacing:-.02em}
+h1 em{font-style:italic;color:var(--accent)}
+.lede{max-width:60ch;color:var(--dim);font-size:clamp(1.02rem,1.7vw,1.24rem);font-weight:300;margin:24px 0 0}
+.metrics{display:flex;flex-wrap:wrap;gap:clamp(20px,4vw,58px);margin-top:clamp(28px,5vh,52px);
+  padding-top:26px;border-top:1px solid var(--line)}
+.metric b{display:block;font-family:'Instrument Serif',serif;font-size:clamp(1.9rem,4vw,2.9rem);line-height:1}
+.metric span{font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;color:var(--dim)}
+
+.filters{display:flex;flex-wrap:wrap;gap:8px;padding:clamp(22px,4vh,40px) 0}
+.fbtn{background:transparent;border:1px solid var(--line);color:var(--dim);padding:9px 18px;
+  border-radius:999px;font-family:inherit;font-size:.82rem;cursor:pointer;transition:.24s}
+.fbtn:hover{color:var(--txt);border-color:var(--dim)}
+.fbtn[aria-pressed="true"]{background:var(--txt);color:var(--bg);border-color:var(--txt)}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(330px,100%),1fr));
+  gap:clamp(14px,2.2vw,26px);padding-bottom:clamp(50px,10vh,110px)}
+.tile{position:relative;background:var(--card);border:1px solid var(--line);border-radius:16px;
+  overflow:hidden;display:flex;flex-direction:column;
+  transition:transform .4s cubic-bezier(.16,1,.3,1),border-color .3s,box-shadow .4s}
+.tile:hover{transform:translateY(-7px);border-color:var(--c);box-shadow:0 26px 60px -22px rgba(0,0,0,.85)}
+.tile .thumb{aspect-ratio:16/10;position:relative;overflow:hidden;background:#0e0e13}
+.tile .thumb img{width:100%;height:100%;object-fit:cover;transition:transform .7s cubic-bezier(.16,1,.3,1)}
+.tile:hover .thumb img{transform:scale(1.07)}
+.tile .thumb svg{width:100%;height:100%}
+.tile .body{padding:18px 20px 20px;display:flex;flex-direction:column;gap:7px;flex:1}
+.tile .num{font-size:.68rem;letter-spacing:.2em;color:var(--dim);font-variant-numeric:tabular-nums}
+.tile h3{font-family:'Instrument Serif',serif;font-size:1.5rem;letter-spacing:-.01em}
+.tile .brand{font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--c);font-weight:500}
+.tile p{margin:2px 0 0;font-size:.88rem;color:var(--dim);font-weight:300;flex:1}
+.tile .foot{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:12px;
+  padding-top:12px;border-top:1px solid var(--line)}
+.pillstyle{font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;color:var(--c);
+  border:1px solid var(--c);padding:3px 10px;border-radius:999px;opacity:.85}
+.go{font-size:.8rem;color:var(--dim);display:flex;align-items:center;gap:6px;transition:gap .3s,color .3s}
+.tile:hover .go{gap:12px;color:var(--txt)}
+.tile.soon{opacity:.5}
+.tile.soon .go{color:var(--dim)}
+.tile a.cover{position:absolute;inset:0;z-index:5}
+.tile.soon a.cover{cursor:not-allowed}
+.badge{position:absolute;top:12px;right:12px;z-index:4;background:rgba(11,11,15,.8);
+  backdrop-filter:blur(8px);border:1px solid var(--line);border-radius:999px;
+  padding:4px 12px;font-size:.64rem;letter-spacing:.14em;text-transform:uppercase}
+.badge.live{color:#4ade80;border-color:rgba(74,222,128,.4)}
+.badge.wip{color:var(--dim)}
+
+footer{border-top:1px solid var(--line);padding:clamp(34px,6vh,64px) 0 40px;position:relative;z-index:2}
+.fgrid{display:flex;flex-wrap:wrap;gap:20px;justify-content:space-between;align-items:flex-end}
+.fgrid p{margin:0;color:var(--dim);font-size:.88rem;max-width:44ch;font-weight:300}
+.fgrid .sig{font-family:'Instrument Serif',serif;font-size:1.4rem}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms!important;transition-duration:.001ms!important;
+    scroll-behavior:auto!important}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#grid">Skip to the collection</a>
+<header class="top wrap">
+  <p class="eyebrow">Hu Tao merchandise · five language styles</p>
+  <h1>Twenty-five<br>landing pages,<br><em>twenty-five studios.</em></h1>
+  <p class="lede">One character, twenty-five completely separate brands. Every page has its own typography, palette, layout logic, animation language, storytelling voice and art direction — no shared stylesheet, no reused hero, no repeated component.</p>
+  <div class="metrics">
+    <div class="metric"><b id="mLive">5</b><span>Pages live</span></div>
+    <div class="metric"><b>25</b><span>Planned identities</span></div>
+    <div class="metric"><b>5</b><span>Language styles</span></div>
+    <div class="metric"><b>0</b><span>Shared stylesheets</span></div>
+  </div>
+</header>
+
+<nav class="filters wrap" aria-label="Filter by style">
+  <button class="fbtn" aria-pressed="true" data-f="all">All 25</button>
+  <button class="fbtn" aria-pressed="false" data-f="cinematic">Cinematic</button>
+  <button class="fbtn" aria-pressed="false" data-f="luxury">Luxury</button>
+  <button class="fbtn" aria-pressed="false" data-f="gaming">Gaming</button>
+  <button class="fbtn" aria-pressed="false" data-f="emotional">Emotional</button>
+  <button class="fbtn" aria-pressed="false" data-f="genz">Gen Z</button>
+</nav>
+
+<main class="wrap">
+  <div class="grid" id="grid"></div>
+</main>
+
+<footer>
+  <div class="wrap fgrid">
+    <div>
+      <p class="sig">25 Studios</p>
+      <p>An exercise in range: how far can one subject be pushed before every execution reads as a different company?</p>
+    </div>
+    <p>Fan project · not affiliated with HoYoverse</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+var PAGES=[
+{n:1,s:'cinematic',slug:'01-the-funeral-begins',t:'The Funeral Begins',b:'Wangsheng Pictures',d:'A three-act film release with letterboxing, scroll-driven camera moves and a cursor-tracking butterfly swarm.',live:true,thumb:'pages/01-the-funeral-begins/img/hero.jpg'},
+{n:2,s:'cinematic',slug:'02-butterflys-call',t:"Butterfly's Call",b:'Lepidoptera',d:'A boids flock of spirit butterflies that answers the pointer, over a twilight meadow.',live:false},
+{n:3,s:'cinematic',slug:'03-one-last-smile',t:'One Last Smile',b:'Last Light Studio',d:'Horizontal film-strip scrolling with portrait cross-dissolves and title-card typography.',live:false},
+{n:4,s:'cinematic',slug:'04-midnight-lantern',t:'Midnight Lantern',b:'子夜 Midnight',d:'A draggable lantern is the only light source; the page is revealed by carrying it.',live:false},
+{n:5,s:'cinematic',slug:'05-festival-of-spirits',t:'Festival of Spirits',b:'Spirit Festival Co.',d:'Parade marquee, firework particles and deep parallax crowd rows.',live:false},
+{n:6,s:'luxury',slug:'06-crafted-for-collectors',t:'Crafted for Collectors',b:'Atelier Hu',d:'Museum plinth presentation, slow zoom reveals and a magnetic cursor.',live:false},
+{n:7,s:'luxury',slug:'07-limited-collection',t:'Limited Collection',b:'Maison 77',d:'Split-flap edition counter and numbered-piece choreography.',live:false},
+{n:8,s:'luxury',slug:'08-elegance-in-crimson',t:'Elegance in Crimson',b:'Crimson',d:'Silk liquid transitions and full-bleed colour-swipe wipes between chapters.',live:false},
+{n:9,s:'luxury',slug:'09-the-art-of-hu-tao',t:'The Art of Hu Tao',b:'The Hu Tao Archive',d:'A gallery rail with curator-style frame-by-frame zoom and wall labels.',live:false},
+{n:10,s:'luxury',slug:'10-premium-edition',t:'Premium Edition',b:'Édition Prime',d:'Vertical marquee navigation with foil-gradient shimmer on every surface.',live:false},
+{n:11,s:'gaming',slug:'11-adventure-begins',t:'Adventure Begins',b:'Wayfarer Online',d:'Boot sequence, HUD compass and quest-marker pings across a world map.',live:false},
+{n:12,s:'gaming',slug:'12-character-selection',t:'Character Selection',b:'Select Screen',d:'A five-edition roster with 3D tilt portraits, live stat radar and a lock-in timer.',live:true},
+{n:13,s:'gaming',slug:'13-inventory',t:'Inventory',b:'INVENTORY.EXE',d:'A drag-and-drop loadout grid where rarity tiers are literal stock levels.',live:true},
+{n:14,s:'gaming',slug:'14-quest-rewards',t:'Quest Rewards',b:'Questline',d:'Scroll-unlocked quest nodes, loot bursts and a filling XP bar.',live:false},
+{n:15,s:'gaming',slug:'15-battle-pass',t:'Battle Pass',b:'Season 07',d:'A horizontal tier track with unlock shockwaves and premium-lane toggles.',live:false},
+{n:16,s:'emotional',slug:'16-dear-traveler',t:'Dear Traveler',b:'Letters from Liyue',d:'A handwritten letter that draws itself on, then unfolds into the collection.',live:false},
+{n:17,s:'emotional',slug:'17-a-walk-with-hu-tao',t:'A Walk with Hu Tao',b:'The Long Walk',d:'A side-scrolling walk cycle where the sky moves from afternoon to dusk.',live:false},
+{n:18,s:'emotional',slug:'18-the-last-goodbye',t:'The Last Goodbye',b:'Goodbye, Gently',d:'Memories dissolve as you scroll; the page ends by blowing out a candle.',live:false},
+{n:19,s:'emotional',slug:'19-our-little-adventure',t:'Our Little Adventure',b:'Little Adventure',d:'A storybook page-turn with a sticker scrapbook you assemble yourself.',live:false},
+{n:20,s:'emotional',slug:'20-the-memory-box',t:'The Memory Box',b:'The Memory Box',d:'A lid opens and polaroids scatter with physics; each one is a product.',live:false},
+{n:21,s:'genz',slug:'21-too-cute',t:'Too Cute',b:'TOO CUTE!!',d:'Squish physics, a draggable cuteness meter and confetti on every interaction.',live:true},
+{n:22,s:'genz',slug:'22-pov',t:'POV',b:'POV:',d:'A vertical swipe feed with caption pops and double-tap hearts.',live:false},
+{n:23,s:'genz',slug:'23-touch-everything',t:'Touch Everything',b:'Touch Everything',d:'A real physics engine: grab, fling and stack every product card and prop.',live:true},
+{n:24,s:'genz',slug:'24-oops',t:'Oops',b:'OOPS.',d:'Glitch aesthetics and a chaos mode where the layout falls apart on purpose.',live:false},
+{n:25,s:'genz',slug:'25-main-character-energy',t:'Main Character Energy',b:'Main Character',d:'A spotlight follows the pointer, with a hype meter and stacked marquees.',live:false}
+];
+var C={cinematic:'var(--cin)',luxury:'var(--lux)',gaming:'var(--gam)',emotional:'var(--emo)',genz:'var(--gen)'};
+var LBL={cinematic:'Cinematic',luxury:'Luxury',gaming:'Gaming',emotional:'Emotional',genz:'Gen Z'};
+
+/* generative thumbnail for pages without a raster hero yet */
+function thumb(p){
+  var c=({cinematic:['#e5484d','#2f6f7d','#0d0d12'],luxury:['#c9a961','#e8e3dc','#12100c'],
+    gaming:['#38bdf8','#a855f7','#080b16'],emotional:['#f0956b','#ffd9b8','#161018'],
+    genz:['#c084fc','#facc15','#14101c']})[p.s];
+  var seed=p.n*37;
+  var s='<svg viewBox="0 0 320 200" preserveAspectRatio="xMidYMid slice" aria-hidden="true">';
+  s+='<defs><linearGradient id="g'+p.n+'" x1="0" y1="0" x2="1" y2="1">'+
+     '<stop offset="0%" stop-color="'+c[0]+'" stop-opacity=".55"/>'+
+     '<stop offset="100%" stop-color="'+c[2]+'"/></linearGradient></defs>';
+  s+='<rect width="320" height="200" fill="'+c[2]+'"/>';
+  s+='<rect width="320" height="200" fill="url(#g'+p.n+')"/>';
+  for(var i=0;i<7;i++){
+    var x=((seed*(i+3))%300)+10, y=((seed*(i+5))%170)+15, r=8+((seed*(i+2))%26);
+    s+='<circle cx="'+x+'" cy="'+y+'" r="'+r+'" fill="'+c[i%2]+'" opacity="'+(0.06+(i%4)*0.045)+'"/>';
+  }
+  s+='<text x="160" y="112" text-anchor="middle" font-family="Instrument Serif,serif" font-size="56" fill="'+c[0]+'" opacity=".9">'+String(p.n).padStart(2,'0')+'</text>';
+  return s+'</svg>';
+}
+
+var grid=document.getElementById('grid');
+grid.innerHTML=PAGES.map(function(p){
+  var media=p.live&&p.thumb
+    ? '<img src="'+p.thumb+'" alt="Preview of the '+p.t+' landing page" loading="lazy" width="320" height="200">'
+    : thumb(p);
+  return '<article class="tile'+(p.live?'':' soon')+'" data-s="'+p.s+'" style="--c:'+C[p.s]+'">'+
+    '<span class="badge '+(p.live?'live':'wip')+'">'+(p.live?'Live':'In progress')+'</span>'+
+    '<div class="thumb">'+media+'</div>'+
+    '<div class="body">'+
+      '<span class="num">'+String(p.n).padStart(2,'0')+' / 25</span>'+
+      '<h3>'+p.t+'</h3>'+
+      '<span class="brand">'+p.b+'</span>'+
+      '<p>'+p.d+'</p>'+
+      '<div class="foot"><span class="pillstyle">'+LBL[p.s]+'</span>'+
+      '<span class="go">'+(p.live?'View page':'Coming soon')+' →</span></div>'+
+    '</div>'+
+    (p.live?'<a class="cover" href="pages/'+p.slug+'/index.html" aria-label="Open '+p.t+', '+p.b+'"></a>':'')+
+  '</article>';
+}).join('');
+
+document.getElementById('mLive').textContent=PAGES.filter(function(p){return p.live;}).length;
+
+document.querySelectorAll('.fbtn').forEach(function(b){
+  b.addEventListener('click',function(){
+    document.querySelectorAll('.fbtn').forEach(function(x){x.setAttribute('aria-pressed','false');});
+    b.setAttribute('aria-pressed','true');
+    var f=b.dataset.f;
+    document.querySelectorAll('.tile').forEach(function(t){
+      t.style.display=(f==='all'||t.dataset.s===f)?'':'none';
+    });
+  });
+});
+})();
+</script>
+</body>
+</html>
