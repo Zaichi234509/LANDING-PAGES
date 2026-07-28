@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Festival of Spirits — Spirit Festival Co. | Three Nights, One Parade</title>
+<meta name="description" content="Spirit Festival Co. runs the three-night Festival of Spirits: a lantern parade, a night market and a closing firework. Buy the festival kit, claim a parade slot, watch the sky.">
+<meta name="theme-color" content="#160a1e">
+<meta name="color-scheme" content="dark">
+<link rel="canonical" href="https://spiritfestival.example/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Festival of Spirits — Spirit Festival Co.">
+<meta property="og:description" content="Three nights. One parade. Bring a light or borrow one.">
+<meta property="og:image" content="img/og.svg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="img/og.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Sora:wght@200;300;400;600&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23160a1e'/%3E%3Cpath d='M16 3l3 8 8 3-8 3-3 8-3-8-8-3 8-3z' fill='%23ffb03a'/%3E%3C/svg%3E">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Event","name":"Festival of Spirits",
+"startDate":"2026-09-18T19:00","endDate":"2026-09-20T23:30",
+"eventAttendanceMode":"https://schema.org/OfflineEventAttendanceMode",
+"location":{"@type":"Place","name":"Harbour District","address":"Liyue Harbour"},
+"offers":{"@type":"Offer","price":"0","priceCurrency":"USD","availability":"https://schema.org/InStock"}}
+</script>
+<style>
+*,*::before,*::after{box-sizing:border-box}
+:root{
+  --night:#160a1e; --deep:#0d0512; --panel:#211030; --paper:#fff3e4; --mute:#b49bc4;
+  --gold:#ffb03a; --pink:#ff5d8f; --jade:#31c8a8; --violet:#a56bff; --red:#e8384f;
+  --line:rgba(255,243,228,.15);
+  --g:clamp(16px,4.5vw,74px);
+}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--night);color:var(--paper);font-family:Sora,system-ui,sans-serif;
+  font-weight:300;font-size:16px;line-height:1.68;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+h1,h2,h3{margin:0;font-family:'Bebas Neue',sans-serif;font-weight:400;line-height:.92;letter-spacing:.01em}
+a{color:inherit;text-decoration:none}
+::selection{background:var(--gold);color:var(--deep)}
+:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+.skip{position:absolute;left:-9999px;background:var(--gold);color:var(--deep);padding:10px 18px;z-index:400;font-weight:600}
+.skip:focus{left:12px;top:12px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+#sky{position:fixed;inset:0;z-index:0;pointer-events:none}
+
+/* ---------- loader ---------- */
+#open{position:fixed;inset:0;z-index:500;background:var(--deep);display:grid;place-items:center;
+  transition:opacity .7s,visibility .7s}
+#open.gone{opacity:0;visibility:hidden}
+.lanternrow{display:flex;gap:clamp(12px,3.4vw,34px);align-items:flex-start}
+.lanternrow i{display:block;width:clamp(22px,5vw,38px);aspect-ratio:3/4;border-radius:44%;
+  background:radial-gradient(60% 56% at 50% 42%,#fff3d6,var(--gold) 52%,#c4432c 96%);
+  opacity:0;transform:translateY(30px);animation:lrise .7s cubic-bezier(.2,1.5,.4,1) forwards}
+.lanternrow i:nth-child(2){animation-delay:.14s}
+.lanternrow i:nth-child(3){animation-delay:.28s}
+.lanternrow i:nth-child(4){animation-delay:.42s}
+.lanternrow i:nth-child(5){animation-delay:.56s}
+@keyframes lrise{to{opacity:1;transform:translateY(0)}}
+.ocap{position:absolute;bottom:12vh;left:0;right:0;text-align:center;font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(1rem,3vw,1.6rem);letter-spacing:.42em;color:var(--gold);opacity:0;animation:of 1s .8s forwards}
+@keyframes of{to{opacity:1}}
+
+/* ---------- ticker nav ---------- */
+.ticker{position:fixed;top:0;left:0;right:0;z-index:80;background:var(--gold);color:var(--deep);
+  overflow:hidden;padding:5px 0;border-bottom:2px solid var(--deep)}
+.ticker .tk{display:flex;gap:30px;white-space:nowrap;width:max-content;
+  font-family:'Bebas Neue',sans-serif;font-size:.94rem;letter-spacing:.18em;
+  animation:tick 26s linear infinite}
+@keyframes tick{to{transform:translateX(-50%)}}
+.nav2{position:fixed;top:32px;left:0;right:0;z-index:79;display:flex;align-items:center;
+  justify-content:space-between;gap:14px;padding:11px var(--g);
+  background:rgba(22,10,30,.8);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.nav2 .lg{font-family:'Bebas Neue',sans-serif;font-size:1.32rem;letter-spacing:.13em;color:var(--gold)}
+.nav2 nav{display:flex;gap:clamp(10px,2.2vw,26px)}
+.nav2 nav a{font-size:.76rem;letter-spacing:.1em;color:var(--mute);transition:color .25s}
+.nav2 nav a:hover{color:var(--paper)}
+.nav2 .cta{background:var(--pink);color:#fff;font-family:'Bebas Neue',sans-serif;font-size:.94rem;
+  letter-spacing:.14em;padding:7px 18px;border:none;border-radius:999px;cursor:pointer;
+  transition:transform .2s cubic-bezier(.2,1.7,.4,1)}
+.nav2 .cta:hover{transform:scale(1.07) rotate(-2deg)}
+@media(max-width:760px){.nav2 nav{display:none}}
+
+/* ---------- hero: parallax parade rows ---------- */
+.hero{position:relative;z-index:2;min-height:100svh;display:grid;align-items:center;overflow:hidden;
+  padding:clamp(110px,16vh,170px) var(--g) clamp(60px,10vh,120px)}
+.hero .stack{position:absolute;inset:0;z-index:-1;pointer-events:none}
+.hero .row{position:absolute;left:-6%;right:-6%;display:flex;gap:clamp(20px,4vw,60px);justify-content:center;
+  will-change:transform}
+.hero .row.r1{top:14%}
+.hero .row.r2{top:32%}
+.hero .row.r3{bottom:16%}
+.hero .row i{display:block;border-radius:44%;flex:none;
+  background:radial-gradient(60% 56% at 50% 42%,#fff3d6,var(--lc,var(--gold)) 54%,#7a2318 98%);
+  box-shadow:0 0 40px 6px rgba(255,176,58,.28)}
+.hero .row.r1 i{width:clamp(26px,4.2vw,52px);aspect-ratio:3/4;opacity:.9;animation:bob 6s ease-in-out infinite}
+.hero .row.r2 i{width:clamp(18px,3vw,36px);aspect-ratio:3/4;opacity:.6;animation:bob 8s ease-in-out infinite}
+.hero .row.r3 i{width:clamp(34px,6vw,80px);aspect-ratio:3/4;opacity:.95;animation:bob 5s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-14px)}}
+.hero .crowd{position:absolute;left:0;right:0;bottom:0;z-index:-1;opacity:.55}
+.hero .crowd svg{width:100%;display:block}
+.hero .in{position:relative;z-index:3;text-align:center;max-width:1000px;margin:0 auto}
+.dates{display:inline-flex;align-items:center;gap:12px;background:var(--red);color:#fff;
+  font-family:'Bebas Neue',sans-serif;font-size:clamp(.9rem,2.2vw,1.14rem);letter-spacing:.18em;
+  padding:6px 18px;border-radius:999px;transform:rotate(-1.6deg);margin-bottom:clamp(18px,3.4vh,32px)}
+.hero h1{font-size:clamp(3.2rem,17vw,13rem);line-height:.84;text-transform:uppercase}
+.hero h1 .l{display:block}
+.hero h1 .g{background:linear-gradient(96deg,var(--gold),var(--pink) 52%,var(--violet));
+  -webkit-background-clip:text;background-clip:text;color:transparent}
+.hero h1 span{display:inline-block;opacity:0;transform:translateY(28px) rotate(-3deg);
+  animation:sw .8s cubic-bezier(.2,1.4,.3,1) forwards}
+@keyframes sw{to{opacity:1;transform:none}}
+.hero .tag{max-width:46ch;margin:clamp(20px,3.6vh,36px) auto 0;color:var(--mute);
+  font-size:clamp(1rem,1.6vw,1.14rem)}
+.hero .btns{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:clamp(24px,4vh,44px)}
+.pbtn{border:none;font-family:'Bebas Neue',sans-serif;font-size:1.06rem;letter-spacing:.14em;
+  padding:15px 34px;border-radius:999px;cursor:pointer;
+  transition:transform .2s cubic-bezier(.2,1.7,.4,1),box-shadow .3s}
+.pbtn.g{background:var(--gold);color:var(--deep)}
+.pbtn.g:hover{transform:translateY(-3px) scale(1.03);box-shadow:0 18px 44px -14px rgba(255,176,58,.9)}
+.pbtn.o{background:transparent;color:var(--paper);box-shadow:inset 0 0 0 2px var(--line)}
+.pbtn.o:hover{transform:translateY(-3px);box-shadow:inset 0 0 0 2px var(--pink)}
+.counter{display:flex;flex-wrap:wrap;gap:clamp(12px,3vw,40px);justify-content:center;
+  margin-top:clamp(26px,5vh,52px);padding-top:22px;border-top:1px solid var(--line)}
+.counter div b{display:block;font-family:'Bebas Neue',sans-serif;font-size:clamp(1.6rem,4vw,2.6rem);
+  color:var(--gold);line-height:1;font-variant-numeric:tabular-nums}
+.counter div span{font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--mute)}
+
+/* ---------- three nights ---------- */
+.nights{position:relative;z-index:2;padding:clamp(50px,10vh,130px) var(--g)}
+.sech{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:14px;
+  margin-bottom:clamp(24px,4vh,48px)}
+.sech h2{font-size:clamp(2rem,6.4vw,4.4rem);text-transform:uppercase}
+.sech h2 em{font-style:normal;color:var(--pink)}
+.sech p{margin:0;color:var(--mute);max-width:36ch;font-size:.94rem}
+.ngrid{display:grid;gap:clamp(14px,2.4vw,26px);grid-template-columns:repeat(auto-fit,minmax(min(260px,100%),1fr))}
+.ncard{position:relative;border:1px solid var(--line);border-radius:20px;overflow:hidden;
+  background:linear-gradient(165deg,var(--panel),rgba(13,5,18,.9));padding:24px 22px 22px;
+  transition:transform .45s cubic-bezier(.2,1,.3,1),border-color .4s}
+.ncard:hover{transform:translateY(-9px) rotate(-.6deg);border-color:var(--nc,var(--gold))}
+.ncard::before{content:'';position:absolute;inset:0;pointer-events:none;opacity:.16;
+  background:radial-gradient(90% 60% at 20% 0%,var(--nc,var(--gold)),transparent 62%)}
+.ncard .nn{position:relative;font-family:'Bebas Neue',sans-serif;font-size:3.4rem;color:var(--nc,var(--gold));
+  line-height:.9}
+.ncard .when{position:relative;font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--mute);
+  margin-bottom:12px;display:block}
+.ncard h3{position:relative;font-size:1.9rem;text-transform:uppercase;margin-bottom:10px}
+.ncard p{position:relative;margin:0;color:var(--mute);font-size:.92rem}
+.ncard .join{position:relative;margin-top:18px;width:100%;border:1px solid var(--nc,var(--gold));
+  background:transparent;color:var(--nc,var(--gold));font-family:'Bebas Neue',sans-serif;font-size:1rem;
+  letter-spacing:.14em;padding:11px;border-radius:999px;cursor:pointer;transition:.3s}
+.ncard .join:hover{background:var(--nc,var(--gold));color:var(--deep)}
+.ncard .join.got{background:var(--jade);border-color:var(--jade);color:var(--deep)}
+
+/* ---------- night market ---------- */
+.market{position:relative;z-index:2;padding:clamp(50px,10vh,130px) var(--g);
+  background:linear-gradient(180deg,transparent,rgba(33,16,48,.7) 18%,rgba(33,16,48,.7) 82%,transparent)}
+.stalls{display:grid;gap:clamp(12px,2vw,22px);grid-template-columns:repeat(auto-fit,minmax(min(215px,100%),1fr))}
+.stall{position:relative;border-radius:18px;overflow:hidden;background:var(--deep);
+  border:1px solid var(--line);display:flex;flex-direction:column;
+  transition:transform .4s cubic-bezier(.2,1,.3,1)}
+.stall:hover{transform:translateY(-8px)}
+.stall .awn{height:34px;background:repeating-linear-gradient(90deg,var(--sc,var(--red)) 0 18px,#fff3e4 18px 36px)}
+.stall .art{aspect-ratio:1;display:grid;place-items:center;
+  background:radial-gradient(70% 60% at 50% 40%,rgba(255,176,58,.2),transparent 70%)}
+.stall .art svg{width:60%;height:60%;overflow:visible;transition:transform .5s cubic-bezier(.2,1.5,.4,1)}
+.stall:hover .art svg{transform:scale(1.1) rotate(-5deg)}
+.stall .body{padding:16px 16px 18px;display:flex;flex-direction:column;gap:8px;flex:1}
+.stall h3{font-size:1.34rem;text-transform:uppercase}
+.stall p{margin:0;color:var(--mute);font-size:.86rem;flex:1}
+.stall .row{display:flex;align-items:center;justify-content:space-between;gap:10px;padding-top:12px;
+  border-top:1px solid var(--line)}
+.stall .pr{font-family:'Bebas Neue',sans-serif;font-size:1.44rem;color:var(--gold)}
+.stall button{background:var(--paper);color:var(--deep);border:none;font-family:'Bebas Neue',sans-serif;
+  font-size:.92rem;letter-spacing:.1em;padding:8px 16px;border-radius:999px;cursor:pointer;transition:.25s}
+.stall button:hover{background:var(--pink);color:#fff}
+.stall button.got{background:var(--jade);color:var(--deep)}
+
+/* ---------- fireworks finale ---------- */
+.finale{position:relative;z-index:2;padding:clamp(60px,12vh,160px) var(--g);text-align:center;overflow:hidden}
+.finale h2{font-size:clamp(2.2rem,8vw,6rem);text-transform:uppercase;margin-bottom:14px}
+.finale h2 em{font-style:normal;
+  background:linear-gradient(96deg,var(--pink),var(--gold));-webkit-background-clip:text;
+  background-clip:text;color:transparent}
+.finale p{color:var(--mute);max-width:44ch;margin:0 auto clamp(26px,4vh,44px)}
+.launch{border:none;background:linear-gradient(96deg,var(--pink),var(--violet));color:#fff;
+  font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:.16em;padding:18px 46px;
+  border-radius:999px;cursor:pointer;transition:transform .2s cubic-bezier(.2,1.7,.4,1),box-shadow .3s}
+.launch:hover{transform:translateY(-4px) scale(1.03);box-shadow:0 22px 56px -18px rgba(255,93,143,.9)}
+.finmsg{min-height:1.5em;margin-top:18px;color:var(--gold);font-family:'Bebas Neue',sans-serif;
+  font-size:1.2rem;letter-spacing:.1em}
+
+/* ---------- signup ---------- */
+.signup{position:relative;z-index:2;padding:0 var(--g) clamp(60px,11vh,140px)}
+.subox{max-width:760px;margin:0 auto;border:1px solid var(--line);border-radius:24px;
+  background:var(--panel);padding:clamp(24px,4.6vw,48px);text-align:center}
+.subox h3{font-size:clamp(1.6rem,4.4vw,2.6rem);text-transform:uppercase;margin-bottom:10px}
+.subox p{color:var(--mute);margin:0 auto 24px;max-width:44ch;font-size:.94rem}
+.sform{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
+.sform input{flex:1 1 220px;max-width:330px;background:var(--deep);border:1px solid var(--line);
+  color:var(--paper);padding:14px 18px;border-radius:999px;font-family:inherit;font-size:1rem}
+.sform input:focus{outline:none;border-color:var(--gold)}
+.smsg{min-height:1.4em;margin-top:14px;color:var(--jade);font-size:.92rem}
+
+/* ---------- footer ---------- */
+footer{position:relative;z-index:2;background:var(--deep);border-top:1px solid var(--line);
+  padding:clamp(34px,6vh,70px) var(--g) 28px}
+.fg{display:grid;gap:26px;grid-template-columns:repeat(auto-fit,minmax(min(170px,100%),1fr));padding-bottom:26px}
+.fg h4{margin:0 0 10px;font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:.16em;color:var(--gold)}
+.fg ul{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.fg a{color:var(--mute);font-size:.88rem;transition:color .25s}
+.fg a:hover{color:var(--paper)}
+.fg .big{font-family:'Bebas Neue',sans-serif;font-size:2rem;line-height:1;color:var(--paper)}
+.fg .big em{font-style:normal;color:var(--pink)}
+.fb{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;padding-top:18px;
+  border-top:1px solid var(--line);font-size:.76rem;color:var(--mute)}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;
+    transition-duration:.001ms!important}
+  .hero h1 span{opacity:1;transform:none}
+  #sky{display:none}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#market">Skip to the night market</a>
+<canvas id="sky" aria-hidden="true"></canvas>
+
+<div id="open" role="status" aria-label="Loading">
+  <div class="lanternrow" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+  <p class="ocap">THE FESTIVAL IS STARTING</p>
+</div>
+
+<div class="ticker" aria-hidden="true">
+  <div class="tk">
+    <span>★ THREE NIGHTS ONLY</span><span>★ PARADE STARTS 19:00</span><span>★ BRING A LIGHT OR BORROW ONE</span>
+    <span>★ NIGHT MARKET UNTIL LATE</span><span>★ FIREWORKS ON THE THIRD NIGHT</span>
+    <span>★ THREE NIGHTS ONLY</span><span>★ PARADE STARTS 19:00</span><span>★ BRING A LIGHT OR BORROW ONE</span>
+    <span>★ NIGHT MARKET UNTIL LATE</span><span>★ FIREWORKS ON THE THIRD NIGHT</span>
+  </div>
+</div>
+
+<header class="nav2">
+  <span class="lg">SPIRIT FESTIVAL CO.</span>
+  <nav aria-label="Primary"><a href="#nights">Three nights</a><a href="#market">Night market</a><a href="#finale">Finale</a></nav>
+  <button class="cta" id="joinTop">Join the parade</button>
+</header>
+
+<main>
+  <section class="hero" aria-labelledby="ft">
+    <div class="stack" aria-hidden="true">
+      <div class="row r1" id="row1">
+        <i style="--lc:#ffb03a"></i><i style="--lc:#ff5d8f"></i><i style="--lc:#ffb03a"></i><i style="--lc:#a56bff"></i>
+        <i style="--lc:#ffb03a"></i><i style="--lc:#ff5d8f"></i><i style="--lc:#ffb03a"></i><i style="--lc:#31c8a8"></i>
+      </div>
+      <div class="row r2" id="row2">
+        <i style="--lc:#ff5d8f"></i><i style="--lc:#ffb03a"></i><i style="--lc:#a56bff"></i><i style="--lc:#ffb03a"></i>
+        <i style="--lc:#ff5d8f"></i><i style="--lc:#ffb03a"></i><i style="--lc:#31c8a8"></i><i style="--lc:#ffb03a"></i>
+        <i style="--lc:#ff5d8f"></i><i style="--lc:#a56bff"></i>
+      </div>
+      <div class="row r3" id="row3">
+        <i style="--lc:#ffb03a"></i><i style="--lc:#e8384f"></i><i style="--lc:#ffb03a"></i><i style="--lc:#ff5d8f"></i>
+        <i style="--lc:#ffb03a"></i><i style="--lc:#e8384f"></i>
+      </div>
+      <div class="crowd">
+        <svg viewBox="0 0 1200 200" preserveAspectRatio="none">
+          <g fill="#0d0512">
+            <path d="M0 200v-60c40-16 60 10 100-4s60-22 100-6 70 22 110 4 80-26 120-8 70 26 110 10 80-24 120-6 70 24 110 8 80-22 120-4 110 6 110 6v60z"/>
+          </g>
+          <g fill="#211030">
+            <circle cx="90" cy="150" r="18"/><circle cx="240" cy="158" r="16"/><circle cx="400" cy="146" r="19"/>
+            <circle cx="560" cy="156" r="15"/><circle cx="720" cy="148" r="18"/><circle cx="880" cy="158" r="16"/>
+            <circle cx="1040" cy="150" r="18"/><circle cx="1150" cy="160" r="15"/>
+          </g>
+        </svg>
+      </div>
+    </div>
+    <div class="in">
+      <span class="dates">18 – 20 SEPTEMBER · HARBOUR DISTRICT</span>
+      <h1 id="ft"><span class="l"><span>FESTIVAL</span></span><span class="l"><span>OF</span> <span class="g">SPIRITS</span></span></h1>
+      <p class="tag">Three nights of lanterns, noise and extremely questionable street food, organised by a funeral parlour that insists this is a normal thing for a funeral parlour to organise.</p>
+      <div class="btns">
+        <button class="pbtn g" id="claimSlot">Claim a parade slot</button>
+        <a class="pbtn o" href="#market">Browse the night market</a>
+      </div>
+      <div class="counter">
+        <div><b id="c1">3</b><span>Nights</span></div>
+        <div><b id="c2">1,208</b><span>Lanterns lit</span></div>
+        <div><b id="c3">41</b><span>Market stalls</span></div>
+        <div><b id="c4">1</b><span>Very large firework</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="nights" id="nights" aria-labelledby="nt">
+    <div class="sech">
+      <h2 id="nt">Three <em>nights</em></h2>
+      <p>Each night has one job. Nobody is expected to attend all three, but most people do, mainly out of guilt.</p>
+    </div>
+    <div class="ngrid">
+      <article class="ncard" style="--nc:#ffb03a">
+        <p class="nn">01</p><span class="when">Thu 18 · from 19:00</span>
+        <h3>The Lighting</h3>
+        <p>Twelve hundred lanterns go up along the harbour wall in forty minutes. The trick is that they are lit in sequence, so the whole street turns on like something enormous waking up.</p>
+        <button class="join">Add to my night</button>
+      </article>
+      <article class="ncard" style="--nc:#ff5d8f">
+        <p class="nn">02</p><span class="when">Fri 19 · from 18:30</span>
+        <h3>The Parade</h3>
+        <p>Anyone can walk in it. There is no rehearsal, no costume requirement and no route map — the route is simply wherever the front of the parade decides to go, which is a known and accepted risk.</p>
+        <button class="join">Add to my night</button>
+      </article>
+      <article class="ncard" style="--nc:#a56bff">
+        <p class="nn">03</p><span class="when">Sat 20 · from 21:00</span>
+        <h3>The Send-off</h3>
+        <p>The market closes, the crowd goes quiet, and one firework — genuinely one, a very good one — goes up over the water. Then everybody goes home and the street is spotless by seven.</p>
+        <button class="join">Add to my night</button>
+      </article>
+    </div>
+  </section>
+
+  <section class="market" id="market" aria-labelledby="mk">
+    <div class="sech">
+      <h2 id="mk">The night <em>market</em></h2>
+      <p>Forty-one stalls. These six ship anywhere, so you can attend badly, from home.</p>
+    </div>
+    <div class="stalls">
+      <article class="stall" style="--sc:#e8384f">
+        <span class="awn" aria-hidden="true"></span>
+        <div class="art"><svg viewBox="0 0 60 60" aria-hidden="true" fill="none" stroke="#ffb03a" stroke-width="3" stroke-linejoin="round">
+          <path d="M12 26a18 14 0 0136 0c0 14-8 22-18 22s-18-8-18-22z"/><circle cx="22" cy="28" r="3" fill="#ffb03a"/>
+          <circle cx="38" cy="28" r="3" fill="#ffb03a"/><path d="M22 40c5 4 11 4 16 0"/></svg></div>
+        <div class="body"><h3>Spirit Mask</h3><p>Pressed pulp, hand-painted, elastic strap. Nine faces available; the smug one sells out first.</p>
+          <div class="row"><span class="pr">$32</span><button>Add</button></div></div>
+      </article>
+      <article class="stall" style="--sc:#ffb03a">
+        <span class="awn" aria-hidden="true"></span>
+        <div class="art"><svg viewBox="0 0 60 60" aria-hidden="true" fill="none" stroke="#ff5d8f" stroke-width="3" stroke-linejoin="round">
+          <ellipse cx="30" cy="32" rx="16" ry="20"/><path d="M30 6v6M22 12h16M22 52h16M30 52v6"/>
+          <path d="M14 32h32"/></svg></div>
+        <div class="body"><h3>Parade Lantern</h3><p>Collapsible, LED core, USB-C. Weighs nothing and survives being dropped by a child.</p>
+          <div class="row"><span class="pr">$28</span><button>Add</button></div></div>
+      </article>
+      <article class="stall" style="--sc:#a56bff">
+        <span class="awn" aria-hidden="true"></span>
+        <div class="art"><svg viewBox="0 0 60 60" aria-hidden="true" fill="none" stroke="#a56bff" stroke-width="3" stroke-linejoin="round">
+          <path d="M30 8l6 14 15 1-11 10 3 15-13-8-13 8 3-15L9 23l15-1z"/></svg></div>
+        <div class="body"><h3>Sparkler Bundle</h3><p>Twenty-four long-burn sparklers in a card tube. Forty seconds each, which is exactly right.</p>
+          <div class="row"><span class="pr">$14</span><button>Add</button></div></div>
+      </article>
+      <article class="stall" style="--sc:#31c8a8">
+        <span class="awn" aria-hidden="true"></span>
+        <div class="art"><svg viewBox="0 0 60 60" aria-hidden="true" fill="none" stroke="#31c8a8" stroke-width="3" stroke-linejoin="round">
+          <path d="M16 14h28v34a10 10 0 01-10 10H26a10 10 0 01-10-10z"/><path d="M16 26h28M24 8v6M36 8v6"/></svg></div>
+        <div class="body"><h3>Festival Cup</h3><p>Insulated, 350ml, refills at any stall for half price all three nights. Pays for itself by Friday.</p>
+          <div class="row"><span class="pr">$22</span><button>Add</button></div></div>
+      </article>
+      <article class="stall" style="--sc:#ff5d8f">
+        <span class="awn" aria-hidden="true"></span>
+        <div class="art"><svg viewBox="0 0 60 60" aria-hidden="true" fill="none" stroke="#ffb03a" stroke-width="3" stroke-linejoin="round">
+          <path d="M10 20h40l-4 30H14z"/><path d="M20 20v-6a10 10 0 0120 0v6"/><path d="M22 32h16"/></svg></div>
+        <div class="body"><h3>Three-Night Tote</h3><p>Heavy canvas, screen-printed with this year's route — which was, as usual, wrong.</p>
+          <div class="row"><span class="pr">$26</span><button>Add</button></div></div>
+      </article>
+      <article class="stall" style="--sc:#e8384f">
+        <span class="awn" aria-hidden="true"></span>
+        <div class="art"><svg viewBox="0 0 60 60" aria-hidden="true" fill="none" stroke="#e8384f" stroke-width="3" stroke-linejoin="round">
+          <rect x="10" y="14" width="40" height="32" rx="4"/><path d="M10 24h40M20 46v6M40 46v6"/></svg></div>
+        <div class="body"><h3>Full Festival Kit</h3><p>Mask, lantern, cup, tote and sparklers in one box. Saves $28 and one very tedious decision.</p>
+          <div class="row"><span class="pr">$94</span><button>Add</button></div></div>
+      </article>
+    </div>
+  </section>
+
+  <section class="finale" id="finale" aria-labelledby="fn">
+    <h2 id="fn">One <em>firework</em></h2>
+    <p>The whole festival is funded so that this can happen once, properly, on the third night at 22:40. Go on — try it early.</p>
+    <button class="launch" id="launchBtn">Launch it</button>
+    <p class="finmsg" id="finMsg" role="status"></p>
+  </section>
+
+  <section class="signup" aria-labelledby="su">
+    <div class="subox">
+      <h3 id="su">Get the route (it will be wrong)</h3>
+      <p>One message before each night: where to stand, what is open late, and how far the parade actually got.</p>
+      <form class="sform" id="sform" novalidate>
+        <label class="sr" for="se">Email address</label>
+        <input id="se" type="email" placeholder="you@email.com" autocomplete="email" required>
+        <button class="pbtn g" type="submit">Sign me up</button>
+      </form>
+      <p class="smsg" id="smsg" role="status"></p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="fg">
+    <div><p class="big">SPIRIT<br>FESTIVAL <em>CO.</em></p>
+      <p style="color:var(--mute);font-size:.86rem;margin:8px 0 0;max-width:24ch">Run annually by a funeral parlour. Nobody has asked them to stop.</p></div>
+    <div><h4>Festival</h4><ul><li><a href="#nights">Three nights</a></li><li><a href="#">Getting there</a></li><li><a href="#">Volunteer</a></li></ul></div>
+    <div><h4>Market</h4><ul><li><a href="#market">Shop stalls</a></li><li><a href="#">Become a stall</a></li><li><a href="#">Shipping</a></li></ul></div>
+    <div><h4>Elsewhere</h4><ul><li><a href="../../index.html">The other 24 studios</a></li><li><a href="#ft">Back to the parade</a></li></ul></div>
+  </div>
+  <div class="fb"><span>Fan project · not affiliated with HoYoverse</span><span>Please do not set fire to the harbour</span></div>
+</footer>
+
+<script>
+(function(){
+var RM=matchMedia('(prefers-reduced-motion:reduce)').matches;
+
+/* loader */
+var op=document.getElementById('open');
+function go(){op.classList.add('gone');}
+if(RM) setTimeout(go,200); else setTimeout(go,1650);
+
+/* hero letters */
+document.querySelectorAll('.hero h1 span').forEach(function(s,i){s.style.animationDelay=(.2+i*.13)+'s';});
+
+/* parallax rows */
+if(!RM){
+  var rows=[[document.getElementById('row1'),.14],[document.getElementById('row2'),.26],
+            [document.getElementById('row3'),-.1]];
+  var mx=0, tick=false;
+  addEventListener('pointermove',function(e){mx=(e.clientX/innerWidth-.5);},{passive:true});
+  addEventListener('scroll',function(){
+    if(tick) return; tick=true;
+    requestAnimationFrame(function(){
+      tick=false;
+      rows.forEach(function(r){
+        if(r[0]) r[0].style.transform='translate3d('+(mx*80*r[1]*4 - scrollY*r[1]*0.35)+'px,'+(scrollY*r[1]*.5)+'px,0)';
+      });
+    });
+  },{passive:true});
+  setInterval(function(){
+    rows.forEach(function(r){
+      if(r[0]) r[0].style.transform='translate3d('+(mx*80*r[1]*4 - scrollY*r[1]*0.35)+'px,'+(scrollY*r[1]*.5)+'px,0)';
+    });
+  },60);
+}
+
+/* counters */
+function count(id,to){
+  var el=document.getElementById(id), v=0, step=Math.max(1,Math.round(to/40));
+  (function up(){ v=Math.min(v+step,to); el.textContent=v.toLocaleString();
+    if(v<to) setTimeout(up,26); })();
+}
+if(!RM){ count('c2',1208); count('c3',41); }
+
+/* night cards */
+document.querySelectorAll('.join').forEach(function(b){
+  b.addEventListener('click',function(){
+    b.textContent='On the list ✓'; b.classList.add('got');
+    setTimeout(function(){b.textContent='Add to my night';b.classList.remove('got');},2200);
+  });
+});
+
+/* market */
+document.querySelectorAll('.stall button').forEach(function(b){
+  b.addEventListener('click',function(){
+    b.textContent='In bag ✓'; b.classList.add('got');
+    setTimeout(function(){b.textContent='Add';b.classList.remove('got');},1900);
+  });
+});
+
+/* parade slot */
+document.getElementById('claimSlot').addEventListener('click',function(){
+  document.getElementById('nights').scrollIntoView({behavior:RM?'auto':'smooth'});
+});
+document.getElementById('joinTop').addEventListener('click',function(){
+  document.getElementById('nights').scrollIntoView({behavior:RM?'auto':'smooth'});
+});
+
+/* newsletter */
+document.getElementById('sform').addEventListener('submit',function(e){
+  e.preventDefault();
+  var v=document.getElementById('se').value.trim();
+  document.getElementById('smsg').textContent =
+    /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v)
+      ? 'Signed up. Stand near the second bridge — best view, worst noodles.'
+      : 'That address will not reach you before Thursday.';
+});
+
+/* ---------- firework canvas ---------- */
+var cv=document.getElementById('sky'), cx=cv.getContext('2d');
+var W,H,DPR=Math.min(devicePixelRatio||1,2), parts=[];
+function size(){W=innerWidth;H=innerHeight;cv.width=W*DPR;cv.height=H*DPR;
+  cv.style.width=W+'px';cv.style.height=H+'px';cx.setTransform(DPR,0,0,DPR,0,0);}
+size(); addEventListener('resize',size);
+var COLS=['255,176,58','255,93,143','165,107,255','49,200,168','232,56,79'];
+
+function burst(x,y,n,power){
+  var c=COLS[Math.floor(Math.random()*COLS.length)];
+  for(var i=0;i<n;i++){
+    var a=Math.random()*Math.PI*2, sp=Math.random()*power+1.2;
+    parts.push({x:x,y:y,vx:Math.cos(a)*sp,vy:Math.sin(a)*sp,life:1,c:c,r:1.4+Math.random()*1.8});
+  }
+}
+function rocket(){
+  if(RM) return;
+  var x=W*(.2+Math.random()*.6), y=H*(.16+Math.random()*.3);
+  burst(x,y,innerWidth<720?42:80,4.4);
+}
+if(!RM){
+  setTimeout(rocket,2600);
+  setInterval(function(){ if(Math.random()<.55) rocket(); },4200);
+}
+function loop(){
+  requestAnimationFrame(loop);
+  cx.clearRect(0,0,W,H);
+  for(var i=parts.length-1;i>=0;i--){
+    var p=parts[i];
+    p.x+=p.vx; p.y+=p.vy; p.vy+=0.038; p.vx*=0.988; p.vy*=0.988; p.life-=0.011;
+    if(p.life<=0){parts.splice(i,1);continue;}
+    cx.beginPath();
+    cx.fillStyle='rgba('+p.c+','+Math.max(p.life,0).toFixed(2)+')';
+    cx.shadowBlur=12; cx.shadowColor='rgba('+p.c+',.8)';
+    cx.arc(p.x,p.y,p.r*p.life,0,6.2832); cx.fill();
+  }
+  cx.shadowBlur=0;
+}
+if(!RM) requestAnimationFrame(loop);
+
+/* launch button */
+document.getElementById('launchBtn').addEventListener('click',function(){
+  document.getElementById('finMsg').textContent='THAT WAS THE ONE. PLEASE ACT SURPRISED ON SATURDAY.';
+  if(RM) return;
+  var i=0;
+  var iv=setInterval(function(){
+    burst(W*(.3+Math.random()*.4), H*(.2+Math.random()*.25), 90, 5.2);
+    if(++i>3) clearInterval(iv);
+  },260);
+});
+})();
+</script>
+</body>
+</html>
