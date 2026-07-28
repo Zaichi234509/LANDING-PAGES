@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Elegance in Crimson — CRIMSON | One Colour, Five Ways</title>
+<meta name="description" content="CRIMSON is a house built on a single colour. Five chapters, five materials, five ways the same red behaves — silk, lacquer, wool, enamel and glass. Swipe through the colour.">
+<meta name="theme-color" content="#7c1120">
+<meta name="color-scheme" content="dark">
+<link rel="canonical" href="https://crimson.example/elegance">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Elegance in Crimson — CRIMSON">
+<meta property="og:description" content="One colour. Five materials. No second colour, ever.">
+<meta property="og:image" content="img/og.svg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="img/og.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Tenor+Sans&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%237c1120'/%3E%3Ccircle cx='16' cy='16' r='7' fill='%23f5e9e2'/%3E%3C/svg%3E">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"ItemList","name":"CRIMSON — Five Materials","itemListElement":[
+{"@type":"ListItem","position":1,"item":{"@type":"Product","name":"Chapter I — Silk Slip Dress","offers":{"@type":"Offer","price":"890","priceCurrency":"USD","availability":"https://schema.org/InStock"}}},
+{"@type":"ListItem","position":2,"item":{"@type":"Product","name":"Chapter II — Lacquer Cuff","offers":{"@type":"Offer","price":"420","priceCurrency":"USD","availability":"https://schema.org/InStock"}}},
+{"@type":"ListItem","position":3,"item":{"@type":"Product","name":"Chapter III — Wool Overcoat","offers":{"@type":"Offer","price":"1680","priceCurrency":"USD","availability":"https://schema.org/InStock"}}}]}
+</script>
+<style>
+*,*::before,*::after{box-sizing:border-box}
+:root{
+  --c1:#7c1120; --c2:#a01829; --c3:#5c0d18; --c4:#c73b4a; --c5:#3d0810;
+  --bone:#f5e9e2; --mute:rgba(245,233,226,.6);
+  --line:rgba(245,233,226,.2);
+  --g:clamp(20px,6vw,110px);
+  --now:#7c1120;
+}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--now);color:var(--bone);
+  font-family:Syne,system-ui,sans-serif;font-weight:400;font-size:16.5px;line-height:1.7;
+  overflow-x:hidden;-webkit-font-smoothing:antialiased;transition:background 1.2s cubic-bezier(.65,0,.35,1)}
+h1,h2,h3{margin:0;font-family:'Tenor Sans',serif;font-weight:400;line-height:1.08}
+a{color:inherit;text-decoration:none}
+::selection{background:var(--bone);color:var(--c1)}
+:focus-visible{outline:2px solid var(--bone);outline-offset:5px}
+.skip{position:absolute;left:-9999px;background:var(--bone);color:var(--c1);padding:10px 18px;z-index:400}
+.skip:focus{left:14px;top:14px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* silk background */
+#silk{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.5}
+
+/* ---------- loader: colour pours in ---------- */
+#pour{position:fixed;inset:0;z-index:500;background:#160309;display:grid;place-items:center;overflow:hidden;
+  transition:opacity .7s,visibility .7s}
+#pour.gone{opacity:0;visibility:hidden}
+#pour .flood{position:absolute;inset:0;background:var(--c1);transform:translateY(101%);
+  animation:flood 1.4s .25s cubic-bezier(.65,0,.35,1) forwards}
+@keyframes flood{to{transform:translateY(0)}}
+#pour .word{position:relative;z-index:2;font-family:'Tenor Sans',serif;
+  font-size:clamp(2.2rem,10vw,6rem);letter-spacing:.4em;text-indent:.4em;opacity:0;
+  animation:pw 1s .9s forwards}
+@keyframes pw{to{opacity:1}}
+
+/* ---------- chapter rail ---------- */
+.rail{position:fixed;left:clamp(10px,2vw,28px);top:50%;transform:translateY(-50%);z-index:70;
+  display:grid;gap:16px}
+.rail button{background:none;border:none;padding:0;cursor:pointer;display:flex;align-items:center;gap:10px;
+  color:var(--mute);font-family:Syne,sans-serif;font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;
+  transition:color .4s}
+.rail button i{width:26px;height:1px;background:currentColor;transition:width .5s cubic-bezier(.16,1,.3,1)}
+.rail button:hover,.rail button[aria-current="true"]{color:var(--bone)}
+.rail button[aria-current="true"] i{width:52px}
+.rail button span{max-width:0;overflow:hidden;white-space:nowrap;transition:max-width .5s cubic-bezier(.16,1,.3,1)}
+.rail:hover button span,.rail:focus-within button span{max-width:140px}
+@media(max-width:860px){.rail{display:none}}
+
+/* ---------- top ---------- */
+.top{position:fixed;top:0;left:0;right:0;z-index:69;display:flex;align-items:center;justify-content:space-between;
+  gap:16px;padding:22px var(--g)}
+.top .mk{font-family:'Tenor Sans',serif;font-size:1.1rem;letter-spacing:.46em;text-indent:.46em}
+.top .bag{font-size:.62rem;letter-spacing:.26em;text-transform:uppercase;color:var(--mute);
+  border-bottom:1px solid var(--line);padding-bottom:3px;transition:color .4s,border-color .4s;
+  background:none;border-top:0;border-left:0;border-right:0;font-family:inherit;cursor:pointer}
+.top .bag:hover{color:var(--bone);border-color:var(--bone)}
+
+/* ---------- hero ---------- */
+.hero{position:relative;z-index:2;min-height:100svh;display:grid;align-content:center;
+  padding:clamp(110px,16vh,170px) var(--g) clamp(50px,9vh,110px)}
+.hero .k{font-size:.6rem;letter-spacing:.5em;text-transform:uppercase;color:var(--mute);margin-bottom:clamp(24px,5vh,54px)}
+.hero h1{font-size:clamp(2.6rem,12vw,10rem);letter-spacing:-.02em;line-height:.94}
+.hero h1 .a{display:block;overflow:hidden}
+.hero h1 .a>span{display:block;transform:translateY(104%);animation:rise 1.2s cubic-bezier(.16,1,.3,1) forwards}
+.hero h1 .a:nth-child(2)>span{animation-delay:.1s}
+@keyframes rise{to{transform:translateY(0)}}
+.hero .hx{display:flex;flex-wrap:wrap;gap:26px;justify-content:space-between;align-items:flex-end;
+  margin-top:clamp(28px,5vh,60px);padding-top:24px;border-top:1px solid var(--line);
+  opacity:0;animation:hf 1.2s .8s forwards}
+@keyframes hf{to{opacity:1}}
+.hero .hx p{margin:0;max-width:40ch;color:var(--mute);font-size:clamp(.96rem,1.5vw,1.08rem)}
+.swatchset{display:flex;gap:8px}
+.swatchset button{width:clamp(34px,5vw,46px);aspect-ratio:1;border:1px solid var(--line);border-radius:50%;
+  cursor:pointer;transition:transform .35s cubic-bezier(.2,1.6,.4,1),border-color .3s}
+.swatchset button:hover{transform:scale(1.16)}
+.swatchset button[aria-pressed="true"]{border-color:var(--bone);transform:scale(1.12)}
+
+/* ---------- chapters ---------- */
+.chapters{position:relative;z-index:2}
+.ch{position:relative;min-height:100svh;display:grid;align-items:center;
+  grid-template-columns:repeat(auto-fit,minmax(min(280px,100%),1fr));gap:clamp(28px,6vw,100px);
+  padding:clamp(60px,11vh,140px) var(--g);border-top:1px solid var(--line)}
+.ch:nth-child(even) .swatch{order:-1}
+@media(max-width:780px){.ch:nth-child(even) .swatch{order:0}}
+.swatch{position:relative;aspect-ratio:4/5;overflow:hidden;
+  border:1px solid var(--line)}
+.swatch .fabric{position:absolute;inset:0}
+.swatch .fabric svg{width:100%;height:100%}
+.swatch .gloss{position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(115deg,transparent 34%,rgba(255,255,255,.22) 46%,transparent 60%);
+  transform:translateX(-60%);transition:transform 1.2s cubic-bezier(.16,1,.3,1)}
+.swatch:hover .gloss{transform:translateX(60%)}
+.swatch .mat{position:absolute;left:0;bottom:0;background:var(--bone);color:var(--c1);
+  font-size:.58rem;letter-spacing:.24em;text-transform:uppercase;padding:6px 14px;font-weight:600}
+.chtext .no{font-family:'Tenor Sans',serif;font-size:clamp(2.6rem,7vw,5rem);opacity:.35;line-height:1;
+  margin-bottom:-.16em}
+.chtext h2{font-size:clamp(1.9rem,5.4vw,3.6rem);margin-bottom:18px}
+.chtext .hex{font-family:Syne,sans-serif;font-weight:700;font-size:.7rem;letter-spacing:.24em;
+  display:inline-block;margin-bottom:18px;padding:5px 12px;border:1px solid var(--line);border-radius:999px}
+.chtext p{margin:0 0 18px;max-width:48ch;color:rgba(245,233,226,.86)}
+.chtext .spec{display:flex;flex-wrap:wrap;gap:10px 30px;padding-top:20px;border-top:1px solid var(--line);
+  font-size:.82rem;color:var(--mute)}
+.chtext .spec b{display:block;font-family:'Tenor Sans',serif;font-size:1.14rem;color:var(--bone);font-weight:400}
+.chtext .acq{display:flex;flex-wrap:wrap;align-items:center;gap:18px;margin-top:26px}
+.chtext .pr{font-family:'Tenor Sans',serif;font-size:clamp(1.3rem,2.6vw,1.8rem)}
+.chtext .add{background:var(--bone);border:1px solid var(--bone);color:var(--c1);font-family:Syne,sans-serif;
+  font-weight:600;font-size:.62rem;letter-spacing:.24em;text-transform:uppercase;padding:14px 28px;
+  cursor:pointer;transition:.5s}
+.chtext .add:hover{background:transparent;color:var(--bone)}
+.chtext .add.in{background:transparent;color:var(--bone)}
+
+/* ---------- the colour note ---------- */
+.note{position:relative;z-index:2;padding:clamp(60px,12vh,160px) var(--g);text-align:center;
+  border-top:1px solid var(--line)}
+.note blockquote{margin:0 auto;max-width:22ch;font-family:'Tenor Sans',serif;
+  font-size:clamp(1.7rem,6vw,4.4rem);line-height:1.1}
+.note cite{display:block;margin-top:clamp(24px,4vh,44px);font-style:normal;font-size:.6rem;
+  letter-spacing:.4em;text-transform:uppercase;color:var(--mute)}
+
+/* ---------- private list ---------- */
+.list{position:relative;z-index:2;padding:clamp(50px,10vh,130px) var(--g);border-top:1px solid var(--line);
+  display:grid;gap:clamp(26px,5vw,80px);grid-template-columns:repeat(auto-fit,minmax(min(260px,100%),1fr));
+  align-items:center}
+.list h2{font-size:clamp(1.7rem,5vw,3.2rem);max-width:14ch}
+.list p{color:var(--mute);max-width:42ch;margin:14px 0 0}
+.lform{display:flex;flex-wrap:wrap;gap:10px}
+.lform input{flex:1 1 220px;background:transparent;border:none;border-bottom:1px solid var(--line);
+  color:var(--bone);font-family:inherit;font-size:1.04rem;padding:13px 2px;transition:border-color .5s}
+.lform input::placeholder{color:var(--mute)}
+.lform input:focus{outline:none;border-color:var(--bone)}
+.lform button{background:transparent;border:1px solid var(--bone);color:var(--bone);font-family:Syne,sans-serif;
+  font-weight:600;font-size:.62rem;letter-spacing:.24em;text-transform:uppercase;padding:14px 28px;
+  cursor:pointer;transition:.5s}
+.lform button:hover{background:var(--bone);color:var(--c1)}
+.lmsg{min-height:1.5em;margin-top:14px;font-family:'Tenor Sans',serif;font-size:1.04rem}
+
+/* ---------- footer ---------- */
+footer{position:relative;z-index:2;border-top:1px solid var(--line);padding:clamp(40px,8vh,90px) var(--g) 34px}
+.fg{display:grid;gap:30px;grid-template-columns:repeat(auto-fit,minmax(min(180px,100%),1fr));padding-bottom:30px}
+.fg h4{margin:0 0 12px;font-family:Syne,sans-serif;font-weight:700;font-size:.58rem;letter-spacing:.3em;
+  text-transform:uppercase;color:var(--bone)}
+.fg ul{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.fg a{color:var(--mute);font-size:.9rem;transition:color .4s}
+.fg a:hover{color:var(--bone)}
+.fg .word{font-family:'Tenor Sans',serif;font-size:1.9rem;letter-spacing:.3em}
+.fb{display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between;padding-top:22px;
+  border-top:1px solid var(--line);font-size:.74rem;color:var(--mute)}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;
+    transition-duration:.001ms!important}
+  .hero h1 .a>span{transform:none}
+  .hero .hx{opacity:1}
+  #silk{display:none}
+  body{transition:none}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#chapters">Skip to the five chapters</a>
+
+<div id="pour" role="status" aria-label="Loading">
+  <span class="flood" aria-hidden="true"></span>
+  <p class="word">CRIMSON</p>
+</div>
+
+<canvas id="silk" aria-hidden="true"></canvas>
+
+<header class="top">
+  <a href="#top" class="mk">CRIMSON</a>
+  <button class="bag" id="bagBtn">Bag · <span id="bagN">0</span></button>
+</header>
+
+<nav class="rail" id="rail" aria-label="Chapters">
+  <button data-i="0" aria-current="true"><i></i><span>I · Silk</span></button>
+  <button data-i="1" aria-current="false"><i></i><span>II · Lacquer</span></button>
+  <button data-i="2" aria-current="false"><i></i><span>III · Wool</span></button>
+  <button data-i="3" aria-current="false"><i></i><span>IV · Enamel</span></button>
+  <button data-i="4" aria-current="false"><i></i><span>V · Glass</span></button>
+</nav>
+
+<main id="top">
+  <section class="hero" aria-labelledby="ht">
+    <p class="k">A house of one colour · no second colour, ever</p>
+    <h1 id="ht"><span class="a"><span>Elegance</span></span><span class="a"><span>in crimson</span></span></h1>
+    <div class="hx">
+      <p>Red is not a colour here, it is a discipline. Five materials, five chapters, and five completely different reds that are all, verifiably, the same pigment.</p>
+      <div class="swatchset" role="group" aria-label="Preview the five reds">
+        <button aria-pressed="true" data-c="#7c1120" style="background:#7c1120" aria-label="Silk red"></button>
+        <button aria-pressed="false" data-c="#a01829" style="background:#a01829" aria-label="Lacquer red"></button>
+        <button aria-pressed="false" data-c="#5c0d18" style="background:#5c0d18" aria-label="Wool red"></button>
+        <button aria-pressed="false" data-c="#c73b4a" style="background:#c73b4a" aria-label="Enamel red"></button>
+        <button aria-pressed="false" data-c="#3d0810" style="background:#3d0810" aria-label="Glass red"></button>
+      </div>
+    </div>
+  </section>
+
+  <section class="chapters" id="chapters" aria-label="Five chapters of one colour">
+    <article class="ch" data-c="#7c1120" data-i="0">
+      <div class="swatch">
+        <div class="fabric"><svg viewBox="0 0 400 500" preserveAspectRatio="none" aria-hidden="true">
+          <defs><linearGradient id="f1" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#a01829"/><stop offset="50%" stop-color="#7c1120"/><stop offset="100%" stop-color="#4d0b14"/></linearGradient></defs>
+          <rect width="400" height="500" fill="url(#f1)"/>
+          <g fill="none" stroke="#f5e9e2" stroke-opacity=".14" stroke-width="2">
+            <path d="M-20 90c80 40 140-30 220 10s140-20 220 20"/>
+            <path d="M-20 180c80 40 140-30 220 10s140-20 220 20"/>
+            <path d="M-20 270c80 40 140-30 220 10s140-20 220 20"/>
+            <path d="M-20 360c80 40 140-30 220 10s140-20 220 20"/>
+            <path d="M-20 450c80 40 140-30 220 10s140-20 220 20"/></g>
+          <g fill="#f5e9e2" fill-opacity=".07">
+            <path d="M0 0c120 90 60 210 180 300s160 140 220 200H0z"/></g>
+        </svg></div>
+        <span class="gloss" aria-hidden="true"></span>
+        <span class="mat">Silk · 19 momme</span>
+      </div>
+      <div class="chtext">
+        <p class="no">I</p>
+        <h2>The colour that <em>moves</em></h2>
+        <span class="hex">#7C1120 · on silk</span>
+        <p>On charmeuse the pigment never settles. It reads black in the folds, orange at the edge of a shoulder, and a flat true red only when the fabric is laid out and photographed — which is why we do not photograph it laid out.</p>
+        <div class="spec"><span><b>19mm</b>silk charmeuse</span><span><b>Bias</b>cut, French seams</span><span><b>Milan</b>finished</span></div>
+        <div class="acq"><span class="pr">$890</span><button class="add">Add to bag</button></div>
+      </div>
+    </article>
+
+    <article class="ch" data-c="#a01829" data-i="1">
+      <div class="swatch">
+        <div class="fabric"><svg viewBox="0 0 400 500" preserveAspectRatio="none" aria-hidden="true">
+          <defs><radialGradient id="f2" cx="42%" cy="34%" r="72%">
+            <stop offset="0%" stop-color="#d24b58"/><stop offset="46%" stop-color="#a01829"/><stop offset="100%" stop-color="#3d0810"/></radialGradient></defs>
+          <rect width="400" height="500" fill="url(#f2)"/>
+          <ellipse cx="150" cy="140" rx="120" ry="70" fill="#fff" fill-opacity=".12"/>
+          <ellipse cx="170" cy="120" rx="60" ry="30" fill="#fff" fill-opacity=".14"/>
+          <rect y="330" width="400" height="170" fill="#000" fill-opacity=".22"/>
+        </svg></div>
+        <span class="gloss" aria-hidden="true"></span>
+        <span class="mat">Urushi lacquer · 22 coats</span>
+      </div>
+      <div class="chtext">
+        <p class="no">II</p>
+        <h2>The colour that <em>reflects you</em></h2>
+        <span class="hex">#A01829 · on lacquer</span>
+        <p>Twenty-two coats polished to a depth you can see your own face in. Lacquer red is the only one of the five that changes depending on what is in the room, which some collectors find unbearable and the rest find to be the point.</p>
+        <div class="spec"><span><b>22</b>coats, hand-polished</span><span><b>9mo</b>curing</span><span><b>Kyoto</b>workshop</span></div>
+        <div class="acq"><span class="pr">$420</span><button class="add">Add to bag</button></div>
+      </div>
+    </article>
+
+    <article class="ch" data-c="#5c0d18" data-i="2">
+      <div class="swatch">
+        <div class="fabric"><svg viewBox="0 0 400 500" preserveAspectRatio="none" aria-hidden="true">
+          <rect width="400" height="500" fill="#5c0d18"/>
+          <g stroke="#8a2030" stroke-width="3" stroke-opacity=".5">
+            <path d="M0 20h400M0 60h400M0 100h400M0 140h400M0 180h400M0 220h400M0 260h400M0 300h400M0 340h400M0 380h400M0 420h400M0 460h400"/></g>
+          <g stroke="#3d0810" stroke-width="3" stroke-opacity=".45">
+            <path d="M20 0v500M60 0v500M100 0v500M140 0v500M180 0v500M220 0v500M260 0v500M300 0v500M340 0v500M380 0v500"/></g>
+          <rect width="400" height="500" fill="#000" fill-opacity=".1"/>
+        </svg></div>
+        <span class="gloss" aria-hidden="true"></span>
+        <span class="mat">Wool · 780g double face</span>
+      </div>
+      <div class="chtext">
+        <p class="no">III</p>
+        <h2>The colour that <em>absorbs</em></h2>
+        <span class="hex">#5C0D18 · on wool</span>
+        <p>Heavy double-face wool eats light. At three metres it is nearly black; at arm's length it is unmistakably red. This is the chapter people buy when they want to wear the colour without announcing it from across a street.</p>
+        <div class="spec"><span><b>780g</b>double face</span><span><b>No lining</b>required</span><span><b>Biella</b>mill</span></div>
+        <div class="acq"><span class="pr">$1,680</span><button class="add">Add to bag</button></div>
+      </div>
+    </article>
+
+    <article class="ch" data-c="#c73b4a" data-i="3">
+      <div class="swatch">
+        <div class="fabric"><svg viewBox="0 0 400 500" preserveAspectRatio="none" aria-hidden="true">
+          <defs><linearGradient id="f4" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#e8697a"/><stop offset="42%" stop-color="#c73b4a"/><stop offset="100%" stop-color="#8c1c2b"/></linearGradient></defs>
+          <rect width="400" height="500" fill="url(#f4)"/>
+          <g fill="#fff" fill-opacity=".2"><ellipse cx="120" cy="120" rx="70" ry="40" transform="rotate(-25 120 120)"/></g>
+          <g fill="#fff" fill-opacity=".1"><ellipse cx="290" cy="360" rx="90" ry="46" transform="rotate(-25 290 360)"/></g>
+          <g stroke="#fff" stroke-opacity=".2" stroke-width="2" fill="none">
+            <circle cx="200" cy="250" r="120"/><circle cx="200" cy="250" r="90"/></g>
+        </svg></div>
+        <span class="gloss" aria-hidden="true"></span>
+        <span class="mat">Vitreous enamel · fired 4×</span>
+      </div>
+      <div class="chtext">
+        <p class="no">IV</p>
+        <h2>The colour that <em>shouts</em></h2>
+        <span class="hex">#C73B4A · on enamel</span>
+        <p>Fired four times over copper at 820°C. This is the loudest the pigment gets and the only chapter where we let it be cheerful. Small pieces only — a cuff, a pin, a pair of studs. Any larger and it stops being elegant.</p>
+        <div class="spec"><span><b>820°C</b>× four firings</span><span><b>Copper</b>substrate</span><span><b>Limoges</b>method</span></div>
+        <div class="acq"><span class="pr">$310</span><button class="add">Add to bag</button></div>
+      </div>
+    </article>
+
+    <article class="ch" data-c="#3d0810" data-i="4">
+      <div class="swatch">
+        <div class="fabric"><svg viewBox="0 0 400 500" preserveAspectRatio="none" aria-hidden="true">
+          <defs><linearGradient id="f5" x1="0" y1="0" x2="0.6" y2="1">
+            <stop offset="0%" stop-color="#7c1120"/><stop offset="52%" stop-color="#3d0810"/><stop offset="100%" stop-color="#1a0307"/></linearGradient></defs>
+          <rect width="400" height="500" fill="url(#f5)"/>
+          <g fill="none" stroke="#f5e9e2" stroke-opacity=".22" stroke-width="2">
+            <path d="M80 0c40 120-20 200 20 320s0 180 0 180"/>
+            <path d="M200 0c-40 140 30 210-10 330s10 170 10 170"/>
+            <path d="M320 0c30 130-30 190 10 310s-10 190-10 190"/></g>
+          <g fill="#f5e9e2" fill-opacity=".1"><circle cx="150" cy="180" r="60"/><circle cx="270" cy="330" r="42"/></g>
+        </svg></div>
+        <span class="gloss" aria-hidden="true"></span>
+        <span class="mat">Hand-blown glass · gold ruby</span>
+      </div>
+      <div class="chtext">
+        <p class="no">V</p>
+        <h2>The colour that <em>needs a window</em></h2>
+        <span class="hex">#3D0810 · in glass</span>
+        <p>Gold ruby glass: the red comes from colloidal gold suspended in the melt, which means the object is genuinely worth something before it is even blown. Unlit it is nearly black. Held to a window it is the best thing in the house.</p>
+        <div class="spec"><span><b>Gold</b>colloidal ruby</span><span><b>Blown</b>free-hand</span><span><b>Murano</b>furnace</span></div>
+        <div class="acq"><span class="pr">$760</span><button class="add">Add to bag</button></div>
+      </div>
+    </article>
+  </section>
+
+  <section class="note" aria-label="House note">
+    <blockquote>“A second colour would only be an apology for the first.”</blockquote>
+    <cite>House note, framed in the fitting room</cite>
+  </section>
+
+  <section class="list" aria-labelledby="lt">
+    <div>
+      <h2 id="lt">The private list</h2>
+      <p>Chapters are released one at a time, without announcement, to a list of about nine hundred people. There is no other way to buy the first forty pieces of anything we make.</p>
+    </div>
+    <div>
+      <form class="lform" id="lform" novalidate>
+        <label class="sr" for="le">Email address</label>
+        <input id="le" type="email" placeholder="Your email" autocomplete="email" required>
+        <button type="submit">Request</button>
+      </form>
+      <p class="lmsg" id="lmsg" role="status"></p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="fg">
+    <div><p class="word">CRIMSON</p></div>
+    <div><h4>Chapters</h4><ul><li><a href="#chapters">I · Silk</a></li><li><a href="#chapters">II · Lacquer</a></li><li><a href="#chapters">III · Wool</a></li><li><a href="#chapters">IV · Enamel</a></li><li><a href="#chapters">V · Glass</a></li></ul></div>
+    <div><h4>House</h4><ul><li><a href="#">Fittings</a></li><li><a href="#">Care</a></li><li><a href="#">Alterations</a></li></ul></div>
+    <div><h4>Elsewhere</h4><ul><li><a href="../../index.html">The other 24 studios</a></li><li><a href="#top">Return</a></li></ul></div>
+  </div>
+  <div class="fb"><span>Fan project · not affiliated with HoYoverse</span><span>One colour, since always</span></div>
+</footer>
+
+<script>
+(function(){
+var RM=matchMedia('(prefers-reduced-motion:reduce)').matches;
+
+/* loader */
+var pr=document.getElementById('pour');
+function go(){pr.classList.add('gone');}
+if(RM) setTimeout(go,200); else setTimeout(go,2000);
+
+/* background colour follows the chapter in view */
+var chs=[].slice.call(document.querySelectorAll('.ch'));
+var railBtns=[].slice.call(document.querySelectorAll('.rail button'));
+function setColour(c,i){
+  document.documentElement.style.setProperty('--now',c);
+  document.querySelector('meta[name="theme-color"]').setAttribute('content',c);
+  railBtns.forEach(function(b,j){b.setAttribute('aria-current',String(j===i));});
+}
+if('IntersectionObserver' in window){
+  var io=new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      if(e.isIntersecting) setColour(e.target.dataset.c,+e.target.dataset.i);
+    });
+  },{threshold:.4});
+  chs.forEach(function(c){io.observe(c);});
+}
+railBtns.forEach(function(b){
+  b.addEventListener('click',function(){
+    var t=chs[+b.dataset.i];
+    if(t) t.scrollIntoView({behavior:RM?'auto':'smooth'});
+  });
+});
+
+/* hero swatches preview colours */
+document.querySelectorAll('.swatchset button').forEach(function(b,i){
+  b.addEventListener('click',function(){
+    document.querySelectorAll('.swatchset button').forEach(function(x){x.setAttribute('aria-pressed','false');});
+    b.setAttribute('aria-pressed','true');
+    setColour(b.dataset.c,i);
+  });
+});
+
+/* bag */
+var n=0;
+document.querySelectorAll('.add').forEach(function(b){
+  b.addEventListener('click',function(){
+    n++; document.getElementById('bagN').textContent=n;
+    b.textContent='In the bag'; b.classList.add('in');
+    setTimeout(function(){b.textContent='Add to bag';b.classList.remove('in');},2100);
+  });
+});
+document.getElementById('bagBtn').addEventListener('click',function(){
+  document.getElementById('chapters').scrollIntoView({behavior:RM?'auto':'smooth'});
+});
+
+/* private list */
+document.getElementById('lform').addEventListener('submit',function(e){
+  e.preventDefault();
+  var v=document.getElementById('le').value.trim();
+  document.getElementById('lmsg').textContent =
+    /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v)
+      ? 'Received. You are number 913. The next chapter is silk.'
+      : 'That address cannot be added to the list.';
+});
+
+/* silk canvas — slow flowing ribbons */
+if(!RM){
+  var cv=document.getElementById('silk'), cx=cv.getContext('2d');
+  var W,H,DPR=Math.min(devicePixelRatio||1,2);
+  function size(){W=innerWidth;H=innerHeight;cv.width=W*DPR;cv.height=H*DPR;
+    cv.style.width=W+'px';cv.style.height=H+'px';cx.setTransform(DPR,0,0,DPR,0,0);}
+  size(); addEventListener('resize',size);
+  var mx=0.5,my=0.5;
+  addEventListener('pointermove',function(e){mx=e.clientX/innerWidth;my=e.clientY/innerHeight;},{passive:true});
+  var t=0;
+  function draw(){
+    requestAnimationFrame(draw);
+    t+=0.0032;
+    cx.clearRect(0,0,W,H);
+    for(var k=0;k<5;k++){
+      cx.beginPath();
+      var amp=H*(0.045+k*0.014), base=H*(0.16+k*0.17);
+      for(var x=-40;x<=W+40;x+=16){
+        var y=base
+          + Math.sin(x*0.0031 + t*1.5 + k)*amp
+          + Math.sin(x*0.0072 - t*2.1 + k*1.7)*amp*0.45
+          + (my-0.5)*40*Math.sin(x*0.002+k)
+          + (mx-0.5)*26;
+        if(x===-40) cx.moveTo(x,y); else cx.lineTo(x,y);
+      }
+      cx.lineTo(W+40,H+60); cx.lineTo(-40,H+60); cx.closePath();
+      cx.fillStyle='rgba(245,233,226,'+(0.018+k*0.007)+')';
+      cx.fill();
+    }
+  }
+  requestAnimationFrame(draw);
+}
+})();
+</script>
+</body>
+</html>

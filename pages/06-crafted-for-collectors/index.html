@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Crafted for Collectors — Atelier Hu | Four Objects on Four Plinths</title>
+<meta name="description" content="Atelier Hu presents four objects on four plinths, each accompanied by its maker, its material and the number of hours it took. Acquisition is by appointment, in person, slowly.">
+<meta name="theme-color" content="#12100e">
+<meta name="color-scheme" content="dark">
+<link rel="canonical" href="https://atelierhu.example/crafted-for-collectors">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Crafted for Collectors — Atelier Hu">
+<meta property="og:description" content="Four objects. Four plinths. Acquisition by appointment.">
+<meta property="og:image" content="img/og.svg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="img/og.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,300;0,6..96,400;1,6..96,300&family=Karla:wght@200;300;400;500&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%2312100e'/%3E%3Ctext x='16' y='23' font-size='17' text-anchor='middle' fill='%23b99a63' font-family='serif'%3EA%3C/text%3E%3C/svg%3E">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"ItemList","name":"Atelier Hu — Objects I to IV","itemListElement":[
+{"@type":"ListItem","position":1,"item":{"@type":"Product","name":"Object I — The Censer","offers":{"@type":"Offer","price":"2400","priceCurrency":"USD","availability":"https://schema.org/LimitedAvailability"}}},
+{"@type":"ListItem","position":2,"item":{"@type":"Product","name":"Object II — The Folding Fan","offers":{"@type":"Offer","price":"1150","priceCurrency":"USD","availability":"https://schema.org/LimitedAvailability"}}},
+{"@type":"ListItem","position":3,"item":{"@type":"Product","name":"Object III — The Lacquer Box","offers":{"@type":"Offer","price":"3800","priceCurrency":"USD","availability":"https://schema.org/PreOrder"}}},
+{"@type":"ListItem","position":4,"item":{"@type":"Product","name":"Object IV — The Silk Panel","offers":{"@type":"Offer","price":"6200","priceCurrency":"USD","availability":"https://schema.org/PreOrder"}}}]}
+</script>
+<style>
+*,*::before,*::after{box-sizing:border-box}
+:root{
+  --dark:#12100e; --dark2:#1a1714; --stone:#e6e1d8; --mid:#8b8378;
+  --brass:#b99a63; --oxblood:#5e1f21;
+  --line:rgba(230,225,216,.13);
+  --g:clamp(20px,6.5vw,140px);
+}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--dark);color:var(--stone);
+  font-family:Karla,system-ui,sans-serif;font-weight:300;font-size:16.5px;line-height:1.85;
+  overflow-x:hidden;-webkit-font-smoothing:antialiased;cursor:none}
+@media(hover:none){body{cursor:auto}}
+h1,h2,h3{margin:0;font-family:'Bodoni Moda',serif;font-weight:300;line-height:1.06}
+a{color:inherit;text-decoration:none}
+::selection{background:var(--brass);color:var(--dark)}
+:focus-visible{outline:1px solid var(--brass);outline-offset:7px}
+.skip{position:absolute;left:-9999px;background:var(--stone);color:var(--dark);padding:10px 18px;z-index:400}
+.skip:focus{left:14px;top:14px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* ---------- magnetic cursor ---------- */
+#cur{position:fixed;top:0;left:0;z-index:300;pointer-events:none;width:9px;height:9px;border-radius:50%;
+  background:var(--brass);transform:translate(-50%,-50%);mix-blend-mode:difference}
+#curRing{position:fixed;top:0;left:0;z-index:299;pointer-events:none;width:38px;height:38px;border-radius:50%;
+  border:1px solid rgba(185,154,99,.6);transform:translate(-50%,-50%);
+  transition:width .4s cubic-bezier(.16,1,.3,1),height .4s cubic-bezier(.16,1,.3,1),border-color .4s,background .4s}
+#curRing.big{width:78px;height:78px;background:rgba(185,154,99,.1);border-color:var(--brass)}
+#curRing.txt::after{content:attr(data-l);position:absolute;inset:0;display:grid;place-items:center;
+  font-family:Karla,sans-serif;font-size:.52rem;letter-spacing:.2em;text-transform:uppercase;color:var(--stone)}
+@media(hover:none){#cur,#curRing{display:none}}
+
+/* ---------- loader: gallery lights ---------- */
+#lights{position:fixed;inset:0;z-index:500;background:#0a0908;display:grid;place-items:center;
+  transition:opacity 1s,visibility 1s}
+#lights.gone{opacity:0;visibility:hidden}
+.lamps{display:flex;gap:clamp(14px,4vw,42px)}
+.lamps i{display:block;width:2px;height:clamp(70px,16vh,130px);background:rgba(230,225,216,.1);position:relative}
+.lamps i::after{content:'';position:absolute;left:50%;bottom:-6px;width:9px;height:9px;border-radius:50%;
+  transform:translateX(-50%);background:var(--brass);opacity:0;
+  box-shadow:0 0 24px 8px rgba(185,154,99,.55);animation:lamp .5s forwards}
+.lamps i:nth-child(1)::after{animation-delay:.2s}
+.lamps i:nth-child(2)::after{animation-delay:.5s}
+.lamps i:nth-child(3)::after{animation-delay:.8s}
+.lamps i:nth-child(4)::after{animation-delay:1.1s}
+@keyframes lamp{to{opacity:1}}
+.lcap{position:absolute;bottom:12vh;left:0;right:0;text-align:center;font-size:.6rem;letter-spacing:.5em;
+  text-transform:uppercase;color:var(--mid);opacity:0;animation:af 1s 1.3s forwards}
+@keyframes af{to{opacity:1}}
+
+/* ---------- nav ---------- */
+.nav{position:fixed;top:0;left:0;right:0;z-index:80;display:flex;align-items:center;justify-content:space-between;
+  gap:18px;padding:24px var(--g);mix-blend-mode:difference}
+.nav .m{font-family:'Bodoni Moda',serif;font-size:1.16rem;letter-spacing:.34em;text-transform:uppercase}
+.nav .r{display:flex;gap:clamp(14px,2.4vw,34px);font-size:.62rem;letter-spacing:.28em;text-transform:uppercase;
+  color:var(--stone)}
+.nav .r a{opacity:.62;transition:opacity .5s}
+.nav .r a:hover{opacity:1}
+@media(max-width:700px){.nav .r a:not(:last-child){display:none}}
+
+/* ---------- hero ---------- */
+.hero{position:relative;min-height:100svh;display:grid;place-items:center;text-align:center;
+  padding:clamp(110px,16vh,180px) var(--g) clamp(60px,10vh,120px);overflow:hidden}
+.hero::before{content:'';position:absolute;left:50%;top:36%;width:min(120vw,1000px);aspect-ratio:1.6;
+  transform:translate(-50%,-50%);pointer-events:none;
+  background:radial-gradient(ellipse,rgba(185,154,99,.13),transparent 62%);filter:blur(30px)}
+.hero .estd{font-size:.58rem;letter-spacing:.62em;text-transform:uppercase;color:var(--mid);
+  margin-bottom:clamp(28px,6vh,66px)}
+.hero h1{font-size:clamp(2.4rem,9.6vw,8rem);letter-spacing:-.02em;max-width:14ch}
+.hero h1 em{font-style:italic;color:var(--brass)}
+.hero h1 .w{display:inline-block;overflow:hidden;vertical-align:bottom}
+.hero h1 .w>span{display:inline-block;transform:translateY(102%);
+  animation:up 1.15s cubic-bezier(.16,1,.3,1) forwards}
+@keyframes up{to{transform:translateY(0)}}
+.hero .sub{max-width:44ch;margin:clamp(26px,5vh,48px) auto 0;color:var(--mid);
+  font-size:clamp(.98rem,1.5vw,1.1rem);opacity:0;animation:af 1.2s 1s forwards}
+.hero .rule{width:1px;height:clamp(50px,9vh,96px);background:linear-gradient(var(--brass),transparent);
+  margin:clamp(28px,5vh,54px) auto 0;opacity:0;animation:af 1.2s 1.2s forwards}
+
+/* ---------- the atelier statement ---------- */
+.stmt{padding:clamp(60px,12vh,160px) var(--g);display:grid;gap:clamp(24px,5vw,80px);
+  grid-template-columns:repeat(auto-fit,minmax(min(260px,100%),1fr));align-items:start;
+  border-top:1px solid var(--line)}
+.stmt .lbl{font-size:.58rem;letter-spacing:.42em;text-transform:uppercase;color:var(--brass)}
+.stmt p{margin:0 0 20px;font-size:clamp(1.02rem,1.7vw,1.22rem);max-width:46ch}
+.stmt p:first-of-type::first-letter{font-family:'Bodoni Moda',serif;font-size:3.6em;line-height:.82;
+  float:left;padding:.06em .12em 0 0;color:var(--brass)}
+.stmt .facts{display:grid;gap:0}
+.stmt .fact{display:flex;justify-content:space-between;gap:20px;padding:15px 0;border-top:1px solid var(--line);
+  font-size:.88rem}
+.stmt .fact:last-child{border-bottom:1px solid var(--line)}
+.stmt .fact b{font-weight:400;color:var(--mid);font-size:.62rem;letter-spacing:.24em;text-transform:uppercase}
+.stmt .fact span{font-family:'Bodoni Moda',serif;font-size:1.14rem}
+
+/* ---------- plinths ---------- */
+.gallery{padding:clamp(20px,4vh,60px) 0 clamp(50px,10vh,130px)}
+.plinth{position:relative;min-height:min(100svh,860px);display:grid;align-items:center;
+  grid-template-columns:repeat(auto-fit,minmax(min(280px,100%),1fr));gap:clamp(26px,5vw,90px);
+  padding:clamp(50px,9vh,110px) var(--g);border-top:1px solid var(--line)}
+.plinth:nth-child(even) .stage{order:-1}
+@media(max-width:760px){.plinth:nth-child(even) .stage{order:0}}
+.stage{position:relative;display:grid;place-items:center;min-height:min(52svh,460px)}
+.stage .spot{position:absolute;left:50%;top:46%;width:min(80%,420px);aspect-ratio:1;
+  transform:translate(-50%,-50%);pointer-events:none;
+  background:radial-gradient(circle,rgba(185,154,99,.2),transparent 64%);filter:blur(24px);
+  opacity:0;transition:opacity 1.4s ease}
+.plinth.in .stage .spot{opacity:1}
+.stage .block{position:relative;width:min(74%,340px);aspect-ratio:3/4;
+  background:linear-gradient(170deg,#221e1a,#14120f);border:1px solid var(--line);
+  display:grid;place-items:center;overflow:hidden;
+  transform:perspective(1400px) rotateY(0deg) scale(.94);opacity:0;
+  transition:transform 1.6s cubic-bezier(.16,1,.3,1),opacity 1.4s ease}
+.plinth.in .stage .block{opacity:1;transform:perspective(1400px) rotateY(0) scale(1)}
+.stage .block::after{content:'';position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(150deg,rgba(255,255,255,.07),transparent 46%)}
+.stage .block svg{width:62%;height:62%;overflow:visible;transition:transform 1.4s cubic-bezier(.16,1,.3,1)}
+.plinth.in .stage .block svg{animation:hoverart 8s ease-in-out infinite}
+@keyframes hoverart{50%{transform:translateY(-9px)}}
+.stage .base{width:min(86%,400px);height:22px;margin-top:0;
+  background:linear-gradient(180deg,#1d1a16,#0d0b0a);border:1px solid var(--line);border-top:none}
+.stage .shadowline{width:min(70%,330px);height:1px;background:rgba(0,0,0,.6);filter:blur(3px)}
+
+.label{max-width:46ch}
+.label .no{font-family:'Bodoni Moda',serif;font-size:clamp(2.4rem,6vw,4.4rem);color:var(--brass);
+  opacity:.4;line-height:1;margin-bottom:-.2em}
+.label h2{font-size:clamp(1.7rem,4.2vw,3rem);margin-bottom:16px}
+.label h2 em{font-style:italic}
+.label .desc{margin:0 0 22px;color:var(--stone)}
+.label dl{display:grid;grid-template-columns:auto 1fr;gap:2px 22px;margin:0 0 26px;font-size:.86rem}
+.label dt{color:var(--mid);font-size:.6rem;letter-spacing:.22em;text-transform:uppercase;padding-top:6px}
+.label dd{margin:0;padding-top:4px}
+.label .acq{display:flex;flex-wrap:wrap;align-items:center;gap:18px;padding-top:20px;border-top:1px solid var(--line)}
+.label .price{font-family:'Bodoni Moda',serif;font-size:clamp(1.3rem,2.6vw,1.9rem)}
+.label .enq{background:none;border:1px solid var(--line);color:var(--stone);font-family:inherit;
+  font-size:.62rem;letter-spacing:.26em;text-transform:uppercase;padding:13px 24px;cursor:pointer;
+  transition:background .6s,border-color .6s,color .6s,letter-spacing .5s}
+.label .enq:hover{background:var(--stone);border-color:var(--stone);color:var(--dark);letter-spacing:.32em}
+.label .enq.sent{background:var(--oxblood);border-color:var(--oxblood);color:var(--stone)}
+
+/* ---------- appointment ---------- */
+.appt{padding:clamp(60px,12vh,160px) var(--g);border-top:1px solid var(--line);
+  display:grid;gap:clamp(26px,5vw,80px);grid-template-columns:repeat(auto-fit,minmax(min(270px,100%),1fr));
+  align-items:center}
+.appt h2{font-size:clamp(1.9rem,5.4vw,3.6rem);max-width:14ch}
+.appt h2 em{font-style:italic;color:var(--brass)}
+.appt .note{color:var(--mid);max-width:44ch}
+.aform{display:grid;gap:14px}
+.aform .row{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(min(160px,100%),1fr))}
+.aform label{display:block;font-size:.58rem;letter-spacing:.26em;text-transform:uppercase;color:var(--mid);
+  margin-bottom:7px}
+.aform input,.aform select{width:100%;background:transparent;border:none;border-bottom:1px solid var(--line);
+  color:var(--stone);font-family:inherit;font-size:1rem;padding:10px 2px;transition:border-color .5s}
+.aform input:focus,.aform select:focus{outline:none;border-color:var(--brass)}
+.aform select{cursor:pointer}
+.aform option{background:var(--dark2);color:var(--stone)}
+.aform button{justify-self:start;margin-top:10px;background:var(--brass);border:1px solid var(--brass);
+  color:var(--dark);font-family:inherit;font-size:.62rem;letter-spacing:.28em;text-transform:uppercase;
+  padding:15px 34px;cursor:pointer;transition:.5s}
+.aform button:hover{background:transparent;color:var(--brass)}
+.amsg{min-height:1.5em;font-family:'Bodoni Moda',serif;font-style:italic;color:var(--brass);margin:8px 0 0}
+
+/* ---------- footer ---------- */
+footer{border-top:1px solid var(--line);padding:clamp(40px,8vh,90px) var(--g) 34px;background:var(--dark2)}
+.fg{display:grid;gap:30px;grid-template-columns:repeat(auto-fit,minmax(min(180px,100%),1fr));padding-bottom:30px}
+.fg h4{margin:0 0 12px;font-family:Karla,sans-serif;font-weight:400;font-size:.58rem;letter-spacing:.3em;
+  text-transform:uppercase;color:var(--brass)}
+.fg ul{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.fg a{color:var(--mid);font-size:.9rem;transition:color .4s}
+.fg a:hover{color:var(--stone)}
+.fg .crest{font-family:'Bodoni Moda',serif;font-size:1.7rem;line-height:1.3;max-width:16ch}
+.fg .crest em{font-style:italic;color:var(--brass)}
+.fb{display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between;padding-top:22px;
+  border-top:1px solid var(--line);font-size:.74rem;color:var(--mid);letter-spacing:.06em}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;
+    transition-duration:.001ms!important}
+  body{cursor:auto}
+  #cur,#curRing{display:none}
+  .hero h1 .w>span{transform:none}
+  .hero .sub,.hero .rule{opacity:1}
+  .stage .block{opacity:1;transform:none}
+  .stage .spot{opacity:1}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#objects">Skip to the four objects</a>
+<div id="cur" aria-hidden="true"></div>
+<div id="curRing" aria-hidden="true"></div>
+
+<div id="lights" role="status" aria-label="Loading">
+  <div class="lamps" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+  <p class="lcap">Atelier Hu — the room is being lit</p>
+</div>
+
+<header class="nav">
+  <a href="#top" class="m">Atelier Hu</a>
+  <nav class="r" aria-label="Primary">
+    <a href="#statement">The atelier</a><a href="#objects">Objects</a><a href="#appointment">Appointment</a>
+  </nav>
+</header>
+
+<main id="top">
+  <section class="hero" aria-labelledby="ht">
+    <div>
+      <p class="estd">Established 1877 · four objects per year</p>
+      <h1 id="ht"><span class="w"><span>Crafted for</span></span><br><span class="w"><span><em>collectors</em>,</span></span><br><span class="w"><span>not for carts</span></span></h1>
+      <p class="sub">We release four objects a year. Each is made by one person, in one workshop, in a number of hours we are happy to state out loud. Nothing is restocked.</p>
+      <span class="rule" aria-hidden="true"></span>
+    </div>
+  </section>
+
+  <section class="stmt" id="statement" aria-labelledby="st">
+    <div>
+      <p class="lbl">The atelier</p>
+      <h2 id="st" class="sr">The atelier</h2>
+      <p>Speed is the only luxury we have refused. Every object below could be made in a tenth of the time by a process we already own, and we have chosen not to install it, which is the entire and only reason this page exists.</p>
+      <p>A collector does not buy an object. A collector accepts responsibility for it — for keeping it, repairing it, and eventually passing it to somebody who will do the same. We make things worth that trouble.</p>
+    </div>
+    <div class="facts">
+      <div class="fact"><b>Objects per year</b><span>Four</span></div>
+      <div class="fact"><b>Makers</b><span>Nine</span></div>
+      <div class="fact"><b>Average hours per object</b><span>218</span></div>
+      <div class="fact"><b>Restocks, ever</b><span>None</span></div>
+      <div class="fact"><b>Repairs, lifetime</b><span>Free</span></div>
+    </div>
+  </section>
+
+  <section class="gallery" id="objects" aria-label="The four objects">
+    <article class="plinth">
+      <div class="stage">
+        <span class="spot" aria-hidden="true"></span>
+        <div class="block">
+          <svg viewBox="0 0 120 160" role="img" aria-label="Illustration of a bronze censer with three legs and a domed lid">
+            <g fill="none" stroke="#b99a63" stroke-width="2.2">
+              <path d="M30 76h60c2 22-6 36-30 36S28 98 30 76z"/>
+              <path d="M28 70h64M36 70c0-16 10-26 24-26s24 10 24 26"/>
+              <path d="M46 50c0-8 6-12 14-12s14 4 14 12"/>
+              <circle cx="60" cy="34" r="5"/>
+              <path d="M42 112l-6 22M78 112l6 22M60 112v26M30 138h60"/>
+              <path d="M46 88h28M50 96h20"/></g>
+            <g fill="#b99a63" opacity=".22"><path d="M30 76h60c2 22-6 36-30 36S28 98 30 76z"/></g>
+          </svg>
+        </div>
+        <span class="shadowline" aria-hidden="true"></span>
+        <span class="base" aria-hidden="true"></span>
+      </div>
+      <div class="label">
+        <p class="no">I</p>
+        <h2>The <em>Censer</em></h2>
+        <p class="desc">Cast in bronze from a single wax model, then destroyed — the mould, not the model. The lid seats with a quarter turn and holds for a lifetime without a gasket, which took the maker four attempts and nine months to achieve.</p>
+        <dl>
+          <dt>Maker</dt><dd>Zhao, foundry floor two</dd>
+          <dt>Material</dt><dd>Cast bronze, hand-patinated</dd>
+          <dt>Hours</dt><dd>164</dd>
+          <dt>Edition</dt><dd>Twelve</dd>
+        </dl>
+        <div class="acq"><span class="price">$2,400</span><button class="enq" data-mag>Enquire</button></div>
+      </div>
+    </article>
+
+    <article class="plinth">
+      <div class="stage">
+        <span class="spot" aria-hidden="true"></span>
+        <div class="block">
+          <svg viewBox="0 0 120 160" role="img" aria-label="Illustration of an open folding fan with painted blossom">
+            <g fill="none" stroke="#b99a63" stroke-width="2.2">
+              <path d="M60 132L14 58a68 68 0 0192 0z"/>
+              <path d="M60 132V44M60 132L34 62M60 132l26-70M60 132L22 74M60 132l38-58"/>
+              <path d="M28 86a52 52 0 0164 0"/>
+              <circle cx="60" cy="134" r="5"/></g>
+            <g fill="#5e1f21" opacity=".55">
+              <circle cx="46" cy="80" r="5"/><circle cx="70" cy="72" r="4"/><circle cx="80" cy="92" r="3.4"/></g>
+          </svg>
+        </div>
+        <span class="shadowline" aria-hidden="true"></span>
+        <span class="base" aria-hidden="true"></span>
+      </div>
+      <div class="label">
+        <p class="no">II</p>
+        <h2>The <em>Folding Fan</em></h2>
+        <p class="desc">Twenty-two ribs of aged bamboo, split from one culm so the grain runs continuously across the open fan. The paper is painted flat, then folded — which means every blossom is placed knowing exactly where the crease will fall.</p>
+        <dl>
+          <dt>Maker</dt><dd>Lin, paper studio</dd>
+          <dt>Material</dt><dd>Bamboo, mulberry paper, pigment</dd>
+          <dt>Hours</dt><dd>96</dd>
+          <dt>Edition</dt><dd>Thirty</dd>
+        </dl>
+        <div class="acq"><span class="price">$1,150</span><button class="enq" data-mag>Enquire</button></div>
+      </div>
+    </article>
+
+    <article class="plinth">
+      <div class="stage">
+        <span class="spot" aria-hidden="true"></span>
+        <div class="block">
+          <svg viewBox="0 0 120 160" role="img" aria-label="Illustration of a lacquered box with inlaid lid">
+            <g fill="none" stroke="#b99a63" stroke-width="2.2">
+              <path d="M18 66h84v56H18z"/><path d="M18 66l10-22h64l10 22"/>
+              <path d="M18 86h84"/><rect x="52" y="72" width="16" height="10" rx="2"/>
+              <path d="M28 100h64M28 110h44"/></g>
+            <g fill="#5e1f21" opacity=".5"><path d="M18 66l10-22h64l10 22z"/></g>
+            <g fill="#b99a63" opacity=".2"><path d="M18 86h84v36H18z"/></g>
+          </svg>
+        </div>
+        <span class="shadowline" aria-hidden="true"></span>
+        <span class="base" aria-hidden="true"></span>
+      </div>
+      <div class="label">
+        <p class="no">III</p>
+        <h2>The <em>Lacquer Box</em></h2>
+        <p class="desc">Thirty-one coats of urushi, each cured for a week in a damp cabinet before the next is applied. Seven months of the build time is simply waiting. The inlay is crushed shell, laid one fragment at a time under magnification.</p>
+        <dl>
+          <dt>Maker</dt><dd>Ito, lacquer room</dd>
+          <dt>Material</dt><dd>Urushi over paulownia, shell inlay</dd>
+          <dt>Hours</dt><dd>412 across 9 months</dd>
+          <dt>Edition</dt><dd>Six</dd>
+        </dl>
+        <div class="acq"><span class="price">$3,800</span><button class="enq" data-mag>Enquire</button></div>
+      </div>
+    </article>
+
+    <article class="plinth">
+      <div class="stage">
+        <span class="spot" aria-hidden="true"></span>
+        <div class="block">
+          <svg viewBox="0 0 120 160" role="img" aria-label="Illustration of a hanging embroidered silk panel">
+            <g fill="none" stroke="#b99a63" stroke-width="2.2">
+              <path d="M20 26h80M26 26v112h68V26"/>
+              <path d="M26 138c14 6 24 6 34 0s20-6 34 0"/>
+              <path d="M40 52c10 10 30 10 40 0M40 84c10 10 30 10 40 0M40 116c10 8 30 8 40 0"/></g>
+            <g fill="#5e1f21" opacity=".45"><ellipse cx="60" cy="68" rx="13" ry="9"/><ellipse cx="60" cy="100" rx="9" ry="7"/></g>
+            <g fill="#b99a63" opacity=".16"><rect x="26" y="26" width="68" height="112"/></g>
+          </svg>
+        </div>
+        <span class="shadowline" aria-hidden="true"></span>
+        <span class="base" aria-hidden="true"></span>
+      </div>
+      <div class="label">
+        <p class="no">IV</p>
+        <h2>The <em>Silk Panel</em></h2>
+        <p class="desc">Hand-embroidered on double-ply silk stretched on a standing frame. Two people work it from opposite sides so the reverse is as finished as the front — the panel is intended to hang in a room, not against a wall.</p>
+        <dl>
+          <dt>Makers</dt><dd>Wen &amp; Qi, frame three</dd>
+          <dt>Material</dt><dd>Mulberry silk, silk floss, gold thread</dd>
+          <dt>Hours</dt><dd>1,140 combined</dd>
+          <dt>Edition</dt><dd>Two per year</dd>
+        </dl>
+        <div class="acq"><span class="price">$6,200</span><button class="enq" data-mag>Enquire</button></div>
+      </div>
+    </article>
+  </section>
+
+  <section class="appt" id="appointment" aria-labelledby="ap">
+    <div>
+      <h2 id="ap">Acquisition is by <em>appointment</em></h2>
+      <p class="note">There is no cart, no checkout and no express shipping. You will be offered a time, a chair and the object itself, and you may take as long as you like. Most people take about an hour.</p>
+    </div>
+    <form class="aform" id="aform" novalidate>
+      <div class="row">
+        <div><label for="an">Name</label><input id="an" type="text" autocomplete="name" required></div>
+        <div><label for="ae">Email</label><input id="ae" type="email" autocomplete="email" required></div>
+      </div>
+      <div class="row">
+        <div><label for="ao">Object of interest</label>
+          <select id="ao"><option>I — The Censer</option><option>II — The Folding Fan</option>
+            <option>III — The Lacquer Box</option><option>IV — The Silk Panel</option><option>Undecided</option></select></div>
+        <div><label for="ad">Preferred week</label><input id="ad" type="text" placeholder="e.g. first week of March"></div>
+      </div>
+      <button type="submit">Request an appointment</button>
+      <p class="amsg" id="amsg" role="status"></p>
+    </form>
+  </section>
+</main>
+
+<footer>
+  <div class="fg">
+    <div><p class="crest">Atelier <em>Hu</em><br>since 1877</p></div>
+    <div><h4>The atelier</h4><ul><li><a href="#statement">Our position</a></li><li><a href="#">The makers</a></li><li><a href="#">Workshop visits</a></li></ul></div>
+    <div><h4>Objects</h4><ul><li><a href="#objects">This year's four</a></li><li><a href="#">Previous years</a></li><li><a href="#">Repairs &amp; restoration</a></li></ul></div>
+    <div><h4>Elsewhere</h4><ul><li><a href="../../index.html">The other 24 studios</a></li><li><a href="#top">Return to the room</a></li></ul></div>
+  </div>
+  <div class="fb"><span>Fan project · not affiliated with HoYoverse</span><span>Nothing here is restocked</span></div>
+</footer>
+
+<script>
+(function(){
+var RM=matchMedia('(prefers-reduced-motion:reduce)').matches;
+var fine=matchMedia('(hover:hover) and (pointer:fine)').matches;
+
+/* loader */
+var lt=document.getElementById('lights');
+function go(){lt.classList.add('gone');}
+if(RM) setTimeout(go,200); else addEventListener('load',function(){setTimeout(go,1900);});
+setTimeout(go,4400);
+
+/* magnetic cursor */
+if(fine && !RM){
+  var cur=document.getElementById('cur'), ring=document.getElementById('curRing');
+  var mx=innerWidth/2,my=innerHeight/2,rx=mx,ry=my;
+  addEventListener('pointermove',function(e){mx=e.clientX;my=e.clientY;
+    cur.style.transform='translate('+mx+'px,'+my+'px) translate(-50%,-50%)';},{passive:true});
+  (function loop(){ rx+=(mx-rx)*.16; ry+=(my-ry)*.16;
+    ring.style.transform='translate('+rx+'px,'+ry+'px) translate(-50%,-50%)';
+    requestAnimationFrame(loop); })();
+
+  document.querySelectorAll('a,button,input,select,.stage .block').forEach(function(el){
+    el.addEventListener('pointerenter',function(){
+      ring.classList.add('big');
+      if(el.classList.contains('block')){ring.classList.add('txt');ring.dataset.l='Look';}
+    });
+    el.addEventListener('pointerleave',function(){
+      ring.classList.remove('big');ring.classList.remove('txt');
+    });
+  });
+
+  /* magnetic pull on enquire buttons */
+  document.querySelectorAll('[data-mag]').forEach(function(b){
+    b.addEventListener('pointermove',function(e){
+      var r=b.getBoundingClientRect();
+      var dx=(e.clientX-(r.left+r.width/2))/r.width, dy=(e.clientY-(r.top+r.height/2))/r.height;
+      b.style.transform='translate('+dx*14+'px,'+dy*10+'px)';
+    });
+    b.addEventListener('pointerleave',function(){b.style.transform='';});
+  });
+
+  /* plinth parallax tilt */
+  document.querySelectorAll('.stage').forEach(function(st){
+    var blk=st.querySelector('.block');
+    st.addEventListener('pointermove',function(e){
+      var r=st.getBoundingClientRect();
+      var dx=(e.clientX-(r.left+r.width/2))/r.width;
+      var dy=(e.clientY-(r.top+r.height/2))/r.height;
+      blk.style.transform='perspective(1400px) rotateY('+(dx*9)+'deg) rotateX('+(-dy*7)+'deg) scale(1.02)';
+    });
+    st.addEventListener('pointerleave',function(){
+      blk.style.transform='perspective(1400px) rotateY(0) rotateX(0) scale(1)';
+    });
+  });
+}
+
+/* plinth reveal */
+var plinths=[].slice.call(document.querySelectorAll('.plinth'));
+if('IntersectionObserver' in window){
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){
+    if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.28});
+  plinths.forEach(function(p){io.observe(p);});
+} else plinths.forEach(function(p){p.classList.add('in');});
+
+/* enquire */
+document.querySelectorAll('.enq').forEach(function(b){
+  b.addEventListener('click',function(){
+    b.textContent='Noted'; b.classList.add('sent');
+    document.getElementById('appointment').scrollIntoView({behavior:RM?'auto':'smooth'});
+    setTimeout(function(){b.textContent='Enquire';b.classList.remove('sent');},2600);
+  });
+});
+
+/* appointment */
+document.getElementById('aform').addEventListener('submit',function(e){
+  e.preventDefault();
+  var n=document.getElementById('an').value.trim();
+  var em=document.getElementById('ae').value.trim();
+  var ok=/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(em) && n.length>1;
+  document.getElementById('amsg').textContent = ok
+    ? 'Thank you, '+n.split(' ')[0]+'. The room is yours for an hour; we will write with two possible times.'
+    : 'We will need a name and an address that reaches you.';
+});
+})();
+</script>
+</body>
+</html>

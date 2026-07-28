@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="Elegance in Crimson — CRIMSON">
+  <defs><linearGradient id="silk" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0%" stop-color="#a01829"/><stop offset="55%" stop-color="#7c1120"/><stop offset="100%" stop-color="#3d0810"/></linearGradient></defs>
+  <rect width="1200" height="630" fill="url(#silk)"/>
+  <g fill="none" stroke="#f5e9e2" stroke-opacity=".13" stroke-width="3">
+    <path d="M-40 150c220 90 340-70 560 20s340-50 720 30"/>
+    <path d="M-40 260c220 90 340-70 560 20s340-50 720 30"/>
+    <path d="M-40 370c220 90 340-70 560 20s340-50 720 30"/>
+    <path d="M-40 480c220 90 340-70 560 20s340-50 720 30"/>
+  </g>
+  <g>
+    <circle cx="880" cy="300" r="52" fill="#7c1120" stroke="#f5e9e2" stroke-opacity=".4" stroke-width="2"/>
+    <circle cx="964" cy="300" r="52" fill="#a01829" stroke="#f5e9e2" stroke-opacity=".4" stroke-width="2"/>
+    <circle cx="1048" cy="300" r="52" fill="#5c0d18" stroke="#f5e9e2" stroke-opacity=".4" stroke-width="2"/>
+    <circle cx="922" cy="392" r="52" fill="#c73b4a" stroke="#f5e9e2" stroke-opacity=".4" stroke-width="2"/>
+    <circle cx="1006" cy="392" r="52" fill="#3d0810" stroke="#f5e9e2" stroke-opacity=".4" stroke-width="2"/>
+  </g>
+  <text x="80" y="132" font-family="Syne,sans-serif" font-weight="700" font-size="19" letter-spacing="12" fill="#f5e9e2" fill-opacity=".65">A HOUSE OF ONE COLOUR</text>
+  <text x="80" y="300" font-family="'Tenor Sans',serif" font-size="98" fill="#f5e9e2">Elegance</text>
+  <text x="80" y="404" font-family="'Tenor Sans',serif" font-size="98" fill="#f5e9e2">in crimson</text>
+  <text x="82" y="472" font-family="Syne,sans-serif" font-size="23" fill="#f5e9e2" fill-opacity=".68">Silk · lacquer · wool · enamel · glass. No second colour, ever.</text>
+</svg>
