@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="TOO CUTE!! squishy Hu Tao merch">
+  <defs>
+    <filter id="soft" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="42"/></filter>
+  </defs>
+  <rect width="1200" height="630" fill="#fff7fb"/>
+  <g filter="url(#soft)" opacity="0.75">
+    <circle cx="150" cy="120" r="150" fill="#ffd7e9"/>
+    <circle cx="1050" cy="90" r="120" fill="#e0d4ff"/>
+    <circle cx="980" cy="540" r="140" fill="#d5fff2"/>
+    <circle cx="120" cy="520" r="110" fill="#fff0c9"/>
+  </g>
+  <g font-family="'Baloo 2',cursive" font-weight="800" text-anchor="middle">
+    <text x="600" y="250" font-size="170" fill="#ff6fae" letter-spacing="-6">TOO CUTE</text>
+    <text x="600" y="250" font-size="170" fill="none" letter-spacing="-6"></text>
+    <text x="600" y="330" font-size="44" fill="#8b5cf6">squishy hu tao merch with no chill</text>
+  </g>
+  <g transform="translate(600 330)">
+    <text x="300" y="-88" font-family="'Baloo 2',cursive" font-weight="800" font-size="150" fill="#ffd93d" stroke="#2b1b33" stroke-width="7" text-anchor="middle">!!</text>
+  </g>
+  <g transform="translate(300 380) scale(1.5)">
+    <path d="M60 10c25 0 43 19 43 44v60l-11-9-10 9-11-9-11 9-11-9-11 9-11-9-10 9V54C17 29 35 10 60 10z" fill="#ff6fae"/>
+    <circle cx="46" cy="56" r="6.6" fill="#2b1b33"/><circle cx="74" cy="56" r="6.6" fill="#2b1b33"/>
+    <circle cx="48" cy="53" r="2.2" fill="#fff"/><circle cx="76" cy="53" r="2.2" fill="#fff"/>
+    <ellipse cx="34" cy="69" rx="7.4" ry="4.6" fill="#ffc2dd"/><ellipse cx="86" cy="69" rx="7.4" ry="4.6" fill="#ffc2dd"/>
+    <path d="M53 69q7 8 14 0" stroke="#2b1b33" stroke-width="4" fill="none" stroke-linecap="round"/>
+  </g>
+  <g transform="translate(700 385) scale(1.35)">
+    <circle cx="60" cy="70" r="46" fill="#ffd93d"/>
+    <path d="M60 12l8 16 18 2-13 13 4 18-17-9-17 9 4-18-13-13 18-2z" fill="#ff6fae"/>
+    <circle cx="45" cy="68" r="6.4" fill="#2b1b33"/><circle cx="75" cy="68" r="6.4" fill="#2b1b33"/>
+    <path d="M53 82q7 8 14 0" stroke="#2b1b33" stroke-width="4" fill="none" stroke-linecap="round"/>
+  </g>
+  <g transform="translate(890 390) scale(1.2)">
+    <ellipse cx="34" cy="56" rx="28" ry="34" fill="#5ee7c3" transform="rotate(-18 34 56)"/>
+    <ellipse cx="86" cy="56" rx="28" ry="34" fill="#7ec8ff" transform="rotate(18 86 56)"/>
+    <rect x="55" y="38" width="10" height="66" rx="5" fill="#2b1b33"/>
+    <circle cx="60" cy="38" r="9" fill="#2b1b33"/>
+  </g>
+  <rect x="80" y="560" width="300" height="54" rx="27" fill="#2b1b33"/>
+  <text x="230" y="596" text-anchor="middle" font-family="Poppins,sans-serif" font-weight="700" font-size="22" fill="#ffd93d">poke everything →</text>
+</svg>

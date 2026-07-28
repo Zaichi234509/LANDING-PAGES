@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="INVENTORY.EXE — Hu Tao loadout terminal">
+  <defs>
+    <pattern id="g" width="22" height="22" patternUnits="userSpaceOnUse">
+      <path d="M22 0H0v22" fill="none" stroke="#22304a" stroke-width="1"/>
+    </pattern>
+    <radialGradient id="v" cx="50%" cy="0%" r="95%">
+      <stop offset="0%" stop-color="#0f1622" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="hot" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#ff4d5e"/><stop offset="100%" stop-color="#ffb443"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="#0a0e14"/>
+  <rect width="1200" height="630" fill="url(#g)" opacity="0.55"/>
+  <g font-family="'Share Tech Mono',monospace">
+    <rect x="70" y="66" width="22" height="22" fill="#ff4d5e"/>
+    <rect x="98" y="66" width="22" height="22" fill="#40e0d0"/>
+    <rect x="70" y="94" width="22" height="22" fill="#40e0d0"/>
+    <rect x="98" y="94" width="22" height="22" fill="#ffb443"/>
+    <text x="140" y="98" fill="#c9d6e8" font-size="30" letter-spacing="3">INVENTORY<tspan fill="#ff4d5e">.EXE</tspan></text>
+  </g>
+  <text x="70" y="290" font-family="'Titillium Web',sans-serif" font-weight="900" font-size="132" fill="#c9d6e8" letter-spacing="-5">YOUR BAG</text>
+  <text x="70" y="418" font-family="'Titillium Web',sans-serif" font-weight="900" font-size="132" fill="url(#hot)" letter-spacing="-5">IS FULL</text>
+  <text x="70" y="486" font-family="'Share Tech Mono',monospace" font-size="25" fill="#5f7191">16 ARTEFACTS · DRAG TO EQUIP · RARITY = STOCK</text>
+  <g>
+    <rect x="70" y="530" width="150" height="46" fill="#ff4d5e"/>
+    <text x="145" y="560" text-anchor="middle" font-family="'Share Tech Mono',monospace" font-size="20" fill="#fff">DEPLOY →</text>
+  </g>
+  <g opacity="0.95">
+    <rect x="800" y="150" width="150" height="150" fill="#121924" stroke="#ffb443" stroke-width="2"/>
+    <path d="M832 250h86l-9 26h-69z" fill="#ff4d5e"/>
+    <rect x="845" y="196" width="60" height="56" rx="6" fill="#1b2230"/>
+    <text x="938" y="292" text-anchor="end" font-family="'Share Tech Mono',monospace" font-size="16" fill="#5f7191">x1</text>
+    <rect x="968" y="150" width="150" height="150" fill="#121924" stroke="#a978ff" stroke-width="2"/>
+    <path d="M1043 186c17 13 28 26 28 41 0 17-13 28-28 28s-28-11-28-28c0-15 11-28 28-41z" fill="#ff7a8f"/>
+    <text x="1106" y="292" text-anchor="end" font-family="'Share Tech Mono',monospace" font-size="16" fill="#5f7191">x3</text>
+    <rect x="800" y="318" width="150" height="150" fill="#121924" stroke="#40a9ff" stroke-width="2"/>
+    <rect x="838" y="360" width="66" height="74" rx="8" fill="#40e0d0"/>
+    <text x="938" y="460" text-anchor="end" font-family="'Share Tech Mono',monospace" font-size="16" fill="#5f7191">x6</text>
+    <rect x="968" y="318" width="150" height="150" fill="#121924" stroke="#22304a" stroke-width="2" stroke-dasharray="6 6"/>
+    <text x="1043" y="400" text-anchor="middle" font-family="'Share Tech Mono',monospace" font-size="15" fill="#2f3f5c">EMPTY</text>
+  </g>
+</svg>

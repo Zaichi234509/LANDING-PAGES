@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="SELECT SCREEN — choose your Hu Tao edition">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0d1224"/><stop offset="100%" stop-color="#080b16"/>
+    </linearGradient>
+    <linearGradient id="p1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#8a1230"/><stop offset="100%" stop-color="#080b16"/></linearGradient>
+    <linearGradient id="p2" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#5b2a8a"/><stop offset="100%" stop-color="#080b16"/></linearGradient>
+    <linearGradient id="p3" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#8a6a12"/><stop offset="100%" stop-color="#080b16"/></linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#sky)"/>
+  <g stroke="rgba(120,150,255,.12)" stroke-width="1">
+    <path d="M0 80h1200M0 160h1200M0 240h1200M0 320h1200M0 400h1200M0 480h1200M0 560h1200"/>
+  </g>
+  <g font-family="'Chakra Petch',monospace">
+    <path d="M70 40l22 13v26L70 92 48 79V53z" fill="none" stroke="#ff2e63" stroke-width="4"/>
+    <circle cx="70" cy="66" r="7" fill="#08d9d6"/>
+    <text x="112" y="76" font-size="26" fill="#dbe4ff" letter-spacing="6">SELECT SCREEN</text>
+  </g>
+  <text x="70" y="230" font-family="Saira,sans-serif" font-weight="900" font-size="104" fill="#dbe4ff" letter-spacing="-4">CHOOSE YOUR</text>
+  <text x="70" y="336" font-family="Saira,sans-serif" font-weight="900" font-size="104" fill="none" stroke="#ff2e63" stroke-width="3" letter-spacing="-4">HU TAO</text>
+  <text x="70" y="396" font-family="'Chakra Petch',monospace" font-size="23" fill="#7688b8" letter-spacing="4">5 EDITIONS · STAT RADARS · LOCK IN BEFORE 02:00</text>
+  <g transform="translate(700 130)">
+    <g>
+      <rect width="150" height="210" fill="url(#p3)" stroke="#ffc93d" stroke-width="2"/>
+      <path d="M45 96h60l-6 16H51z" fill="#8a6a12"/><rect x="54" y="60" width="42" height="38" rx="4" fill="#141a2e"/>
+      <ellipse cx="75" cy="122" rx="17" ry="19" fill="#f4e0d4"/>
+      <circle cx="68" cy="120" r="3" fill="#1b2138"/><circle cx="82" cy="120" r="3" fill="#1b2138"/>
+      <path d="M51 160c4-10 14-14 24-14s20 4 24 14v50H51z" fill="#141a2e"/>
+      <text x="10" y="196" font-family="Saira,sans-serif" font-weight="900" font-size="17" fill="#dbe4ff">COLLECTOR</text>
+    </g>
+    <g transform="translate(166 0)">
+      <rect width="150" height="210" fill="url(#p2)" stroke="#9d4edd" stroke-width="2"/>
+      <path d="M45 96h60l-6 16H51z" fill="#5b2a8a"/><rect x="54" y="60" width="42" height="38" rx="4" fill="#141a2e"/>
+      <ellipse cx="75" cy="122" rx="17" ry="19" fill="#f4e0d4"/>
+      <circle cx="68" cy="120" r="3" fill="#1b2138"/><circle cx="82" cy="120" r="3" fill="#1b2138"/>
+      <path d="M51 160c4-10 14-14 24-14s20 4 24 14v50H51z" fill="#141a2e"/>
+      <text x="10" y="196" font-family="Saira,sans-serif" font-weight="900" font-size="17" fill="#dbe4ff">SPIRIT</text>
+    </g>
+    <g transform="translate(332 0)">
+      <rect width="150" height="210" fill="url(#p1)" stroke="#ff2e63" stroke-width="4"/>
+      <path d="M45 96h60l-6 16H51z" fill="#8a1230"/><rect x="54" y="60" width="42" height="38" rx="4" fill="#141a2e"/>
+      <ellipse cx="75" cy="122" rx="17" ry="19" fill="#f4e0d4"/>
+      <circle cx="68" cy="120" r="3" fill="#1b2138"/><circle cx="82" cy="120" r="3" fill="#1b2138"/>
+      <path d="M51 160c4-10 14-14 24-14s20 4 24 14v50H51z" fill="#141a2e"/>
+      <rect x="88" y="6" width="56" height="18" fill="#ff2e63"/>
+      <text x="116" y="20" text-anchor="middle" font-family="'Chakra Petch',monospace" font-weight="700" font-size="11" fill="#fff">SELECTED</text>
+      <text x="10" y="196" font-family="Saira,sans-serif" font-weight="900" font-size="17" fill="#dbe4ff">ULTIMATE</text>
+    </g>
+  </g>
+  <g transform="translate(760 420)">
+    <polygon points="100,32 159,66 159,134 100,168 41,134 41,66" fill="none" stroke="rgba(120,150,255,.25)"/>
+    <polygon points="100,45 148,73 152,128 100,155 52,126 50,72" fill="#ff2e63" fill-opacity="0.22" stroke="#ff2e63" stroke-width="2"/>
+  </g>
+  <rect x="70" y="470" width="230" height="56" fill="#ff2e63"/>
+  <text x="185" y="506" text-anchor="middle" font-family="'Chakra Petch',monospace" font-weight="700" font-size="21" fill="#fff" letter-spacing="3">LOCK IN ▶</text>
+</svg>

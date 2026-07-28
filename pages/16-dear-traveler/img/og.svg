@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="Dear Traveler — Letters from Liyue">
+  <rect width="1200" height="630" fill="#f7f2e8"/>
+  <rect x="40" y="40" width="1120" height="550" fill="none" stroke="#d6c9b2" stroke-width="2"/>
+  <text x="90" y="126" font-family="'EB Garamond',serif" font-size="24" fill="#6f6558" letter-spacing="6">LETTERS FROM LIYUE</text>
+  <line x1="90" y1="150" x2="420" y2="150" stroke="#a33a2e" stroke-width="2"/>
+  <text x="90" y="290" font-family="'EB Garamond',serif" font-size="106" fill="#2f2a24">Dear Traveler,</text>
+  <text x="90" y="392" font-family="'EB Garamond',serif" font-style="italic" font-size="98" fill="#a33a2e">it’s me again.</text>
+  <g stroke="#c9bda6" stroke-width="2.4" stroke-linecap="round" opacity="0.85">
+    <path d="M92 452c22-26 40-30 46-14 5 14-14 30-22 24-9-7 4-30 26-34 20-4 26 12 40 12 12 0 18-10 30-10"/>
+    <path d="M250 456c14-20 26-24 32-12 5 11-10 24-18 19-8-5 2-24 22-27 18-3 22 10 34 10 10 0 16-8 26-8"/>
+  </g>
+  <text x="90" y="536" font-family="Lora,serif" font-size="23" fill="#6f6558">A letter, then a few small things to remember it by.</text>
+  <g transform="translate(760 200)">
+    <rect x="18" y="34" width="300" height="210" rx="5" fill="#efe7d8" stroke="#d6c9b2" stroke-width="3"/>
+    <path d="M18 244l150-100h40l150 100z" fill="#e7dcc7"/>
+    <path d="M18 38l168 104L336 38z" fill="#e2d5bd" stroke="#d6c9b2" stroke-width="3"/>
+    <circle cx="168" cy="140" r="34" fill="#a33a2e"/>
+    <path d="M168 120l5.6 11.4 12.6 1.8-9.1 8.8 2.2 12.6-11.3-6-11.3 6 2.2-12.6-9.1-8.8 12.6-1.8z" fill="#f7f2e8" opacity="0.85"/>
+  </g>
+  <g transform="translate(1000 470)" opacity="0.9">
+    <g fill="#a33a2e"><ellipse cx="0" cy="-15" rx="7" ry="10"/><ellipse cx="0" cy="15" rx="7" ry="10"/>
+    <ellipse cx="-15" cy="0" rx="10" ry="7"/><ellipse cx="15" cy="0" rx="10" ry="7"/>
+    <ellipse cx="-11" cy="-11" rx="8" ry="6" transform="rotate(-45 -11 -11)"/>
+    <ellipse cx="11" cy="11" rx="8" ry="6" transform="rotate(-45 11 11)"/></g>
+    <circle cx="0" cy="0" r="6" fill="#b8934a"/>
+  </g>
+</svg>

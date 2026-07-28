@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>TOUCH EVERYTHING — a Hu Tao shop you can throw across the room</title>
+<meta name="description" content="Nothing here is glued down. Drag the products, fling the stickers, stack the ghosts. A physics-driven Hu Tao merch store where every single element is grabbable.">
+<meta name="theme-color" content="#111014">
+<meta name="color-scheme" content="dark">
+<link rel="canonical" href="https://toucheverything.xyz">
+<meta property="og:type" content="website">
+<meta property="og:title" content="TOUCH EVERYTHING — grab, fling, stack, buy">
+<meta property="og:description" content="A physics playground that happens to sell Hu Tao merch.">
+<meta property="og:image" content="img/og.svg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="img/og.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bungee:wght@400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23ff3d00'/%3E%3Ccircle cx='16' cy='16' r='7' fill='%23f5f0e8'/%3E%3C/svg%3E">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"ItemList","name":"Touch Everything — Hu Tao goods","itemListElement":[
+{"@type":"ListItem","position":1,"item":{"@type":"Product","name":"Ghost Grip Plush","offers":{"@type":"Offer","price":"36","priceCurrency":"USD","availability":"https://schema.org/InStock"}}},
+{"@type":"ListItem","position":2,"item":{"@type":"Product","name":"Throwable Sticker Brick","offers":{"@type":"Offer","price":"14","priceCurrency":"USD","availability":"https://schema.org/InStock"}}}]}
+</script>
+<style>
+*,*::before,*::after{box-sizing:border-box}
+:root{
+  --bg:#111014; --paper:#f5f0e8; --ink:#14131a;
+  --orange:#ff3d00; --acid:#d4ff3d; --blue:#3d5cff; --pink:#ff3d9e;
+}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--paper);
+  font-family:'Space Mono',ui-monospace,monospace;font-size:15px;line-height:1.6;
+  overflow-x:hidden;-webkit-font-smoothing:antialiased;
+  touch-action:pan-y}
+h1,h2,h3{margin:0;font-family:Bungee,cursive;font-weight:400;line-height:.9;letter-spacing:0}
+a{color:inherit;text-decoration:none}
+svg{display:block;max-width:100%}
+::selection{background:var(--acid);color:var(--ink)}
+:focus-visible{outline:3px solid var(--acid);outline-offset:3px}
+.skip{position:absolute;left:-9999px;background:var(--acid);color:var(--ink);padding:11px 20px;
+  z-index:999;font-weight:700}
+.skip:focus{left:12px;top:12px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.wrap{position:relative;z-index:3;max-width:1280px;margin:0 auto;padding:0 clamp(16px,4vw,40px)}
+
+/* ---- LOADER ---- */
+#pre{position:fixed;inset:0;z-index:500;background:var(--orange);display:grid;place-items:center;
+  transition:clip-path .8s cubic-bezier(.76,0,.24,1)}
+#pre.gone{clip-path:circle(0% at 50% 50%)}
+.pre-in{text-align:center;color:var(--paper)}
+.pre-in h2{font-size:clamp(1.6rem,7vw,3.4rem);margin-bottom:14px}
+.handwave{font-size:clamp(3rem,12vw,6rem);display:block;animation:wave 1s ease-in-out infinite;
+  transform-origin:70% 80%}
+@keyframes wave{0%,100%{transform:rotate(-14deg)}50%{transform:rotate(20deg)}}
+.pre-in p{font-family:'Space Mono',monospace;font-size:.9rem;opacity:.85}
+
+/* ---- STICKY BAR ---- */
+.bar{position:fixed;left:0;right:0;top:0;z-index:100;display:flex;align-items:center;gap:12px;
+  padding:12px clamp(16px,4vw,40px);background:rgba(17,16,20,.82);
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  border-bottom:2px solid var(--paper)}
+.logo{font-family:Bungee,cursive;font-size:clamp(.9rem,2.6vw,1.24rem);white-space:nowrap}
+.logo span{color:var(--orange)}
+.bar .grabhint{margin-left:auto;font-size:.72rem;opacity:.6;white-space:nowrap}
+@media(max-width:700px){.bar .grabhint{display:none}}
+.reset{background:var(--paper);color:var(--ink);border:0;padding:9px 16px;font-family:'Space Mono',monospace;
+  font-weight:700;font-size:.76rem;cursor:pointer;transition:transform .12s,background .2s;white-space:nowrap}
+.reset:hover{background:var(--acid)}
+.reset:active{transform:scale(.93)}
+.cartc{background:var(--orange);color:var(--paper);border:0;padding:9px 16px;font-family:'Space Mono',monospace;
+  font-weight:700;font-size:.76rem;cursor:pointer;white-space:nowrap;transition:transform .12s}
+.cartc:active{transform:scale(.93)}
+
+/* ---- PHYSICS STAGE ---- */
+.stage{position:relative;min-height:100svh;padding-top:72px;overflow:hidden;
+  display:grid;place-items:center}
+.stage-bg{position:absolute;inset:0;z-index:0;
+  background:
+    radial-gradient(circle at 18% 22%,rgba(255,61,0,.22),transparent 42%),
+    radial-gradient(circle at 82% 74%,rgba(61,92,255,.22),transparent 44%),
+    radial-gradient(circle at 62% 12%,rgba(212,255,61,.13),transparent 38%)}
+.stage-bg::after{content:'';position:absolute;inset:0;opacity:.16;
+  background-image:radial-gradient(var(--paper) 1px,transparent 1px);background-size:26px 26px}
+.hero-copy{position:relative;z-index:2;text-align:center;pointer-events:none;padding:clamp(20px,5vh,60px) 20px}
+.hero-copy h1{font-size:clamp(2.6rem,13vw,9.5rem);line-height:.82;text-transform:uppercase}
+.hero-copy h1 .l{display:inline-block;transition:transform .2s cubic-bezier(.34,1.8,.64,1);
+  pointer-events:auto;cursor:grab}
+.hero-copy h1 .l:hover{transform:translateY(-12px) rotate(-7deg) scale(1.1);color:var(--acid)}
+.hero-copy h1 .o{color:var(--orange)}
+.hero-copy p{max-width:40ch;margin:20px auto 0;font-size:clamp(.86rem,1.8vw,1.02rem);opacity:.75;
+  pointer-events:auto}
+.hero-copy .go{margin-top:26px;pointer-events:auto;display:inline-flex;gap:12px;flex-wrap:wrap;justify-content:center}
+.bigb{background:var(--acid);color:var(--ink);border:3px solid var(--ink);padding:15px 32px;
+  font-family:Bungee,cursive;font-size:1.02rem;cursor:pointer;
+  box-shadow:6px 6px 0 var(--ink);transition:transform .12s,box-shadow .12s}
+.bigb:hover{transform:translate(-3px,-3px);box-shadow:9px 9px 0 var(--ink)}
+.bigb:active{transform:translate(4px,4px);box-shadow:2px 2px 0 var(--ink)}
+.bigb.o{background:var(--orange);color:var(--paper);box-shadow:6px 6px 0 var(--paper)}
+.bigb.o:hover{box-shadow:9px 9px 0 var(--paper)}
+.bigb.o:active{box-shadow:2px 2px 0 var(--paper)}
+
+/* draggable toys */
+.toy{position:absolute;z-index:4;cursor:grab;touch-action:none;user-select:none;-webkit-user-select:none;
+  will-change:transform;filter:drop-shadow(0 8px 14px rgba(0,0,0,.45))}
+.toy:active{cursor:grabbing}
+.toy svg{pointer-events:none;width:100%;height:100%}
+.toy.held{filter:drop-shadow(0 22px 30px rgba(0,0,0,.6)) brightness(1.12)}
+
+/* ---- SHOP: draggable cards ---- */
+.shop{position:relative;z-index:3;padding:clamp(40px,8vh,100px) 0;border-top:2px solid var(--paper)}
+.shop-h{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:16px;
+  margin-bottom:clamp(22px,4vh,44px)}
+.shop-h h2{font-size:clamp(1.7rem,6vw,4rem);text-transform:uppercase}
+.shop-h h2 em{font-style:normal;color:var(--orange)}
+.shop-h p{max-width:32ch;opacity:.65;font-size:.86rem;margin:0}
+.pgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(250px,100%),1fr));
+  gap:clamp(14px,2.4vw,24px)}
+.pcard{background:var(--paper);color:var(--ink);border:3px solid var(--ink);padding:16px;
+  position:relative;cursor:grab;touch-action:none;user-select:none;-webkit-user-select:none;
+  box-shadow:7px 7px 0 var(--ink);will-change:transform;
+  transition:box-shadow .18s}
+.pcard:active{cursor:grabbing}
+.pcard.held{box-shadow:16px 20px 0 rgba(0,0,0,.35);z-index:40}
+.pcard .art{background:var(--bg);border:2px solid var(--ink);aspect-ratio:1.25;display:grid;place-items:center;
+  padding:16px;margin-bottom:12px;position:relative;overflow:hidden}
+.pcard:nth-child(1) .art{background:#241a15}
+.pcard:nth-child(2) .art{background:#151d24}
+.pcard:nth-child(3) .art{background:#221524}
+.pcard:nth-child(4) .art{background:#1c2415}
+.pcard .art svg{width:70%;height:auto;animation:swayart 4.6s ease-in-out infinite}
+@keyframes swayart{0%,100%{transform:rotate(-4deg)}50%{transform:rotate(4deg)}}
+.pcard h3{font-size:1.1rem;text-transform:uppercase;margin-bottom:4px}
+.pcard .d{font-size:.78rem;opacity:.72;margin:0 0 12px;min-height:3.2em}
+.pcard .row{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.pcard .pz{font-family:Bungee,cursive;font-size:1.3rem}
+.pcard .ad{background:var(--ink);color:var(--paper);border:0;padding:9px 18px;
+  font-family:'Space Mono',monospace;font-weight:700;font-size:.78rem;cursor:pointer;
+  transition:background .2s,transform .12s}
+.pcard .ad:hover{background:var(--orange)}
+.pcard .ad:active{transform:scale(.9)}
+.pcard .ad.in{background:var(--blue)}
+.pcard .grabtag{position:absolute;top:-13px;right:10px;background:var(--orange);color:var(--paper);
+  font-size:.62rem;font-weight:700;padding:3px 9px;border:2px solid var(--ink)}
+
+/* ---- RULES STRIP ---- */
+.rules{border-block:2px solid var(--paper);padding:clamp(30px,6vh,64px) 0;
+  background:repeating-linear-gradient(45deg,#15141a 0 12px,#111014 12px 24px)}
+.rgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:clamp(16px,3vw,34px)}
+.rc{border:2px solid var(--paper);padding:18px;position:relative;transition:transform .2s,background .2s}
+.rc:hover{transform:translate(-4px,-4px);background:rgba(212,255,61,.07)}
+.rc b{font-family:Bungee,cursive;font-size:2rem;color:var(--orange);display:block;line-height:1}
+.rc h3{font-size:.94rem;margin:6px 0 6px;text-transform:uppercase}
+.rc p{margin:0;font-size:.8rem;opacity:.68}
+
+/* ---- CART DRAWER ---- */
+.drawer{position:fixed;right:0;top:0;bottom:0;width:min(360px,90vw);z-index:200;background:var(--paper);
+  color:var(--ink);border-left:3px solid var(--ink);transform:translateX(102%);
+  transition:transform .45s cubic-bezier(.76,0,.24,1);display:flex;flex-direction:column;padding:20px}
+.drawer.open{transform:none}
+.drawer h2{font-size:1.4rem;text-transform:uppercase;margin-bottom:4px}
+.drawer .cl{position:absolute;top:16px;right:16px;background:var(--ink);color:var(--paper);border:0;
+  width:32px;height:32px;cursor:pointer;font-family:'Space Mono',monospace;font-weight:700}
+.dlist{flex:1;overflow-y:auto;margin:16px 0;display:grid;gap:9px;align-content:start}
+.dlist li{list-style:none;display:flex;justify-content:space-between;gap:10px;font-size:.84rem;
+  border-bottom:2px dashed rgba(20,19,26,.25);padding-bottom:7px}
+.dempty{font-size:.84rem;opacity:.6}
+.dtot{display:flex;justify-content:space-between;font-family:Bungee,cursive;font-size:1.3rem;
+  border-top:3px solid var(--ink);padding-top:12px}
+.dgo{margin-top:12px;background:var(--orange);color:var(--paper);border:3px solid var(--ink);
+  padding:14px;font-family:Bungee,cursive;font-size:1rem;cursor:pointer;box-shadow:5px 5px 0 var(--ink);
+  transition:transform .12s,box-shadow .12s}
+.dgo:active{transform:translate(3px,3px);box-shadow:2px 2px 0 var(--ink)}
+
+/* ---- FOOTER ---- */
+footer{padding:clamp(34px,7vh,72px) 0 26px;position:relative;z-index:3}
+.fgrid{display:grid;grid-template-columns:1.5fr repeat(3,1fr);gap:24px}
+@media(max-width:820px){.fgrid{grid-template-columns:1fr 1fr}}
+@media(max-width:520px){.fgrid{grid-template-columns:1fr}}
+.fgrid h4{font-family:Bungee,cursive;font-size:.86rem;color:var(--acid);margin:0 0 10px;text-transform:uppercase}
+.fgrid a{display:block;padding:3px 0;font-size:.84rem;opacity:.72;transition:.2s}
+.fgrid a:hover{opacity:1;color:var(--orange);transform:translateX(5px)}
+.fbig{font-family:Bungee,cursive;font-size:clamp(1.6rem,5vw,2.6rem);line-height:.9;text-transform:uppercase}
+.fbig span{color:var(--orange)}
+.fgrid>div>p{font-size:.82rem;opacity:.6;max-width:28ch;margin:8px 0 0}
+.fend{margin-top:26px;padding-top:16px;border-top:2px solid rgba(245,240,232,.2);display:flex;
+  flex-wrap:wrap;gap:12px;justify-content:space-between;font-size:.72rem;opacity:.5}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;
+    transition-duration:.001ms!important}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<div id="pre">
+  <div class="pre-in">
+    <span class="handwave" aria-hidden="true">👋</span>
+    <h2>WARNING</h2>
+    <p id="preP">everything on this page can be grabbed</p>
+  </div>
+</div>
+
+<header class="bar">
+  <a href="#top" class="logo">TOUCH<span>EVERYTHING</span></a>
+  <span class="grabhint">↔ drag anything · fling it · it has weight</span>
+  <button class="reset" id="resetBtn">RESET</button>
+  <button class="cartc" id="openCart">CART <span id="cn">0</span></button>
+</header>
+
+<main id="main">
+<section class="stage" id="top">
+  <div class="stage-bg" aria-hidden="true"></div>
+  <div class="hero-copy">
+    <h1 id="bigTitle"></h1>
+    <p>A shop with no fixed layout. Grab the products, throw the ghosts, stack the letters. Physics is the navigation. Everything still adds to cart.</p>
+    <div class="go">
+      <button class="bigb" onclick="document.getElementById('shop').scrollIntoView({behavior:'smooth'})">SEE THE GOODS</button>
+      <button class="bigb o" id="chaos">FLING EVERYTHING</button>
+    </div>
+  </div>
+</section>
+
+<section class="shop wrap" id="shop">
+  <div class="shop-h">
+    <h2>DRAG <em>ME</em></h2>
+    <p>These cards are not in a grid. They're just resting there. Move them wherever you like — the buttons still work.</p>
+  </div>
+  <div class="pgrid" id="pgrid"></div>
+</section>
+
+<section class="rules">
+  <div class="wrap">
+    <div class="rgrid">
+      <div class="rc"><b>01</b><h3>Free shipping over $60</h3><p>Anywhere we can legally post a plush ghost. Usually 3–6 days.</p></div>
+      <div class="rc"><b>02</b><h3>Packed by a human</h3><p>Badly taped, hand-written note, at least one extra sticker in the box.</p></div>
+      <div class="rc"><b>03</b><h3>60-day returns</h3><p>Even if you just don't vibe with it. Especially if you don't vibe with it.</p></div>
+      <div class="rc"><b>04</b><h3>Restocks are real</h3><p>We don't do fake scarcity. If it sells out we say when it's back.</p></div>
+    </div>
+  </div>
+</section>
+</main>
+
+<aside class="drawer" id="drawer" aria-label="Shopping cart" aria-hidden="true">
+  <button class="cl" id="closeCart" aria-label="Close cart">✕</button>
+  <h2>Your pile</h2>
+  <p style="font-size:.78rem;opacity:.6;margin:0">things you grabbed and kept</p>
+  <ul class="dlist" id="dlist"><li class="dempty">nothing yet. go grab something.</li></ul>
+  <div class="dtot"><span>TOTAL</span><span id="dtot">$0</span></div>
+  <button class="dgo" id="dgo">CHECKOUT →</button>
+</aside>
+
+<footer>
+  <div class="wrap">
+    <div class="fgrid">
+      <div>
+        <p class="fbig">TOUCH<br><span>EVERYTHING</span></p>
+        <p>An experiment in whether a store can be a toy. Turns out: yes, but people buy less and stay longer.</p>
+      </div>
+      <div><h4>Shop</h4><a href="#shop">Plush</a><a href="#shop">Stickers</a><a href="#shop">Prints</a><a href="#shop">Bundles</a></div>
+      <div><h4>Info</h4><a href="#">Shipping</a><a href="#">Returns</a><a href="#">Contact</a></div>
+      <div><h4>Elsewhere</h4><a href="#">Instagram</a><a href="#">TikTok</a><a href="../../index.html">← all 25 studios</a></div>
+    </div>
+    <div class="fend"><span>© 77 TOUCH EVERYTHING</span><span>no elements were harmed</span></div>
+  </div>
+</footer>
+
+<script>
+(function(){
+'use strict';
+var RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* ---------- title letters ---------- */
+var t='TOUCH EVERYTHING';
+document.getElementById('bigTitle').innerHTML=t.split('').map(function(ch,i){
+  if(ch===' ')return '<span class="l" style="width:.34em;display:inline-block"> </span>';
+  return '<span class="l'+(i>5?' o':'')+'">'+ch+'</span>';
+}).join('');
+
+/* ---------- loader ---------- */
+setTimeout(function(){
+  var p=document.getElementById('pre');p.classList.add('gone');
+  setTimeout(function(){p.remove();spawnToys();},900);
+},RM?200:1300);
+
+/* ================= PHYSICS ENGINE (shared) ================= */
+function Physics(){
+  this.bodies=[];
+  var self=this;
+  function step(){
+    for(var i=0;i<self.bodies.length;i++){
+      var b=self.bodies[i];
+      if(b.held)continue;
+      b.vy+=b.gravity;
+      b.vx*=b.friction; b.vy*=b.friction;
+      b.x+=b.vx; b.y+=b.vy;
+      b.rot+=b.vr; b.vr*=.97;
+      /* bounds relative to its container */
+      var c=b.bounds();
+      if(b.x<c.minX){b.x=c.minX;b.vx*=-b.bounce;b.vr+=b.vx*.02;}
+      if(b.x>c.maxX){b.x=c.maxX;b.vx*=-b.bounce;b.vr+=b.vx*.02;}
+      if(b.y>c.maxY){b.y=c.maxY;b.vy*=-b.bounce;b.vx*=.9;b.vr*=.85;
+        if(Math.abs(b.vy)<.9)b.vy=0;}
+      if(b.y<c.minY){b.y=c.minY;b.vy*=-b.bounce;}
+      b.apply();
+    }
+    requestAnimationFrame(step);
+  }
+  if(!RM)requestAnimationFrame(step);
+}
+Physics.prototype.add=function(b){this.bodies.push(b);return b;};
+var PH=new Physics();
+
+function makeDraggable(el,opts){
+  opts=opts||{};
+  var b={
+    el:el,x:opts.x||0,y:opts.y||0,vx:0,vy:0,rot:opts.rot||0,vr:0,held:false,
+    gravity:opts.gravity!==undefined?opts.gravity:.55,
+    friction:opts.friction!==undefined?opts.friction:.99,
+    bounce:opts.bounce!==undefined?opts.bounce:.52,
+    bounds:opts.bounds,
+    apply:function(){ el.style.transform='translate3d('+b.x+'px,'+b.y+'px,0) rotate('+b.rot+'deg)'; }
+  };
+  b.apply();
+  var px=0,py=0,lx=0,ly=0,id=null,moved=false;
+  function down(e){
+    if(e.button===1||e.button===2)return;
+    var p=e.touches?e.touches[0]:e;
+    id=e.pointerId!==undefined?e.pointerId:0;
+    b.held=true;moved=false;el.classList.add('held');
+    px=p.clientX;py=p.clientY;lx=b.x;ly=b.y;b.vx=0;b.vy=0;
+    if(el.setPointerCapture&&e.pointerId!==undefined){try{el.setPointerCapture(e.pointerId);}catch(x){}}
+  }
+  function move(e){
+    if(!b.held)return;
+    var p=e.touches?e.touches[0]:e;
+    var dx=p.clientX-px, dy=p.clientY-py;
+    if(Math.abs(dx)>3||Math.abs(dy)>3)moved=true;
+    var nx=lx+dx, ny=ly+dy;
+    b.vx=(nx-b.x)*.55; b.vy=(ny-b.y)*.55;
+    b.x=nx; b.y=ny; b.vr=b.vx*.35;
+    b.apply();
+    if(moved&&e.cancelable)e.preventDefault();
+  }
+  function up(){
+    if(!b.held)return;
+    b.held=false;el.classList.remove('held');
+    b.vx=Math.max(-42,Math.min(42,b.vx*1.5));
+    b.vy=Math.max(-42,Math.min(42,b.vy*1.5));
+  }
+  el.addEventListener('pointerdown',down);
+  addEventListener('pointermove',move,{passive:false});
+  addEventListener('pointerup',up);
+  addEventListener('pointercancel',up);
+  b.wasDragged=function(){return moved;};
+  return PH.add(b);
+}
+
+/* ================= HERO TOYS ================= */
+function toySvg(kind){
+  switch(kind){
+    case 'ghost':return '<svg viewBox="0 0 90 100"><path d="M45 6c19 0 33 15 33 34v48l-8-7-8 7-8-7-9 7-8-7-8 7-9-7-8 7V40C12 21 26 6 45 6z" fill="#f5f0e8"/><circle cx="34" cy="42" r="5.4" fill="#14131a"/><circle cx="56" cy="42" r="5.4" fill="#14131a"/><path d="M39 55q6 7 12 0" stroke="#14131a" stroke-width="3.4" fill="none" stroke-linecap="round"/><ellipse cx="24" cy="54" rx="6" ry="3.6" fill="#ff3d9e" opacity=".8"/><ellipse cx="66" cy="54" rx="6" ry="3.6" fill="#ff3d9e" opacity=".8"/></svg>';
+    case 'blossom':return '<svg viewBox="0 0 90 90"><g fill="#ff3d00"><ellipse cx="45" cy="20" rx="13" ry="17"/><ellipse cx="45" cy="70" rx="13" ry="17"/><ellipse cx="20" cy="45" rx="17" ry="13"/><ellipse cx="70" cy="45" rx="17" ry="13"/><ellipse cx="26" cy="26" rx="14" ry="11" transform="rotate(-45 26 26)"/><ellipse cx="64" cy="64" rx="14" ry="11" transform="rotate(-45 64 64)"/></g><circle cx="45" cy="45" r="12" fill="#d4ff3d"/></svg>';
+    case 'star':return '<svg viewBox="0 0 90 90"><path d="M45 4l11 28 30 2-23 20 7 30-25-16-25 16 7-30L4 34l30-2z" fill="#d4ff3d"/></svg>';
+    case 'lantern':return '<svg viewBox="0 0 80 100"><rect x="34" y="4" width="12" height="10" fill="#3d5cff"/><ellipse cx="40" cy="52" rx="30" ry="36" fill="#ff3d00"/><ellipse cx="40" cy="52" rx="15" ry="24" fill="#d4ff3d" opacity=".5"/><rect x="18" y="86" width="44" height="8" fill="#3d5cff"/></svg>';
+    case 'coin':return '<svg viewBox="0 0 80 80"><circle cx="40" cy="40" r="34" fill="#d4ff3d"/><circle cx="40" cy="40" r="25" fill="none" stroke="#14131a" stroke-width="3"/><rect x="32" y="32" width="16" height="16" fill="#14131a"/></svg>';
+    case 'butterfly':return '<svg viewBox="0 0 100 90"><ellipse cx="28" cy="34" rx="24" ry="28" fill="#ff3d9e" transform="rotate(-20 28 34)"/><ellipse cx="72" cy="34" rx="24" ry="28" fill="#3d5cff" transform="rotate(20 72 34)"/><ellipse cx="32" cy="66" rx="16" ry="18" fill="#ff3d00" opacity=".9"/><ellipse cx="68" cy="66" rx="16" ry="18" fill="#ff3d00" opacity=".9"/><rect x="45" y="22" width="10" height="56" rx="5" fill="#14131a"/></svg>';
+  }
+  return '';
+}
+function spawnToys(){
+  var stage=document.querySelector('.stage');
+  var kinds=['ghost','blossom','star','lantern','coin','butterfly','ghost','star'];
+  var n=innerWidth<700?5:8;
+  for(var i=0;i<n;i++){
+    var k=kinds[i%kinds.length];
+    var el=document.createElement('div');
+    el.className='toy';
+    var sz=(innerWidth<700?46:64)+Math.random()*26;
+    el.style.width=sz+'px';el.style.height=sz+'px';
+    el.style.left='0';el.style.top='0';
+    el.innerHTML=toySvg(k);
+    el.setAttribute('aria-hidden','true');
+    stage.appendChild(el);
+    (function(el,sz){
+      var b=makeDraggable(el,{
+        x:Math.random()*(stage.clientWidth-sz-20)+10,
+        y:Math.random()*(stage.clientHeight*.45)+80,
+        rot:Math.random()*40-20,
+        gravity:.5,bounce:.62,
+        bounds:function(){
+          return {minX:6,maxX:stage.clientWidth-sz-6,minY:74,maxY:stage.clientHeight-sz-6};
+        }
+      });
+      b.vx=(Math.random()-.5)*7; b.vy=Math.random()*-4;
+      el._body=b;
+    })(el,sz);
+  }
+}
+
+/* ================= PRODUCTS ================= */
+function pArt(k){
+  switch(k){
+    case 'plush':return '<svg viewBox="0 0 100 100"><path d="M50 10c19 0 32 14 32 33v45l-8-6-8 6-8-6-8 6-8-6-8 6-8-6V43c0-19 13-33 32-33z" fill="#f5f0e8"/><circle cx="39" cy="46" r="5" fill="#14131a"/><circle cx="61" cy="46" r="5" fill="#14131a"/><ellipse cx="29" cy="57" rx="6" ry="3.6" fill="#ff3d9e"/><ellipse cx="71" cy="57" rx="6" ry="3.6" fill="#ff3d9e"/><path d="M44 58q6 6 12 0" stroke="#14131a" stroke-width="3.2" fill="none" stroke-linecap="round"/></svg>';
+    case 'stickers':return '<svg viewBox="0 0 100 100"><rect x="12" y="24" width="52" height="60" rx="6" fill="#d4ff3d" transform="rotate(-8 38 54)"/><rect x="36" y="18" width="52" height="60" rx="6" fill="#ff3d00" transform="rotate(7 62 48)"/><circle cx="62" cy="46" r="14" fill="#f5f0e8"/><circle cx="57" cy="44" r="3" fill="#14131a"/><circle cx="67" cy="44" r="3" fill="#14131a"/></svg>';
+    case 'print':return '<svg viewBox="0 0 100 100"><rect x="16" y="10" width="68" height="80" fill="#f5f0e8"/><path d="M22 76l18-24 13 16 10-12 15 20z" fill="#ff3d00"/><circle cx="66" cy="30" r="9" fill="#d4ff3d"/><rect x="16" y="10" width="68" height="80" fill="none" stroke="#3d5cff" stroke-width="3"/></svg>';
+    case 'tee':return '<svg viewBox="0 0 100 100"><path d="M34 18l-22 12 9 16 9-5v45h40V41l9 5 9-16-22-12-8 6h-16z" fill="#3d5cff"/><circle cx="50" cy="58" r="13" fill="#d4ff3d"/><circle cx="45" cy="55" r="3" fill="#14131a"/><circle cx="55" cy="55" r="3" fill="#14131a"/></svg>';
+  }
+  return '';
+}
+var PROD=[
+ {n:'Ghost Grip Plush',d:'36cm, weighted base so it actually sits up. Survives being thrown. We tested.',p:36,k:'plush',tag:'GRAB ME'},
+ {n:'Sticker Brick',d:'40 vinyl die-cuts in a solid block. Aerodynamic. Not a recommendation.',p:14,k:'stickers',tag:'THROW ME'},
+ {n:'Riso Art Print A2',d:'Two-colour risograph on 200gsm. Slight misregistration is the point.',p:28,k:'print',tag:'HANG ME'},
+ {n:'Heavy Cotton Tee',d:'240gsm boxy fit, screen printed, pre-shrunk so it stays that shape.',p:42,k:'tee',tag:'WEAR ME'}
+];
+var pg=document.getElementById('pgrid');
+PROD.forEach(function(p){
+  var c=document.createElement('article');c.className='pcard';
+  c.innerHTML='<span class="grabtag">'+p.tag+'</span><div class="art">'+pArt(p.k)+'</div>'+
+    '<h3>'+p.n+'</h3><p class="d">'+p.d+'</p>'+
+    '<div class="row"><span class="pz">$'+p.p+'</span><button class="ad" data-n="'+p.n+'" data-p="'+p.p+'">ADD</button></div>';
+  pg.appendChild(c);
+});
+/* make cards draggable but keep buttons working */
+document.querySelectorAll('.pcard').forEach(function(c){
+  var b=makeDraggable(c,{gravity:0,friction:.9,bounce:.3,
+    bounds:function(){return {minX:-420,maxX:420,minY:-320,maxY:320};}});
+  c._body=b;
+  c.addEventListener('pointerdown',function(e){
+    if(e.target.closest('.ad'))b.held=false;
+  });
+});
+/* cards spring back home when released far */
+setInterval(function(){
+  if(RM)return;
+  document.querySelectorAll('.pcard').forEach(function(c){
+    var b=c._body;if(!b||b.held)return;
+    b.vx+=(0-b.x)*.012; b.vy+=(0-b.y)*.012;
+    b.vr+=(0-b.rot)*.02;
+  });
+},16);
+
+/* ================= CART ================= */
+var cart=[],cn=document.getElementById('cn');
+document.addEventListener('click',function(e){
+  var btn=e.target.closest('.ad');if(!btn)return;
+  var card=btn.closest('.pcard');
+  if(card&&card._body&&card._body.wasDragged&&card._body.wasDragged()){return;}
+  cart.push({n:btn.dataset.n,p:+btn.dataset.p});
+  cn.textContent=cart.length;
+  btn.textContent='IN PILE ✓';btn.classList.add('in');
+  setTimeout(function(){btn.textContent='ADD';btn.classList.remove('in');},1400);
+  renderCart();
+});
+function renderCart(){
+  var l=document.getElementById('dlist');
+  if(!cart.length){l.innerHTML='<li class="dempty">nothing yet. go grab something.</li>';}
+  else{l.innerHTML=cart.map(function(i){return '<li><span>'+i.n+'</span><b>$'+i.p+'</b></li>';}).join('');}
+  document.getElementById('dtot').textContent='$'+cart.reduce(function(a,i){return a+i.p;},0);
+}
+var dr=document.getElementById('drawer');
+document.getElementById('openCart').addEventListener('click',function(){
+  dr.classList.add('open');dr.setAttribute('aria-hidden','false');});
+document.getElementById('closeCart').addEventListener('click',function(){
+  dr.classList.remove('open');dr.setAttribute('aria-hidden','true');});
+document.getElementById('dgo').addEventListener('click',function(){
+  this.textContent=cart.length?('SENDING '+cart.length+' THINGS…'):'PILE IS EMPTY';
+  var self=this;setTimeout(function(){self.textContent='CHECKOUT →';},2000);
+});
+
+/* ================= CHAOS ================= */
+document.getElementById('chaos').addEventListener('click',function(){
+  PH.bodies.forEach(function(b){
+    b.vx=(Math.random()-.5)*46; b.vy=Math.random()*-30-6; b.vr=(Math.random()-.5)*26;
+  });
+});
+document.getElementById('resetBtn').addEventListener('click',function(){
+  var stage=document.querySelector('.stage');
+  document.querySelectorAll('.toy').forEach(function(el,i){
+    var b=el._body;if(!b)return;
+    b.x=40+i*(stage.clientWidth-120)/8; b.y=90; b.vx=0; b.vy=0; b.rot=0; b.vr=0;
+  });
+  document.querySelectorAll('.pcard').forEach(function(c){
+    var b=c._body;if(!b)return;b.x=0;b.y=0;b.rot=0;b.vx=0;b.vy=0;b.vr=0;b.apply();
+  });
+});
+})();
+</script>
+</body>
+</html>
