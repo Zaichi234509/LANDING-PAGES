@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="Maison 77 — Limited Collection">
+  <defs>
+    <radialGradient id="glow" cx="50%" cy="50%" r="60%">
+      <stop offset="0%" stop-color="#6e1a26" stop-opacity="0.42"/>
+      <stop offset="100%" stop-color="#0c0c0c" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="630" fill="#0c0c0c"/>
+  <ellipse cx="600" cy="315" rx="520" ry="300" fill="url(#glow)"/>
+  <text x="70" y="80" font-family="Italiana,serif" font-size="30" fill="#e8e6e1" letter-spacing="6">MAISON 77</text>
+  <line x1="70" y1="104" x2="1130" y2="104" stroke="#e8e6e1" stroke-opacity="0.16"/>
+  <text x="70" y="170" font-family="Archivo,sans-serif" font-size="17" fill="#8c8880" letter-spacing="9">SEASON IX · SEVENTY-SEVEN NUMBERED PIECES</text>
+  <text x="70" y="330" font-family="Italiana,serif" font-size="150" fill="#e8e6e1">Limited</text>
+  <text x="70" y="466" font-family="Italiana,serif" font-size="150" fill="#e8e6e1">Collection</text>
+  <g transform="translate(880 250)">
+    <text x="0" y="-24" font-family="Archivo,sans-serif" font-size="14" fill="#8c8880" letter-spacing="6">REMAINING</text>
+    <rect x="0" y="0" width="96" height="130" fill="#141414" stroke="#e8e6e1" stroke-opacity="0.16"/>
+    <rect x="104" y="0" width="96" height="130" fill="#141414" stroke="#e8e6e1" stroke-opacity="0.16"/>
+    <line x1="0" y1="65" x2="96" y2="65" stroke="#000" stroke-opacity="0.6"/>
+    <line x1="104" y1="65" x2="200" y2="65" stroke="#000" stroke-opacity="0.6"/>
+    <text x="48" y="94" text-anchor="middle" font-family="Italiana,serif" font-size="78" fill="#e8e6e1">2</text>
+    <text x="152" y="94" text-anchor="middle" font-family="Italiana,serif" font-size="78" fill="#e8e6e1">3</text>
+  </g>
+  <line x1="70" y1="520" x2="1130" y2="520" stroke="#e8e6e1" stroke-opacity="0.16"/>
+  <text x="70" y="566" font-family="Archivo,sans-serif" font-size="21" fill="#8c8880">When the last number is claimed, the pattern is destroyed.</text>
+  <text x="1130" y="566" text-anchor="end" font-family="Archivo,sans-serif" font-size="15" fill="#a8894e" letter-spacing="5">MADE SLOWLY</text>
+</svg>
