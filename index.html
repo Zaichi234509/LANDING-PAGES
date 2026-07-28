@@ -105,8 +105,8 @@ footer{border-top:1px solid var(--line);padding:clamp(34px,6vh,64px) 0 40px;posi
   <h1>Twenty-five<br>landing pages,<br><em>twenty-five studios.</em></h1>
   <p class="lede">One character, twenty-five completely separate brands. Every page has its own typography, palette, layout logic, animation language, storytelling voice and art direction — no shared stylesheet, no reused hero, no repeated component.</p>
   <div class="metrics">
-    <div class="metric"><b id="mLive">5</b><span>Pages live</span></div>
-    <div class="metric"><b>25</b><span>Planned identities</span></div>
+    <div class="metric"><b id="mLive">25</b><span>Pages live</span></div>
+    <div class="metric"><b>25</b><span>Distinct identities</span></div>
     <div class="metric"><b>5</b><span>Language styles</span></div>
     <div class="metric"><b>0</b><span>Shared stylesheets</span></div>
   </div>
@@ -138,58 +138,68 @@ footer{border-top:1px solid var(--line);padding:clamp(34px,6vh,64px) 0 40px;posi
 <script>
 (function(){
 var PAGES=[
-{n:1,s:'cinematic',slug:'01-the-funeral-begins',t:'The Funeral Begins',b:'Wangsheng Pictures',d:'A three-act film release with letterboxing, scroll-driven camera moves and a cursor-tracking butterfly swarm.',live:true,thumb:'pages/01-the-funeral-begins/img/hero.jpg'},
-{n:2,s:'cinematic',slug:'02-butterflys-call',t:"Butterfly's Call",b:'Lepidoptera',d:'A boids flock of spirit butterflies that answers the pointer, over a twilight meadow.',live:true,thumb:'pages/02-butterflys-call/img/hero.jpg'},
-{n:3,s:'cinematic',slug:'03-one-last-smile',t:'One Last Smile',b:'Last Light Studio',d:'A 4-3-2-1 leader countdown, then a scroll-driven horizontal film strip of four frames.',live:true,thumb:'pages/03-one-last-smile/img/poster.jpg'},
-{n:4,s:'cinematic',slug:'04-midnight-lantern',t:'Midnight Lantern',b:'子夜 Midnight',d:'The street is unlit until you carry the lantern across it — a masked light source you drag with the pointer.',live:true,thumb:'pages/04-midnight-lantern/img/scene.jpg'},
-{n:5,s:'cinematic',slug:'05-festival-of-spirits',t:'Festival of Spirits',b:'Spirit Festival Co.',d:'Parallax lantern rows over a crowd silhouette, a running ticker and a canvas firework you can launch early.',live:true},
-{n:6,s:'luxury',slug:'06-crafted-for-collectors',t:'Crafted for Collectors',b:'Atelier Hu',d:'Four objects on four lit plinths, a magnetic cursor that reads the room, and acquisition by appointment only.',live:true},
-{n:7,s:'luxury',slug:'07-limited-collection',t:'Limited Collection',b:'Maison 77',d:'Split-flap edition counter and numbered-piece choreography.',live:true},
-{n:8,s:'luxury',slug:'08-elegance-in-crimson',t:'Elegance in Crimson',b:'Crimson',d:'The entire page changes colour as you move between five material chapters, over a flowing silk canvas.',live:true},
-{n:9,s:'luxury',slug:'09-the-art-of-hu-tao',t:'The Art of Hu Tao',b:'The Hu Tao Archive',d:'A horizontal gallery rail of six painted plates with wall labels, click-to-zoom frames and a print room.',live:true},
-{n:10,s:'luxury',slug:'10-premium-edition',t:'Premium Edition',b:'Édition Prime',d:'A vertical foil marquee, a presentation box that opens on scroll, and a grid of fifty numbers to claim.',live:true},
-{n:11,s:'gaming',slug:'11-adventure-begins',t:'Adventure Begins',b:'Wayfarer Online',d:'Client boot log, a spinning compass strip and a pingable four-region world map with live drop tables.',live:true},
-{n:12,s:'gaming',slug:'12-character-selection',t:'Character Selection',b:'Select Screen',d:'A five-edition roster with 3D tilt portraits, live stat radar and a lock-in timer.',live:true},
-{n:13,s:'gaming',slug:'13-inventory',t:'Inventory',b:'INVENTORY.EXE',d:'A drag-and-drop loadout grid where rarity tiers are literal stock levels.',live:true},
-{n:14,s:'gaming',slug:'14-quest-rewards',t:'Quest Rewards',b:'Questline',d:'Accept a contract, unlock five objective nodes by scrolling, then crack open four reward caskets.',live:true},
-{n:15,s:'gaming',slug:'15-battle-pass',t:'Battle Pass',b:'Season 07',d:'A twelve-tier horizontal track with free and premium lanes, unlock shockwaves and a live season clock.',live:true},
-{n:16,s:'emotional',slug:'16-dear-traveler',t:'Dear Traveler',b:'Letters from Liyue',d:'A handwritten letter that draws itself on, then unfolds into the collection.',live:true},
-{n:17,s:'emotional',slug:'17-a-walk-with-hu-tao',t:'A Walk with Hu Tao',b:'The Long Walk',d:'Six kilometres of scroll: the sky interpolates from afternoon to dusk and a rail tracks your distance.',live:true},
-{n:18,s:'emotional',slug:'18-the-last-goodbye',t:'The Last Goodbye',b:'Goodbye, Gently',d:'Six memories that blur as they leave the viewport, and a candle you can actually blow out.',live:true},
-{n:19,s:'emotional',slug:'19-our-little-adventure',t:'Our Little Adventure',b:'Little Adventure',d:'A five-page illustrated picture book you turn with arrow keys, then a scrapbook board you stick pieces onto.',live:true},
-{n:20,s:'emotional',slug:'20-the-memory-box',t:'The Memory Box',b:'The Memory Box',d:'A lid opens and polaroids scatter with physics; each one is a product.',live:false},
-{n:21,s:'genz',slug:'21-too-cute',t:'Too Cute',b:'TOO CUTE!!',d:'Squish physics, a draggable cuteness meter and confetti on every interaction.',live:true},
-{n:22,s:'genz',slug:'22-pov',t:'POV',b:'POV:',d:'A snap-scrolling six-scene phone feed with double-tap hearts, then shop every item in the scene.',live:true},
-{n:23,s:'genz',slug:'23-touch-everything',t:'Touch Everything',b:'Touch Everything',d:'A real physics engine: grab, fling and stack every product card and prop.',live:true},
-{n:24,s:'genz',slug:'24-oops',t:'Oops',b:'OOPS.',d:'Glitch aesthetics and a chaos mode where the layout falls apart on purpose.',live:false},
-{n:25,s:'genz',slug:'25-main-character-energy',t:'Main Character Energy',b:'Main Character',d:'A spotlight follows the pointer, with a hype meter and stacked marquees.',live:false}
+{n:1,s:'cinematic',slug:'01-the-funeral-begins',t:'The Funeral Begins',b:'Wangsheng Pictures',d:'A three-act film release with letterboxing, scroll-driven camera moves and a cursor-tracking butterfly swarm.',live:true,thumb:'pages/01-the-funeral-begins/img/hero.jpg',c:['#e5484d','#c9a227','#0d0d12']},
+{n:2,s:'cinematic',slug:'02-butterflys-call',t:"Butterfly's Call",b:'Lepidoptera',d:'A boids flock of spirit butterflies that answers the pointer, over a twilight meadow.',live:true,thumb:'pages/02-butterflys-call/img/hero.jpg',c:['#e0564f','#e8a55c','#080b18']},
+{n:3,s:'cinematic',slug:'03-one-last-smile',t:'One Last Smile',b:'Last Light Studio',d:'A 4-3-2-1 leader countdown, then a scroll-driven horizontal film strip of four frames.',live:true,thumb:'pages/03-one-last-smile/img/poster.jpg',c:['#d8452f','#c9a227','#100c0b']},
+{n:4,s:'cinematic',slug:'04-midnight-lantern',t:'Midnight Lantern',b:'子夜 Midnight',d:'The street is unlit until you carry the lantern across it — a masked light source you drag with the pointer.',live:true,thumb:'pages/04-midnight-lantern/img/scene.jpg',c:['#f2a33c','#8c2f2a','#05060a']},
+{n:5,s:'cinematic',slug:'05-festival-of-spirits',t:'Festival of Spirits',b:'Spirit Festival Co.',d:'Parallax lantern rows over a crowd silhouette, a running ticker and a canvas firework you can launch early.',live:true,c:['#ffb03a','#ff5d8f','#160a1e']},
+{n:6,s:'luxury',slug:'06-crafted-for-collectors',t:'Crafted for Collectors',b:'Atelier Hu',d:'Four objects on four lit plinths, a magnetic cursor that reads the room, and acquisition by appointment only.',live:true,c:['#b99a63','#5e1f21','#12100e']},
+{n:7,s:'luxury',slug:'07-limited-collection',t:'Limited Collection',b:'Maison 77',d:'Split-flap edition counter and numbered-piece choreography.',live:true,c:['#a8894e','#6e1a26','#0c0c0c']},
+{n:8,s:'luxury',slug:'08-elegance-in-crimson',t:'Elegance in Crimson',b:'Crimson',d:'The entire page changes colour as you move between five material chapters, over a flowing silk canvas.',live:true,c:['#f5e9e2','#c73b4a','#7c1120']},
+{n:9,s:'luxury',slug:'09-the-art-of-hu-tao',t:'The Art of Hu Tao',b:'The Hu Tao Archive',d:'A horizontal gallery rail of six painted plates with wall labels, click-to-zoom frames and a print room.',live:true,c:['#b8402f','#a3812f','#f4f2ed']},
+{n:10,s:'luxury',slug:'10-premium-edition',t:'Premium Edition',b:'Édition Prime',d:'A vertical foil marquee, a presentation box that opens on scroll, and a grid of fifty numbers to claim.',live:true,c:['#d8c9a3','#a98d5c','#0e0e10']},
+{n:11,s:'gaming',slug:'11-adventure-begins',t:'Adventure Begins',b:'Wayfarer Online',d:'Client boot log, a spinning compass strip and a pingable four-region world map with live drop tables.',live:true,c:['#00e0c6','#ffc857','#050a12']},
+{n:12,s:'gaming',slug:'12-character-selection',t:'Character Selection',b:'Select Screen',d:'A five-edition roster with 3D tilt portraits, live stat radar and a lock-in timer.',live:true,c:['#38bdf8','#a855f7','#080b16']},
+{n:13,s:'gaming',slug:'13-inventory',t:'Inventory',b:'INVENTORY.EXE',d:'A drag-and-drop loadout grid where rarity tiers are literal stock levels.',live:true,c:['#7dd3a0','#38bdf8','#080a0c']},
+{n:14,s:'gaming',slug:'14-quest-rewards',t:'Quest Rewards',b:'Questline',d:'Accept a contract, unlock five objective nodes by scrolling, then crack open four reward caskets.',live:true,c:['#e9b949','#8b5cf6','#120c18']},
+{n:15,s:'gaming',slug:'15-battle-pass',t:'Battle Pass',b:'Season 07',d:'A twelve-tier horizontal track with free and premium lanes, unlock shockwaves and a live season clock.',live:true,c:['#ff5c35','#ffd23f','#0a0a0f']},
+{n:16,s:'emotional',slug:'16-dear-traveler',t:'Dear Traveler',b:'Letters from Liyue',d:'A handwritten letter that draws itself on, then unfolds into the collection.',live:true,c:['#a33a2e','#b8934a','#f7f2e8']},
+{n:17,s:'emotional',slug:'17-a-walk-with-hu-tao',t:'A Walk with Hu Tao',b:'The Long Walk',d:'Six kilometres of scroll: the sky interpolates from afternoon to dusk and a rail tracks your distance.',live:true,c:['#e5764f','#6b7f5e','#f6efe4']},
+{n:18,s:'emotional',slug:'18-the-last-goodbye',t:'The Last Goodbye',b:'Goodbye, Gently',d:'Six memories that blur as they leave the viewport, and a candle you can actually blow out.',live:true,c:['#e0913f','#a8555c','#efe9e4']},
+{n:19,s:'emotional',slug:'19-our-little-adventure',t:'Our Little Adventure',b:'Little Adventure',d:'A five-page illustrated picture book you turn with arrow keys, then a scrapbook board you stick pieces onto.',live:true,c:['#e8734a','#f0b93f','#fdf6ec']},
+{n:20,s:'emotional',slug:'20-the-memory-box',t:'The Memory Box',b:'The Memory Box',d:'A lid lifts and nine draggable photographs scatter on the table — flip each one to read the back.',live:true,c:['#e0b872','#c96f6f','#1c1a24']},
+{n:21,s:'genz',slug:'21-too-cute',t:'Too Cute',b:'TOO CUTE!!',d:'Squish physics, a draggable cuteness meter and confetti on every interaction.',live:true,c:['#ff8fc7','#ffd166','#14101c']},
+{n:22,s:'genz',slug:'22-pov',t:'POV',b:'POV:',d:'A snap-scrolling six-scene phone feed with double-tap hearts, then shop every item in the scene.',live:true,c:['#ff2e93','#c6ff2e','#0d0b14']},
+{n:23,s:'genz',slug:'23-touch-everything',t:'Touch Everything',b:'Touch Everything',d:'A real physics engine: grab, fling and stack every product card and prop.',live:true,c:['#c084fc','#facc15','#14101c']},
+{n:24,s:'genz',slug:'24-oops',t:'Oops',b:'OOPS.',d:'Glitch type, a published incident log, and a chaos mode that tilts the layout and drops words down the screen.',live:true,c:['#ff3b30','#00fff0','#0a0a0a']},
+{n:25,s:'genz',slug:'25-main-character-energy',t:'Main Character Energy',b:'Main Character',d:'A pointer-following spotlight, a four-slot fit builder that dresses a figure, and a live hype meter.',live:true,c:['#ffe14d','#ff3d7f','#100b16']}
 ];
 var C={cinematic:'var(--cin)',luxury:'var(--lux)',gaming:'var(--gam)',emotional:'var(--emo)',genz:'var(--gen)'};
 var LBL={cinematic:'Cinematic',luxury:'Luxury',gaming:'Gaming',emotional:'Emotional',genz:'Gen Z'};
 
 /* generative thumbnail for pages without a raster hero yet */
 function thumb(p){
-  var c=({cinematic:['#e5484d','#2f6f7d','#0d0d12'],luxury:['#c9a961','#e8e3dc','#12100c'],
-    gaming:['#38bdf8','#a855f7','#080b16'],emotional:['#f0956b','#ffd9b8','#161018'],
-    genz:['#c084fc','#facc15','#14101c']})[p.s];
-  var seed=p.n*37;
+  var c=p.c;
+  var seed=p.n*37+13;
+  var light=/^#[e-fE-F]/.test(c[2]);
   var s='<svg viewBox="0 0 320 200" preserveAspectRatio="xMidYMid slice" aria-hidden="true">';
   s+='<defs><linearGradient id="g'+p.n+'" x1="0" y1="0" x2="1" y2="1">'+
-     '<stop offset="0%" stop-color="'+c[0]+'" stop-opacity=".55"/>'+
-     '<stop offset="100%" stop-color="'+c[2]+'"/></linearGradient></defs>';
+     '<stop offset="0%" stop-color="'+c[0]+'" stop-opacity="'+(light?'.30':'.55')+'"/>'+
+     '<stop offset="60%" stop-color="'+c[1]+'" stop-opacity="'+(light?'.18':'.28')+'"/>'+
+     '<stop offset="100%" stop-color="'+c[2]+'" stop-opacity="'+(light?'.05':'1')+'"/></linearGradient>'+
+     '<radialGradient id="r'+p.n+'" cx="72%" cy="30%" r="62%">'+
+     '<stop offset="0%" stop-color="'+c[0]+'" stop-opacity="'+(light?'.34':'.5')+'"/>'+
+     '<stop offset="100%" stop-color="'+c[0]+'" stop-opacity="0"/></radialGradient></defs>';
   s+='<rect width="320" height="200" fill="'+c[2]+'"/>';
   s+='<rect width="320" height="200" fill="url(#g'+p.n+')"/>';
-  for(var i=0;i<7;i++){
-    var x=((seed*(i+3))%300)+10, y=((seed*(i+5))%170)+15, r=8+((seed*(i+2))%26);
-    s+='<circle cx="'+x+'" cy="'+y+'" r="'+r+'" fill="'+c[i%2]+'" opacity="'+(0.06+(i%4)*0.045)+'"/>';
+  s+='<rect width="320" height="200" fill="url(#r'+p.n+')"/>';
+  for(var i=0;i<6;i++){
+    var x=((seed*(i+3))%300)+10, y=((seed*(i+5))%170)+15, r=7+((seed*(i+2))%22);
+    s+='<circle cx="'+x+'" cy="'+y+'" r="'+r+'" fill="'+c[i%2]+'" opacity="'+(0.07+(i%4)*0.05)+'"/>';
   }
-  s+='<text x="160" y="112" text-anchor="middle" font-family="Instrument Serif,serif" font-size="56" fill="'+c[0]+'" opacity=".9">'+String(p.n).padStart(2,'0')+'</text>';
+  for(var k=0;k<3;k++){
+    var yy=48+k*52+((seed*(k+1))%14);
+    s+='<path d="M-10 '+yy+' C 70 '+(yy-22)+', 170 '+(yy+24)+', 330 '+(yy-8)+'" fill="none" stroke="'+
+       c[k%2]+'" stroke-opacity="'+(light?'.26':'.22')+'" stroke-width="1.4"/>';
+  }
+  s+='<text x="160" y="118" text-anchor="middle" font-family="Instrument Serif,serif" font-size="62" fill="'+
+     c[0]+'" opacity="'+(light?'.55':'.85')+'">'+String(p.n).padStart(2,'0')+'</text>';
   return s+'</svg>';
 }
 
 var grid=document.getElementById('grid');
 grid.innerHTML=PAGES.map(function(p){
-  var media=p.live&&p.thumb
+  var media=p.thumb
     ? '<img src="'+p.thumb+'" alt="Preview of the '+p.t+' landing page" loading="lazy" width="320" height="200">'
     : thumb(p);
   return '<article class="tile'+(p.live?'':' soon')+'" data-s="'+p.s+'" style="--c:'+C[p.s]+'">'+

@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The Memory Box — open the lid, take out what fits</title>
+<meta name="description" content="The Memory Box is a shoebox of nine photographs that spill out when you lift the lid. Drag them around, read the back of each one, and order the objects they show.">
+<meta name="theme-color" content="#1c1a24">
+<meta name="color-scheme" content="dark">
+<link rel="canonical" href="https://thememorybox.example/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="The Memory Box">
+<meta property="og:description" content="Lift the lid. Nine photographs. Read the backs.">
+<meta property="og:image" content="img/og.svg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="img/og.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Vollkorn:ital,wght@0,400;0,600;1,400&family=Rubik:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%231c1a24'/%3E%3Crect x='6' y='12' width='20' height='16' fill='none' stroke='%23e0b872' stroke-width='2'/%3E%3Cpath d='M4 12l4-6h16l4 6' fill='none' stroke='%23e0b872' stroke-width='2'/%3E%3C/svg%3E">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"ItemList","name":"The Memory Box — Objects in the Photographs","itemListElement":[
+{"@type":"ListItem","position":1,"item":{"@type":"Product","name":"The Box Itself","offers":{"@type":"Offer","price":"88","priceCurrency":"USD","availability":"https://schema.org/InStock"}}},
+{"@type":"ListItem","position":2,"item":{"@type":"Product","name":"Photograph Set — nine prints","offers":{"@type":"Offer","price":"36","priceCurrency":"USD","availability":"https://schema.org/InStock"}}},
+{"@type":"ListItem","position":3,"item":{"@type":"Product","name":"The Enamel Charm from Photo 04","offers":{"@type":"Offer","price":"54","priceCurrency":"USD","availability":"https://schema.org/InStock"}}}]}
+</script>
+<style>
+*,*::before,*::after{box-sizing:border-box}
+:root{
+  --dusk:#1c1a24; --dusk2:#242130; --paper:#f4ede0; --ink:#2b2620; --soft:#9b93a6;
+  --amber:#e0b872; --rose:#c96f6f; --teal:#5f9a91;
+  --line:rgba(244,237,224,.13);
+  --g:clamp(18px,5vw,92px);
+}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--dusk);color:var(--paper);font-family:Rubik,system-ui,sans-serif;
+  font-weight:300;font-size:16.5px;line-height:1.75;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:radial-gradient(70% 50% at 50% 0%,rgba(224,184,114,.12),transparent 62%)}
+h1,h2,h3{margin:0;font-family:Vollkorn,serif;font-weight:400;line-height:1.16}
+a{color:inherit;text-decoration:none}
+::selection{background:var(--amber);color:var(--dusk)}
+:focus-visible{outline:2px solid var(--amber);outline-offset:4px}
+.skip{position:absolute;left:-9999px;background:var(--paper);color:var(--dusk);padding:10px 18px;z-index:400}
+.skip:focus{left:14px;top:14px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* ---------- loader: dust in a beam ---------- */
+#dust{position:fixed;inset:0;z-index:500;background:#14121a;display:grid;place-items:center;
+  transition:opacity .9s,visibility .9s}
+#dust.gone{opacity:0;visibility:hidden}
+.beam{position:relative;width:min(220px,52vw);height:min(220px,52vw)}
+.beam::before{content:'';position:absolute;left:50%;top:-10%;width:44%;height:120%;
+  transform:translateX(-50%) skewX(-9deg);
+  background:linear-gradient(180deg,rgba(224,184,114,.34),transparent 78%);filter:blur(6px)}
+.beam i{position:absolute;width:3px;height:3px;border-radius:50%;background:var(--amber);opacity:.85;
+  animation:drift 4s linear infinite}
+.beam i:nth-child(1){left:44%;top:14%;animation-delay:0s}
+.beam i:nth-child(2){left:56%;top:36%;animation-delay:.7s}
+.beam i:nth-child(3){left:48%;top:58%;animation-delay:1.4s}
+.beam i:nth-child(4){left:60%;top:74%;animation-delay:2.1s}
+.beam i:nth-child(5){left:40%;top:88%;animation-delay:2.8s}
+@keyframes drift{0%{transform:translateY(0);opacity:0}20%{opacity:.9}100%{transform:translateY(-70px);opacity:0}}
+.dcap{position:absolute;bottom:13vh;left:0;right:0;text-align:center;font-family:Vollkorn,serif;
+  font-style:italic;color:var(--soft);opacity:0;animation:df 1s .8s forwards}
+@keyframes df{to{opacity:1}}
+
+/* ---------- nav ---------- */
+.nav{position:fixed;top:0;left:0;right:0;z-index:70;display:flex;align-items:center;
+  justify-content:space-between;gap:14px;padding:18px var(--g);
+  background:linear-gradient(180deg,rgba(28,26,36,.92),transparent)}
+.nav .mk{font-family:Vollkorn,serif;font-size:1.12rem;letter-spacing:.06em}
+.nav .mk em{font-style:italic;color:var(--amber)}
+.nav .count{font-size:.72rem;color:var(--soft)}
+
+/* ---------- hero + the box ---------- */
+.hero{position:relative;z-index:2;min-height:100svh;display:grid;align-content:center;
+  padding:clamp(96px,15vh,150px) var(--g) clamp(40px,7vh,90px);
+  gap:clamp(24px,5vw,70px);grid-template-columns:repeat(auto-fit,minmax(min(290px,100%),1fr));
+  align-items:center}
+.hero .k{font-size:.66rem;letter-spacing:.4em;text-transform:uppercase;color:var(--amber);margin-bottom:20px}
+.hero h1{font-size:clamp(2.4rem,8vw,5.8rem);letter-spacing:-.015em;max-width:13ch}
+.hero h1 em{font-style:italic;color:var(--amber)}
+.hero p{max-width:44ch;margin:22px 0 0;color:var(--soft);font-size:clamp(1rem,1.6vw,1.12rem)}
+.liftbtn{margin-top:28px;display:inline-flex;align-items:center;gap:12px;background:var(--paper);
+  color:var(--dusk);border:none;font-family:Vollkorn,serif;font-size:1.04rem;padding:14px 30px;
+  border-radius:3px;cursor:pointer;transition:transform .3s cubic-bezier(.2,1.6,.4,1),box-shadow .3s}
+.liftbtn:hover{transform:translateY(-3px);box-shadow:0 16px 34px -16px rgba(244,237,224,.5)}
+.boxwrap{position:relative;aspect-ratio:1;display:grid;place-items:center;perspective:1100px}
+.boxwrap svg{width:100%;height:100%;overflow:visible}
+.boxwrap .lid{transform-origin:50% 74%;transition:transform 1s cubic-bezier(.3,1.4,.35,1)}
+.boxwrap.open .lid{transform:translate(48px,-118px) rotate(-16deg)}
+.boxwrap .glow{opacity:0;transition:opacity 1s}
+.boxwrap.open .glow{opacity:1}
+
+/* ---------- the scatter table ---------- */
+.table{position:relative;z-index:2;padding:clamp(30px,6vh,80px) var(--g) clamp(50px,10vh,120px)}
+.th{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:14px;margin-bottom:20px}
+.th h2{font-size:clamp(1.6rem,4.4vw,2.8rem)}
+.th h2 em{font-style:italic;color:var(--amber)}
+.th p{margin:0;color:var(--soft);max-width:36ch;font-size:.92rem}
+.th .tidy{background:transparent;border:1px solid var(--line);color:var(--paper);font-family:inherit;
+  font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;padding:10px 20px;cursor:pointer;transition:.35s}
+.th .tidy:hover{background:var(--paper);color:var(--dusk);border-color:var(--paper)}
+.felt{position:relative;background:
+  radial-gradient(120% 90% at 50% 0%,rgba(224,184,114,.09),transparent 62%),var(--dusk2);
+  border:1px solid var(--line);border-radius:6px;height:clamp(440px,68svh,700px);overflow:hidden;
+  touch-action:none}
+.pola{position:absolute;width:clamp(132px,17vw,186px);background:var(--paper);color:var(--ink);
+  padding:9px 9px 34px;box-shadow:0 14px 30px -12px rgba(0,0,0,.8);cursor:grab;user-select:none;
+  transition:box-shadow .3s}
+.pola:active{cursor:grabbing;box-shadow:0 24px 46px -14px rgba(0,0,0,.9)}
+.pola.dragging{z-index:50!important}
+.pola .shot{aspect-ratio:1;overflow:hidden;background:#ddd4c4}
+.pola .shot svg{width:100%;height:100%;display:block}
+.pola .cap{position:absolute;left:10px;right:10px;bottom:8px;font-family:Vollkorn,serif;font-style:italic;
+  font-size:.76rem;line-height:1.3;color:#5d5348;text-align:center}
+.pola .back{position:absolute;inset:0;background:var(--paper);padding:14px 13px;display:none;
+  flex-direction:column;gap:8px;justify-content:center}
+.pola.flip .back{display:flex}
+.pola.flip .shot,.pola.flip .cap{visibility:hidden}
+.pola .back .no{font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:#8d8375}
+.pola .back p{margin:0;font-family:Vollkorn,serif;font-size:.82rem;line-height:1.42;color:#443c33}
+.pola .back .buy{margin-top:auto;display:flex;align-items:center;justify-content:space-between;gap:8px;
+  border-top:1px solid rgba(43,38,32,.2);padding-top:8px}
+.pola .back .pr{font-family:Vollkorn,serif;font-size:.94rem;color:#2b2620}
+.pola .back button{background:#2b2620;color:var(--paper);border:none;font-family:Rubik,sans-serif;
+  font-size:.62rem;letter-spacing:.1em;padding:6px 11px;cursor:pointer;border-radius:2px}
+.pola .back button:hover{background:var(--rose)}
+.pola .flipbtn{position:absolute;top:6px;right:6px;width:24px;height:24px;border-radius:50%;
+  background:rgba(43,38,32,.72);color:var(--paper);border:none;cursor:pointer;font-size:.66rem;
+  display:grid;place-items:center;z-index:3}
+.pola .flipbtn:hover{background:var(--rose)}
+.hintline{margin-top:14px;font-size:.8rem;color:var(--soft);text-align:center}
+
+/* ---------- what's in the box, listed ---------- */
+.contents{position:relative;z-index:2;padding:clamp(46px,9vh,120px) var(--g);
+  border-top:1px solid var(--line);background:var(--dusk2)}
+.ch2{max-width:52ch;margin-bottom:clamp(26px,5vh,52px)}
+.ch2 h2{font-size:clamp(1.6rem,4.4vw,2.8rem);margin-bottom:12px}
+.ch2 h2 em{font-style:italic;color:var(--amber)}
+.ch2 p{margin:0;color:var(--soft)}
+.rows{display:grid;gap:1px;background:var(--line);border:1px solid var(--line)}
+.r{background:var(--dusk2);display:grid;grid-template-columns:auto minmax(0,1fr) auto;
+  gap:clamp(12px,3vw,34px);align-items:center;padding:clamp(14px,2.6vw,22px);transition:background .4s}
+.r:hover{background:#2a2637}
+.r .sw{width:clamp(38px,5.4vw,54px);aspect-ratio:1;border:1px solid var(--line);display:grid;place-items:center}
+.r .sw svg{width:66%;height:66%}
+.r h3{font-family:Rubik,sans-serif;font-weight:400;font-size:1rem}
+.r .sub{display:block;font-size:.8rem;color:var(--soft);margin-top:2px}
+.r .buy{display:flex;align-items:center;gap:14px}
+.r .pr{font-family:Vollkorn,serif;font-size:1.08rem}
+.r button{background:transparent;border:1px solid var(--line);color:var(--paper);font-family:inherit;
+  font-size:.64rem;letter-spacing:.16em;text-transform:uppercase;padding:9px 17px;cursor:pointer;transition:.35s;
+  white-space:nowrap}
+.r button:hover{background:var(--amber);border-color:var(--amber);color:var(--dusk)}
+.r button.in{background:var(--teal);border-color:var(--teal);color:var(--dusk)}
+@media(max-width:640px){.r{grid-template-columns:auto minmax(0,1fr);row-gap:12px}
+  .r .buy{grid-column:1/-1;justify-content:space-between}}
+
+/* ---------- closing ---------- */
+.close{position:relative;z-index:2;padding:clamp(50px,10vh,130px) var(--g);text-align:center}
+.close blockquote{margin:0 auto clamp(28px,5vh,48px);max-width:24ch;font-family:Vollkorn,serif;
+  font-style:italic;font-size:clamp(1.4rem,4.4vw,2.8rem);line-height:1.3}
+.close blockquote em{font-style:normal;color:var(--amber)}
+.cform{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;max-width:500px;margin:0 auto}
+.cform input{flex:1 1 210px;background:var(--dusk2);border:1px solid var(--line);color:var(--paper);
+  padding:13px 16px;font-family:inherit;font-size:1rem}
+.cform input:focus{outline:none;border-color:var(--amber)}
+.cform button{background:var(--amber);border:1px solid var(--amber);color:var(--dusk);font-family:Vollkorn,serif;
+  font-size:1rem;padding:13px 28px;cursor:pointer;transition:.4s}
+.cform button:hover{background:transparent;color:var(--amber)}
+.cmsg{min-height:1.5em;margin-top:14px;font-family:Vollkorn,serif;font-style:italic;color:var(--teal)}
+
+/* ---------- footer ---------- */
+footer{position:relative;z-index:2;border-top:1px solid var(--line);padding:clamp(34px,7vh,76px) var(--g) 30px}
+.fg{display:grid;gap:26px;grid-template-columns:repeat(auto-fit,minmax(min(180px,100%),1fr));padding-bottom:26px}
+.fg h4{margin:0 0 10px;font-family:Rubik,sans-serif;font-weight:500;font-size:.62rem;letter-spacing:.26em;
+  text-transform:uppercase;color:var(--amber)}
+.fg ul{list-style:none;margin:0;padding:0;display:grid;gap:7px}
+.fg a{color:var(--soft);font-size:.9rem;transition:color .3s}
+.fg a:hover{color:var(--paper)}
+.fg .sig{font-family:Vollkorn,serif;font-size:1.4rem;line-height:1.4;max-width:20ch}
+.fb{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;padding-top:20px;
+  border-top:1px solid var(--line);font-size:.78rem;color:var(--soft)}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;
+    transition-duration:.001ms!important}
+  .felt{height:auto;display:flex;flex-wrap:wrap;gap:14px;padding:16px}
+  .pola{position:relative!important;left:auto!important;top:auto!important;transform:none!important}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#contents">Skip to what is in the box</a>
+
+<div id="dust" role="status" aria-label="Loading">
+  <div class="beam" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+  <p class="dcap">Top of the wardrobe, at the back.</p>
+</div>
+
+<header class="nav">
+  <span class="mk">The Memory <em>Box</em></span>
+  <span class="count"><b id="outCount">0</b> of 9 photographs out</span>
+</header>
+
+<main>
+  <section class="hero" aria-labelledby="mt">
+    <div>
+      <p class="k">One shoebox · nine photographs</p>
+      <h1 id="mt">Lift the lid and it all <em>falls out</em></h1>
+      <p>It has been on top of the wardrobe for eleven years. There is no order to it, nothing is labelled properly, and three of the photographs are of the same doorway. Take them out and turn them over.</p>
+      <button class="liftbtn" id="liftBtn">Lift the lid →</button>
+    </div>
+    <div class="boxwrap" id="boxwrap">
+      <svg viewBox="0 0 400 400" role="img" aria-label="An old shoebox with its lid lifting off">
+        <defs>
+          <linearGradient id="card" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#4a4356"/><stop offset="100%" stop-color="#2e2a3a"/></linearGradient>
+          <radialGradient id="gl" cx="50%" cy="40%" r="55%">
+            <stop offset="0%" stop-color="#e0b872" stop-opacity=".5"/><stop offset="100%" stop-color="#e0b872" stop-opacity="0"/></radialGradient>
+        </defs>
+        <ellipse cx="200" cy="352" rx="150" ry="20" fill="#000" opacity=".45"/>
+        <g class="glow"><ellipse cx="200" cy="230" rx="150" ry="110" fill="url(#gl)"/></g>
+        <g class="glow" opacity=".9">
+          <rect x="150" y="176" width="52" height="62" rx="2" fill="#f4ede0" transform="rotate(-9 176 207)"/>
+          <rect x="196" y="182" width="52" height="62" rx="2" fill="#efe6d6" transform="rotate(7 222 213)"/>
+          <rect x="174" y="168" width="52" height="62" rx="2" fill="#f8f2e7" transform="rotate(-2 200 199)"/>
+        </g>
+        <path d="M92 232h216v112H92z" fill="url(#card)" stroke="#e0b872" stroke-opacity=".45" stroke-width="2.4"/>
+        <path d="M92 232l24-22h168l24 22" fill="#3b3548" stroke="#e0b872" stroke-opacity=".45" stroke-width="2.4"/>
+        <path d="M124 268h152M124 296h152" stroke="rgba(244,237,224,.1)" stroke-width="2"/>
+        <g class="lid">
+          <path d="M78 156h244v66H78z" fill="#3f3950" stroke="#e0b872" stroke-opacity=".5" stroke-width="2.6"/>
+          <path d="M78 156l26-26h192l26 26" fill="#4a4358" stroke="#e0b872" stroke-opacity=".5" stroke-width="2.6"/>
+          <rect x="158" y="172" width="84" height="30" rx="2" fill="none" stroke="#e0b872" stroke-opacity=".5" stroke-width="2"/>
+          <path d="M170 188h60" stroke="#e0b872" stroke-opacity=".7" stroke-width="2.4"/>
+        </g>
+      </svg>
+    </div>
+  </section>
+
+  <section class="table" id="tabletop" aria-labelledby="tt">
+    <div class="th">
+      <div>
+        <h2 id="tt">On the <em>table</em></h2>
+        <p>Drag the photographs. Use the ↻ button to read the back of one.</p>
+      </div>
+      <button class="tidy" id="tidyBtn">Tidy them up</button>
+    </div>
+    <div class="felt" id="felt"></div>
+    <p class="hintline">Nine photographs · drag to move · flip to read the back and order what is in the picture</p>
+  </section>
+
+  <section class="contents" id="contents" aria-labelledby="cn">
+    <div class="ch2">
+      <h2 id="cn">What is <em>actually</em> in the box</h2>
+      <p>Everything in the photographs, made again properly. The box itself is included in the list, because several people have asked and it seemed rude to keep saying no.</p>
+    </div>
+    <div class="rows">
+      <article class="r">
+        <div class="sw"><svg viewBox="0 0 40 40" aria-hidden="true" fill="none" stroke="#e0b872" stroke-width="2.6">
+          <path d="M6 16h28v18H6z"/><path d="M6 16l4-6h20l4 6"/></svg></div>
+        <div><h3>The Box Itself</h3><span class="sub">Grey board, cloth-hinged lid, 32 × 22 × 12 cm</span></div>
+        <div class="buy"><span class="pr">$88</span><button>Add</button></div>
+      </article>
+      <article class="r">
+        <div class="sw"><svg viewBox="0 0 40 40" aria-hidden="true" fill="none" stroke="#f4ede0" stroke-width="2.6">
+          <rect x="9" y="7" width="22" height="26"/><rect x="13" y="11" width="14" height="14"/></svg></div>
+        <div><h3>Photograph Set — nine prints</h3><span class="sub">Matte, deckle-edged, blank on the reverse for your own</span></div>
+        <div class="buy"><span class="pr">$36</span><button>Add</button></div>
+      </article>
+      <article class="r">
+        <div class="sw"><svg viewBox="0 0 40 40" aria-hidden="true" fill="none" stroke="#c96f6f" stroke-width="2.6">
+          <circle cx="20" cy="16" r="9"/><path d="M20 25v10M14 35h12"/></svg></div>
+        <div><h3>The Enamel Charm (photo 04)</h3><span class="sub">Hand-fired enamel on brass, 24mm, on a waxed cord</span></div>
+        <div class="buy"><span class="pr">$54</span><button>Add</button></div>
+      </article>
+      <article class="r">
+        <div class="sw"><svg viewBox="0 0 40 40" aria-hidden="true" fill="none" stroke="#5f9a91" stroke-width="2.6">
+          <path d="M11 12h18v16a9 9 0 01-18 0z"/><path d="M29 16h4a4 4 0 010 8h-4"/></svg></div>
+        <div><h3>The Chipped Cup (photo 07)</h3><span class="sub">Reproduced chip included, on purpose, in the same place</span></div>
+        <div class="buy"><span class="pr">$32</span><button>Add</button></div>
+      </article>
+      <article class="r">
+        <div class="sw"><svg viewBox="0 0 40 40" aria-hidden="true" fill="none" stroke="#e0b872" stroke-width="2.6">
+          <rect x="10" y="8" width="20" height="24" rx="3"/><path d="M14 14h12M14 20h12M14 26h8"/></svg></div>
+        <div><h3>The Notebook (photo 09)</h3><span class="sub">96 pages, ruled, with the same cracked spine treatment</span></div>
+        <div class="buy"><span class="pr">$26</span><button>Add</button></div>
+      </article>
+      <article class="r">
+        <div class="sw"><svg viewBox="0 0 40 40" aria-hidden="true" fill="none" stroke="#f4ede0" stroke-width="2.6">
+          <path d="M8 30h24l3 4H5z"/><rect x="12" y="8" width="16" height="22" rx="4"/></svg></div>
+        <div><h3>The Whole Box, Filled</h3><span class="sub">Box, prints, charm, cup and notebook, packed as found</span></div>
+        <div class="buy"><span class="pr">$198</span><button>Add</button></div>
+      </article>
+    </div>
+  </section>
+
+  <section class="close" aria-labelledby="cl">
+    <blockquote id="cl">“Keep the box. <em>Lose the guilt about the box.</em> Those are two different jobs.”</blockquote>
+    <form class="cform" id="cform" novalidate>
+      <label class="sr" for="ce">Email address</label>
+      <input id="ce" type="email" placeholder="Tell me when the next box opens" autocomplete="email" required>
+      <button type="submit">Send it</button>
+    </form>
+    <p class="cmsg" id="cmsg" role="status"></p>
+  </section>
+</main>
+
+<footer>
+  <div class="fg">
+    <div><p class="sig">The Memory Box<br>— top of the wardrobe, at the back</p></div>
+    <div><h4>The box</h4><ul><li><a href="#tabletop">All nine photographs</a></li><li><a href="#contents">Contents list</a></li><li><a href="#">Previous boxes</a></li></ul></div>
+    <div><h4>Orders</h4><ul><li><a href="#">Shipping</a></li><li><a href="#">Engraving</a></li><li><a href="#">Returns</a></li></ul></div>
+    <div><h4>Elsewhere</h4><ul><li><a href="../../index.html">The other 24 studios</a></li><li><a href="#mt">Close the lid</a></li></ul></div>
+  </div>
+  <div class="fb"><span>Fan project · not affiliated with HoYoverse</span><span>Nothing in here is labelled properly</span></div>
+</footer>
+
+<script>
+(function(){
+var RM=matchMedia('(prefers-reduced-motion:reduce)').matches;
+
+/* loader */
+var d=document.getElementById('dust');
+function go(){d.classList.add('gone');}
+if(RM) setTimeout(go,200); else addEventListener('load',function(){setTimeout(go,1700);});
+setTimeout(go,4200);
+
+/* ---- photograph data ---- */
+function shot(kind){
+  var s='<svg viewBox="0 0 120 120" aria-hidden="true">';
+  if(kind==='door') s+='<rect width="120" height="120" fill="#cbbfa8"/><path d="M36 108V44a24 24 0 0148 0v64z" fill="#8c6f4e"/>'+
+    '<circle cx="72" cy="76" r="4" fill="#e0b872"/><ellipse cx="60" cy="26" rx="10" ry="12" fill="#e0b872"/>';
+  else if(kind==='hill') s+='<rect width="120" height="120" fill="#b9c6b1"/><circle cx="92" cy="30" r="16" fill="#e8cf90"/>'+
+    '<path d="M0 84c26-16 44 4 70-10s50-6 50-6v52H0z" fill="#7d9070"/>'+
+    '<path d="M0 100c30-10 50 8 76-4s44-2 44-2v26H0z" fill="#5f7255"/>';
+  else if(kind==='cup') s+='<rect width="120" height="120" fill="#d8cdb8"/><rect y="80" width="120" height="40" fill="#b7a78c"/>'+
+    '<path d="M40 48h40v34a20 20 0 01-40 0z" fill="#f2ece0" stroke="#8d8271" stroke-width="3"/>'+
+    '<path d="M80 56h10a10 10 0 010 20h-10" fill="none" stroke="#8d8271" stroke-width="3"/>';
+  else if(kind==='charm') s+='<rect width="120" height="120" fill="#3a3040"/><circle cx="60" cy="58" r="26" fill="#c96f6f"/>'+
+    '<circle cx="60" cy="58" r="12" fill="#f4ede0"/><path d="M60 84v22" stroke="#e0b872" stroke-width="3"/>';
+  else if(kind==='tram') s+='<rect width="120" height="120" fill="#c4c7cd"/><rect x="18" y="42" width="84" height="42" rx="8" fill="#c96f6f"/>'+
+    '<rect x="28" y="52" width="24" height="20" fill="#f4ede0"/><rect x="60" y="52" width="24" height="20" fill="#f4ede0"/>'+
+    '<circle cx="40" cy="90" r="8" fill="#3a3040"/><circle cx="82" cy="90" r="8" fill="#3a3040"/>';
+  else if(kind==='hands') s+='<rect width="120" height="120" fill="#e2d7c2"/>'+
+    '<g fill="none" stroke="#6b5c48" stroke-width="4" stroke-linecap="round">'+
+    '<path d="M32 92c-6-22 0-42 12-52M44 40c8-12 22-14 32-6M80 36c12 2 18 16 14 32s-16 30-30 32-30-4-32-14"/></g>'+
+    '<circle cx="62" cy="62" r="9" fill="#c96f6f"/>';
+  else if(kind==='lantern') s+='<rect width="120" height="120" fill="#241f2c"/><ellipse cx="60" cy="56" rx="26" ry="32" fill="#e0b872"/>'+
+    '<ellipse cx="60" cy="54" rx="12" ry="17" fill="#fff3d6"/><path d="M60 20v-8M60 90v14" stroke="#8c6f4e" stroke-width="4"/>';
+  else if(kind==='book') s+='<rect width="120" height="120" fill="#cfc4ad"/><rect x="30" y="26" width="60" height="72" rx="3" fill="#5f9a91"/>'+
+    '<path d="M42 44h36M42 58h36M42 72h24" stroke="#f4ede0" stroke-width="3"/>';
+  else s+='<rect width="120" height="120" fill="#d3c8b3"/><path d="M0 92c24-12 42 2 66-8s54-4 54-4v40H0z" fill="#9b8c72"/>'+
+    '<circle cx="30" cy="34" r="12" fill="#e8cf90"/>';
+  return s+'</svg>';
+}
+var PHOTOS=[
+ {k:'door',c:'the front door, again',n:'01',b:'Three photographs in this box are of this doorway from almost the same spot, taken years apart. Nobody remembers deciding to do that.',pr:'',item:''},
+ {k:'tram',c:'the 11:04',n:'02',b:'The tram we took four stops and got off one early. She is arguing with the ticket machine just out of frame.',pr:'',item:''},
+ {k:'hill',c:'the unremarkable view',n:'03',b:'Taken at the top of the hill with the bench. The view is genuinely nothing. It is the most-handled photograph in the box.',pr:'',item:''},
+ {k:'charm',c:'the charm, before it broke',n:'04',b:'The enamel charm, photographed the week it was bought and eight months before it was lost. Remade properly this year.',pr:'$54',item:'Enamel charm'},
+ {k:'hands',c:'somebody holding something',n:'05',b:'Out of focus, badly lit, kept anyway. This is the one everybody picks up first and nobody can explain why.',pr:'',item:''},
+ {k:'cup',c:'the chipped cup',n:'07',b:'Chipped on the second day and used every morning for nine years after that. The reproduction has the chip in the same place.',pr:'$32',item:'Chipped cup'},
+ {k:'lantern',c:'the last night of it',n:'06',b:'The lantern on the wall by the door, lit. Photographed at 23:40 on the last evening in that flat.',pr:'',item:''},
+ {k:'book',c:'the notebook, closed',n:'09',b:'Ninety-six pages, eleven of them used. We have reproduced the cover and left all ninety-six blank on purpose.',pr:'$26',item:'Notebook'},
+ {k:'gate',c:'somewhere with a gate',n:'08',b:'Location unidentified. Two people have claimed to know where this is and their answers were four hundred miles apart.',pr:'',item:''}
+];
+
+var felt=document.getElementById('felt'), out=0, z=1;
+function place(){
+  felt.innerHTML='';
+  var W=felt.clientWidth, H=felt.clientHeight;
+  var cardW=Math.min(186,Math.max(132,W*0.17));
+  PHOTOS.forEach(function(p,i){
+    var el=document.createElement('article');
+    el.className='pola';
+    var rot=(Math.random()*22-11).toFixed(1);
+    var x=20+Math.random()*Math.max(W-cardW-40,10);
+    var y=16+Math.random()*Math.max(H-cardW*1.35-32,10);
+    el.style.left=x+'px'; el.style.top=y+'px';
+    el.style.transform='rotate('+rot+'deg)';
+    el.dataset.rot=rot;
+    el.style.zIndex=String(i+1);
+    el.innerHTML=
+      '<button class="flipbtn" aria-label="Turn photograph '+p.n+' over">↻</button>'+
+      '<div class="shot">'+shot(p.k)+'</div>'+
+      '<p class="cap">'+p.c+'</p>'+
+      '<div class="back"><span class="no">Photograph '+p.n+'</span><p>'+p.b+'</p>'+
+        (p.pr?'<div class="buy"><span class="pr">'+p.pr+'</span><button data-i="'+p.item+'">Order '+p.item.toLowerCase()+'</button></div>':
+              '<div class="buy"><span class="pr" style="font-size:.78rem;color:#8d8375">Not for sale</span></div>')+
+      '</div>';
+    felt.appendChild(el);
+  });
+  wire();
+  out=0; document.getElementById('outCount').textContent='0';
+}
+
+function wire(){
+  felt.querySelectorAll('.pola').forEach(function(el){
+    var rot=el.dataset.rot;
+    /* flip */
+    el.querySelector('.flipbtn').addEventListener('click',function(e){
+      e.stopPropagation();
+      el.classList.toggle('flip');
+      el.style.zIndex=String(++z+9);
+    });
+    var b=el.querySelector('.back button');
+    if(b) b.addEventListener('click',function(e){
+      e.stopPropagation();
+      var t=b.textContent; b.textContent='Ordered ✓';
+      setTimeout(function(){b.textContent=t;},1800);
+    });
+    /* drag */
+    var sx=0,sy=0,ox=0,oy=0,moved=false;
+    el.addEventListener('pointerdown',function(e){
+      if(e.target.closest('button')) return;
+      el.setPointerCapture(e.pointerId);
+      el.classList.add('dragging');
+      el.style.zIndex=String(++z+9);
+      sx=e.clientX; sy=e.clientY;
+      ox=parseFloat(el.style.left); oy=parseFloat(el.style.top);
+      moved=false;
+      if(!el.dataset.counted){ el.dataset.counted='1'; out++;
+        document.getElementById('outCount').textContent=out; }
+    });
+    el.addEventListener('pointermove',function(e){
+      if(!el.classList.contains('dragging')) return;
+      var dx=e.clientX-sx, dy=e.clientY-sy;
+      if(Math.abs(dx)>2||Math.abs(dy)>2) moved=true;
+      var W=felt.clientWidth, H=felt.clientHeight;
+      var nx=Math.max(-30,Math.min(ox+dx,W-el.offsetWidth+30));
+      var ny=Math.max(-20,Math.min(oy+dy,H-el.offsetHeight+40));
+      el.style.left=nx+'px'; el.style.top=ny+'px';
+      el.style.transform='rotate('+(parseFloat(rot)+dx*0.02).toFixed(2)+'deg) scale(1.03)';
+    });
+    function end(){
+      if(!el.classList.contains('dragging')) return;
+      el.classList.remove('dragging');
+      el.style.transform='rotate('+rot+'deg)';
+    }
+    el.addEventListener('pointerup',end);
+    el.addEventListener('pointercancel',end);
+  });
+}
+
+place();
+addEventListener('resize',function(){ /* keep positions; just clamp */
+  var W=felt.clientWidth,H=felt.clientHeight;
+  felt.querySelectorAll('.pola').forEach(function(el){
+    el.style.left=Math.min(parseFloat(el.style.left),Math.max(W-el.offsetWidth,0))+'px';
+    el.style.top=Math.min(parseFloat(el.style.top),Math.max(H-el.offsetHeight,0))+'px';
+  });
+});
+
+/* tidy */
+document.getElementById('tidyBtn').addEventListener('click',function(){
+  var W=felt.clientWidth, els=[].slice.call(felt.querySelectorAll('.pola'));
+  var cw=els[0]?els[0].offsetWidth:160, ch=els[0]?els[0].offsetHeight:210;
+  var perRow=Math.max(1,Math.floor((W-24)/(cw+14)));
+  els.forEach(function(el,i){
+    el.classList.remove('flip');
+    el.style.transition='left .6s cubic-bezier(.16,1,.3,1),top .6s cubic-bezier(.16,1,.3,1),transform .6s';
+    el.style.left=(14+(i%perRow)*(cw+14))+'px';
+    el.style.top=(14+Math.floor(i/perRow)*(ch+14))+'px';
+    el.style.transform='rotate(0deg)';
+    setTimeout(function(){el.style.transition='';},700);
+  });
+});
+
+/* lid */
+var bw=document.getElementById('boxwrap');
+function lift(){
+  bw.classList.add('open');
+  document.getElementById('liftBtn').textContent='Lid is off';
+  document.getElementById('tabletop').scrollIntoView({behavior:RM?'auto':'smooth'});
+}
+document.getElementById('liftBtn').addEventListener('click',lift);
+if('IntersectionObserver' in window && !RM){
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){
+    if(e.isIntersecting){setTimeout(function(){bw.classList.add('open');},900);io.disconnect();}});},{threshold:.5});
+  io.observe(bw);
+}
+
+/* contents buttons */
+document.querySelectorAll('.r button').forEach(function(b){
+  b.addEventListener('click',function(){
+    b.textContent='In the order ✓'; b.classList.add('in');
+    setTimeout(function(){b.textContent='Add';b.classList.remove('in');},2100);
+  });
+});
+
+/* newsletter */
+document.getElementById('cform').addEventListener('submit',function(e){
+  e.preventDefault();
+  var v=document.getElementById('ce').value.trim();
+  document.getElementById('cmsg').textContent =
+    /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v)
+      ? 'Noted. The next box is somebody else\u2019s, and it is mostly receipts.'
+      : 'That address will not reach the top of the wardrobe.';
+});
+})();
+</script>
+</body>
+</html>

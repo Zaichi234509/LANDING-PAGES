@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Main Character Energy — the spotlight follows you now</title>
+<meta name="description" content="MAIN CHARACTER is a fit-builder for people who refuse to be background. Build a look, watch the hype meter climb, and get the whole outfit in one click.">
+<meta name="theme-color" content="#100b16">
+<meta name="color-scheme" content="dark">
+<link rel="canonical" href="https://maincharacter.example/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Main Character Energy">
+<meta property="og:description" content="Build the fit. Fill the hype meter. Take the spotlight.">
+<meta property="og:image" content="img/og.svg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="img/og.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,700;12..96,800&family=Sora:wght@200;300;400;600&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23100b16'/%3E%3Ccircle cx='16' cy='16' r='8' fill='%23ffe14d'/%3E%3C/svg%3E">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"ItemList","name":"MAIN CHARACTER — Fit Builder","itemListElement":[
+{"@type":"ListItem","position":1,"item":{"@type":"Product","name":"Statement Coat","offers":{"@type":"Offer","price":"180","priceCurrency":"USD","availability":"https://schema.org/InStock"}}},
+{"@type":"ListItem","position":2,"item":{"@type":"Product","name":"The Hat That Does It","offers":{"@type":"Offer","price":"74","priceCurrency":"USD","availability":"https://schema.org/InStock"}}},
+{"@type":"ListItem","position":3,"item":{"@type":"Product","name":"Loud Boots","offers":{"@type":"Offer","price":"210","priceCurrency":"USD","availability":"https://schema.org/InStock"}}}]}
+</script>
+<style>
+*,*::before,*::after{box-sizing:border-box}
+:root{
+  --bg:#100b16; --bg2:#181022; --txt:#f6f2ff; --dim:#9d92b5;
+  --yellow:#ffe14d; --hot:#ff3d7f; --lime:#9dff4d; --blue:#4d8dff;
+  --line:rgba(246,242,255,.14);
+  --g:clamp(16px,4.5vw,70px);
+  --sx:50%; --sy:40%;
+}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--txt);font-family:Sora,system-ui,sans-serif;
+  font-weight:300;font-size:16.5px;line-height:1.66;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+h1,h2,h3{margin:0;font-family:'Bricolage Grotesque',system-ui,sans-serif;font-weight:800;line-height:.94;
+  letter-spacing:-.03em}
+a{color:inherit;text-decoration:none}
+::selection{background:var(--yellow);color:var(--bg)}
+:focus-visible{outline:3px solid var(--yellow);outline-offset:3px;border-radius:6px}
+.skip{position:absolute;left:-9999px;background:var(--yellow);color:var(--bg);padding:10px 18px;z-index:400;font-weight:700}
+.skip:focus{left:12px;top:12px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* the spotlight follows the pointer */
+#spot{position:fixed;inset:0;z-index:1;pointer-events:none;
+  background:radial-gradient(circle 340px at var(--sx) var(--sy),
+    rgba(255,225,77,.16),rgba(255,61,127,.07) 46%,transparent 72%);
+  transition:background .12s linear}
+
+/* ---------- loader: curtain + spot ---------- */
+#curtain{position:fixed;inset:0;z-index:500;background:#0a0710;display:grid;place-items:center;
+  transition:opacity .6s,visibility .6s}
+#curtain.gone{opacity:0;visibility:hidden}
+.spotdisc{width:min(210px,50vw);aspect-ratio:1;border-radius:50%;
+  background:radial-gradient(circle,rgba(255,225,77,.95),rgba(255,61,127,.5) 52%,transparent 74%);
+  transform:scale(0);animation:pop 1s cubic-bezier(.2,1.6,.3,1) forwards;filter:blur(2px)}
+@keyframes pop{to{transform:scale(1)}}
+.ccap{position:absolute;bottom:12vh;left:0;right:0;text-align:center;
+  font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:clamp(1rem,3.4vw,1.8rem);
+  text-transform:uppercase;letter-spacing:.06em;opacity:0;animation:cf .7s .6s forwards}
+@keyframes cf{to{opacity:1}}
+
+/* ---------- nav ---------- */
+.nav{position:fixed;top:0;left:0;right:0;z-index:80;display:flex;align-items:center;gap:12px;
+  padding:11px var(--g);background:rgba(16,11,22,.82);backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--line)}
+.nav .lg{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:1.06rem;letter-spacing:-.03em}
+.nav .lg em{font-style:normal;color:var(--yellow)}
+.nav nav{display:flex;gap:clamp(9px,2vw,22px);margin-left:auto}
+.nav nav a{font-size:.8rem;color:var(--dim);transition:color .2s}
+.nav nav a:hover{color:var(--txt)}
+.nav .hype{display:flex;align-items:center;gap:8px;font-size:.74rem;color:var(--dim)}
+.nav .hype .mini{width:clamp(52px,9vw,90px);height:7px;border-radius:999px;background:rgba(246,242,255,.14);
+  overflow:hidden}
+.nav .hype .mini i{display:block;height:100%;width:0;border-radius:999px;
+  background:linear-gradient(90deg,var(--blue),var(--lime),var(--yellow),var(--hot));
+  transition:width .5s cubic-bezier(.16,1,.3,1)}
+@media(max-width:760px){.nav nav{display:none}}
+
+/* ---------- hero ---------- */
+.hero{position:relative;z-index:2;min-height:100svh;display:grid;align-content:center;gap:18px;
+  padding:clamp(96px,15vh,150px) var(--g) clamp(40px,7vh,90px)}
+.hero .kick{display:inline-flex;align-items:center;gap:9px;align-self:start;
+  background:linear-gradient(96deg,var(--hot),var(--yellow));color:var(--bg);font-weight:700;
+  font-size:.78rem;padding:6px 16px;border-radius:999px}
+.hero h1{font-size:clamp(2.8rem,13.5vw,10.5rem);line-height:.86}
+.hero h1 .y{color:var(--yellow)}
+.hero h1 .o{color:transparent;-webkit-text-stroke:2px var(--hot)}
+.hero h1 span{display:inline-block;opacity:0;transform:translateY(30px) scale(.94);
+  animation:enter .7s cubic-bezier(.2,1.5,.3,1) forwards}
+@keyframes enter{to{opacity:1;transform:none}}
+.hero .sub{max-width:48ch;color:var(--dim);font-size:clamp(1rem,1.7vw,1.18rem);margin:0}
+.hero .btns{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
+.mb{border:none;font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:.96rem;
+  padding:15px 32px;border-radius:999px;cursor:pointer;
+  transition:transform .2s cubic-bezier(.2,1.7,.4,1),box-shadow .3s}
+.mb.a{background:var(--yellow);color:var(--bg)}
+.mb.a:hover{transform:translateY(-3px) scale(1.03);box-shadow:0 18px 44px -14px rgba(255,225,77,.8)}
+.mb.b{background:transparent;color:var(--txt);box-shadow:inset 0 0 0 2px var(--line)}
+.mb.b:hover{transform:translateY(-3px);box-shadow:inset 0 0 0 2px var(--hot)}
+
+/* stacked marquees */
+.stack{margin-top:clamp(26px,5vh,54px);display:grid;gap:6px;transform:rotate(-1.4deg)}
+.mrow{overflow:hidden;padding:7px 0;border-block:1px solid var(--line)}
+.mrow .m{display:flex;gap:26px;white-space:nowrap;width:max-content;
+  font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:clamp(1rem,2.6vw,1.8rem);
+  text-transform:uppercase;letter-spacing:-.02em}
+.mrow:nth-child(1) .m{animation:sl 22s linear infinite;color:var(--dim)}
+.mrow:nth-child(2) .m{animation:sr 26s linear infinite;color:var(--yellow)}
+.mrow:nth-child(3) .m{animation:sl 30s linear infinite;color:var(--hot)}
+@keyframes sl{to{transform:translateX(-50%)}}
+@keyframes sr{from{transform:translateX(-50%)}to{transform:translateX(0)}}
+
+/* ---------- fit builder ---------- */
+.builder{position:relative;z-index:2;padding:clamp(40px,8vh,110px) var(--g)}
+.bh{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:14px;margin-bottom:24px}
+.bh h2{font-size:clamp(1.8rem,6vw,3.8rem)}
+.bh h2 em{font-style:normal;color:var(--lime)}
+.bh p{margin:0;color:var(--dim);max-width:34ch;font-size:.92rem}
+.bgrid{display:grid;gap:clamp(14px,2.6vw,28px);grid-template-columns:minmax(0,1fr) minmax(0,1.1fr)}
+@media(max-width:880px){.bgrid{grid-template-columns:1fr}}
+.stagebox{position:relative;border:1px solid var(--line);border-radius:24px;overflow:hidden;
+  background:radial-gradient(80% 60% at 50% 0%,rgba(255,225,77,.12),transparent 60%),var(--bg2);
+  min-height:clamp(340px,50svh,520px);display:grid;place-items:center;padding:26px}
+.stagebox .beam{position:absolute;left:50%;top:-8%;width:56%;height:118%;transform:translateX(-50%);
+  background:linear-gradient(180deg,rgba(255,225,77,.22),transparent 74%);filter:blur(10px);pointer-events:none}
+.figure{position:relative;width:min(260px,66%);aspect-ratio:3/5}
+.figure svg{width:100%;height:100%;overflow:visible}
+.figure .layer{opacity:0;transform:translateY(10px);transition:opacity .5s,transform .5s cubic-bezier(.2,1.4,.3,1)}
+.figure .layer.on{opacity:1;transform:none}
+.stagebox .noone{position:absolute;bottom:18px;left:0;right:0;text-align:center;color:var(--dim);
+  font-size:.84rem}
+.slots{display:grid;gap:10px;align-content:start}
+.slot{border:1px solid var(--line);border-radius:18px;background:var(--bg2);padding:14px 16px;
+  display:grid;gap:10px}
+.slot .st{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.slot .st b{font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:.94rem}
+.slot .st span{font-size:.72rem;color:var(--dim)}
+.opts{display:flex;flex-wrap:wrap;gap:7px}
+.opt{border:1px solid var(--line);background:transparent;color:var(--txt);font-family:inherit;
+  font-size:.8rem;padding:8px 14px;border-radius:999px;cursor:pointer;
+  transition:transform .18s cubic-bezier(.2,1.7,.4,1),background .25s,border-color .25s,color .25s}
+.opt:hover{transform:translateY(-2px);border-color:var(--oc,var(--yellow))}
+.opt[aria-pressed="true"]{background:var(--oc,var(--yellow));border-color:var(--oc,var(--yellow));color:var(--bg);
+  font-weight:600}
+.slot .price{font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:.94rem;color:var(--yellow)}
+
+/* hype meter */
+.hypebox{margin-top:clamp(20px,4vh,40px);border:1px solid var(--line);border-radius:20px;
+  background:var(--bg2);padding:clamp(18px,3vw,30px)}
+.hypebox .hh{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:12px;
+  margin-bottom:14px}
+.hypebox h3{font-size:clamp(1.1rem,3vw,1.6rem)}
+.hypebox .lvl{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:clamp(1rem,2.6vw,1.4rem);
+  color:var(--yellow)}
+.meter{height:20px;border-radius:999px;background:rgba(246,242,255,.1);overflow:hidden;position:relative}
+.meter i{display:block;height:100%;width:0;border-radius:999px;
+  background:linear-gradient(90deg,var(--blue),var(--lime) 40%,var(--yellow) 70%,var(--hot));
+  transition:width .6s cubic-bezier(.16,1,.3,1)}
+.meter span{position:absolute;inset:0;display:grid;place-items:center;font-size:.72rem;font-weight:600;
+  color:var(--bg);mix-blend-mode:difference}
+.hypebox .row{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:14px;
+  margin-top:18px;padding-top:16px;border-top:1px solid var(--line)}
+.hypebox .total{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:clamp(1.3rem,3.4vw,2rem)}
+.hypebox .total small{display:block;font-family:Sora,sans-serif;font-weight:300;font-size:.72rem;color:var(--dim)}
+.buyall{background:linear-gradient(96deg,var(--hot),var(--yellow));color:var(--bg);border:none;
+  font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:.94rem;padding:15px 32px;
+  border-radius:999px;cursor:pointer;transition:transform .2s cubic-bezier(.2,1.7,.4,1),box-shadow .3s}
+.buyall:hover{transform:translateY(-3px) scale(1.03);box-shadow:0 18px 46px -14px rgba(255,61,127,.8)}
+.buymsg{min-height:1.4em;margin:12px 0 0;color:var(--lime);font-size:.9rem}
+
+/* ---------- rules ---------- */
+.rules{position:relative;z-index:2;padding:clamp(40px,8vh,110px) var(--g);background:var(--bg2);
+  border-block:1px solid var(--line)}
+.rules h2{font-size:clamp(1.7rem,5.4vw,3.4rem);margin-bottom:22px}
+.rules h2 em{font-style:normal;color:var(--hot)}
+.rgrid{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(230px,100%),1fr))}
+.rl{border:1px solid var(--line);border-radius:18px;padding:20px;background:var(--bg);
+  transition:transform .3s cubic-bezier(.2,1.4,.3,1),border-color .3s}
+.rl:hover{transform:translateY(-6px) rotate(-1deg);border-color:var(--rc,var(--yellow))}
+.rl .n{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:2.2rem;color:var(--rc,var(--yellow));
+  line-height:1;margin-bottom:8px}
+.rl h3{font-size:1.06rem;margin-bottom:6px}
+.rl p{margin:0;color:var(--dim);font-size:.88rem}
+
+/* ---------- signup ---------- */
+.sign{position:relative;z-index:2;padding:clamp(46px,9vh,120px) var(--g);text-align:center;overflow:hidden}
+.sign::before{content:'';position:absolute;left:50%;top:45%;width:min(110vw,820px);aspect-ratio:1;
+  transform:translate(-50%,-50%);pointer-events:none;
+  background:conic-gradient(from 0deg,rgba(255,225,77,.2),rgba(255,61,127,.18),rgba(77,141,255,.2),rgba(255,225,77,.2));
+  filter:blur(64px);animation:rot2 20s linear infinite}
+@keyframes rot2{to{transform:translate(-50%,-50%) rotate(1turn)}}
+.sign h2{position:relative;font-size:clamp(1.9rem,6.6vw,4.4rem);margin-bottom:14px}
+.sign h2 em{font-style:normal;color:var(--yellow)}
+.sign p{position:relative;color:var(--dim);max-width:42ch;margin:0 auto 28px}
+.sform{position:relative;display:flex;flex-wrap:wrap;gap:9px;justify-content:center;max-width:500px;margin:0 auto}
+.sform input{flex:1 1 210px;background:rgba(246,242,255,.06);border:2px solid var(--line);color:var(--txt);
+  padding:14px 18px;border-radius:999px;font-family:inherit;font-size:1rem}
+.sform input:focus{outline:none;border-color:var(--yellow)}
+.smsg{position:relative;min-height:1.5em;margin-top:14px;color:var(--yellow);font-weight:500}
+
+/* ---------- footer ---------- */
+footer{position:relative;z-index:2;padding:clamp(32px,6vh,68px) var(--g) 28px;border-top:1px solid var(--line)}
+.fg{display:grid;gap:24px;grid-template-columns:repeat(auto-fit,minmax(min(165px,100%),1fr));padding-bottom:24px}
+.fg h4{margin:0 0 10px;font-size:.7rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--yellow)}
+.fg ul{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.fg a{color:var(--dim);font-size:.88rem;transition:color .25s}
+.fg a:hover{color:var(--txt)}
+.fg .big{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:1.7rem;line-height:1;
+  letter-spacing:-.03em}
+.fg .big em{font-style:normal;color:var(--hot)}
+.fb{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;padding-top:18px;
+  border-top:1px solid var(--line);font-size:.78rem;color:var(--dim)}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;
+    transition-duration:.001ms!important}
+  .hero h1 span{opacity:1;transform:none}
+  #spot{display:none}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#builder">Skip to the fit builder</a>
+<div id="spot" aria-hidden="true"></div>
+
+<div id="curtain" role="status" aria-label="Loading">
+  <div class="spotdisc" aria-hidden="true"></div>
+  <p class="ccap">You're on in five…</p>
+</div>
+
+<header class="nav">
+  <span class="lg">MAIN<em>CHARACTER</em></span>
+  <nav aria-label="Primary"><a href="#builder">Fit builder</a><a href="#rules">The rules</a><a href="#list">Get on the list</a></nav>
+  <span class="hype">Hype <span class="mini"><i id="miniBar"></i></span><b id="miniPct">0%</b></span>
+</header>
+
+<main>
+  <section class="hero" aria-labelledby="mt">
+    <span class="kick">◆ THE SPOTLIGHT IS ALREADY ON YOU</span>
+    <h1 id="mt"><span>MAIN</span><br><span class="y">CHARACTER</span><br><span class="o">ENERGY</span></h1>
+    <p class="sub">Some people walk into a room. She arrives in it. This is a fit builder for the second category, or for anyone who has decided today is the day they switch.</p>
+    <div class="btns">
+      <button class="mb a" id="buildBtn">Build my fit →</button>
+      <a class="mb b" href="#rules">Read the rules</a>
+    </div>
+    <div class="stack" aria-hidden="true">
+      <div class="mrow"><div class="m">
+        <span>no background characters</span><span>◆</span><span>arrive, don't enter</span><span>◆</span>
+        <span>no background characters</span><span>◆</span><span>arrive, don't enter</span><span>◆</span></div></div>
+      <div class="mrow"><div class="m">
+        <span>the hat does 40% of it</span><span>★</span><span>walk slower</span><span>★</span>
+        <span>the hat does 40% of it</span><span>★</span><span>walk slower</span><span>★</span></div></div>
+      <div class="mrow"><div class="m">
+        <span>be unbearable, kindly</span><span>◆</span><span>own the doorway</span><span>◆</span>
+        <span>be unbearable, kindly</span><span>◆</span><span>own the doorway</span><span>◆</span></div></div>
+    </div>
+  </section>
+
+  <section class="builder" id="builder" aria-labelledby="bd">
+    <div class="bh">
+      <div>
+        <h2 id="bd">The <em>fit</em> builder</h2>
+      </div>
+      <p>Pick one from each row. The figure updates, the hype meter moves, the total does what totals do.</p>
+    </div>
+    <div class="bgrid">
+      <div class="stagebox">
+        <span class="beam" aria-hidden="true"></span>
+        <div class="figure" id="figure">
+          <svg viewBox="0 0 180 300" role="img" aria-label="A figure wearing the outfit you build">
+            <ellipse cx="90" cy="288" rx="62" ry="10" fill="#000" opacity=".5"/>
+            <g stroke="#f6f2ff" stroke-width="4" fill="none" stroke-linecap="round">
+              <circle cx="90" cy="52" r="22"/>
+              <path d="M90 74v96M90 170l-20 100M90 170l20 100M62 104l56 0"/>
+              <path d="M90 90l-32 40M90 90l32 40"/>
+            </g>
+            <g class="layer" id="lCoat"><path d="M58 92h64l16 106-24 8-8-70v96H74v-96l-8 70-24-8z" fill="#ff3d7f" opacity=".85"/></g>
+            <g class="layer" id="lHat"><path d="M40 40h100l-8 12H48z" fill="#ffe14d"/>
+              <path d="M62 40c0-18 12-28 28-28s28 10 28 28z" fill="#ffe14d"/>
+              <path d="M62 32h56" stroke="#100b16" stroke-width="5"/></g>
+            <g class="layer" id="lBoots"><path d="M58 250h26v34H50v-14z" fill="#4d8dff"/>
+              <path d="M96 250h26v20l8 14H96z" fill="#4d8dff"/></g>
+            <g class="layer" id="lProp"><path d="M138 130v70" stroke="#9dff4d" stroke-width="5"/>
+              <ellipse cx="138" cy="118" rx="15" ry="19" fill="#9dff4d"/></g>
+          </svg>
+        </div>
+        <p class="noone" id="stageMsg">Nothing selected. You are, currently, an extra.</p>
+      </div>
+
+      <div class="slots">
+        <div class="slot">
+          <div class="st"><b>Outerwear</b><span>choose one</span></div>
+          <div class="opts" data-layer="lCoat" data-group="coat">
+            <button class="opt" aria-pressed="false" data-p="180" data-h="26" data-oc="#ff3d7f" data-n="Statement Coat">Statement coat · $180</button>
+            <button class="opt" aria-pressed="false" data-p="96" data-h="14" data-oc="#ff3d7f" data-n="Cropped Jacket">Cropped jacket · $96</button>
+            <button class="opt" aria-pressed="false" data-p="0" data-h="0" data-oc="#ff3d7f" data-n="">None</button>
+          </div>
+        </div>
+        <div class="slot">
+          <div class="st"><b>Headwear</b><span>does 40% of the work</span></div>
+          <div class="opts" data-layer="lHat" data-group="hat">
+            <button class="opt" aria-pressed="false" data-p="74" data-h="30" data-oc="#ffe14d" data-n="The Hat That Does It">The hat that does it · $74</button>
+            <button class="opt" aria-pressed="false" data-p="38" data-h="12" data-oc="#ffe14d" data-n="Slouchy Beanie">Slouchy beanie · $38</button>
+            <button class="opt" aria-pressed="false" data-p="0" data-h="0" data-oc="#ffe14d" data-n="">None</button>
+          </div>
+        </div>
+        <div class="slot">
+          <div class="st"><b>Footwear</b><span>audible is the point</span></div>
+          <div class="opts" data-layer="lBoots" data-group="boots">
+            <button class="opt" aria-pressed="false" data-p="210" data-h="24" data-oc="#4d8dff" data-n="Loud Boots">Loud boots · $210</button>
+            <button class="opt" aria-pressed="false" data-p="120" data-h="11" data-oc="#4d8dff" data-n="Quiet Sneakers">Quiet sneakers · $120</button>
+            <button class="opt" aria-pressed="false" data-p="0" data-h="0" data-oc="#4d8dff" data-n="">None</button>
+          </div>
+        </div>
+        <div class="slot">
+          <div class="st"><b>The prop</b><span>optional, but come on</span></div>
+          <div class="opts" data-layer="lProp" data-group="prop">
+            <button class="opt" aria-pressed="false" data-p="64" data-h="20" data-oc="#9dff4d" data-n="Carried Lantern">Carried lantern · $64</button>
+            <button class="opt" aria-pressed="false" data-p="28" data-h="8" data-oc="#9dff4d" data-n="Iced Drink, Always">Iced drink, always · $28</button>
+            <button class="opt" aria-pressed="false" data-p="0" data-h="0" data-oc="#9dff4d" data-n="">None</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hypebox">
+      <div class="hh">
+        <h3>Hype meter</h3>
+        <span class="lvl" id="lvlTxt">Level 0 — background blur</span>
+      </div>
+      <div class="meter"><i id="meterFill"></i><span id="meterPct">0%</span></div>
+      <div class="row">
+        <p class="total" id="totalTxt">$0<small id="itemsTxt">nothing selected yet</small></p>
+        <button class="buyall" id="buyAll">Take the whole fit</button>
+      </div>
+      <p class="buymsg" id="buyMsg" role="status"></p>
+    </div>
+  </section>
+
+  <section class="rules" id="rules" aria-labelledby="rl">
+    <h2 id="rl">Four <em>rules</em>, that's it</h2>
+    <div class="rgrid">
+      <article class="rl" style="--rc:#ffe14d"><p class="n">01</p><h3>Walk slower than everyone</h3>
+        <p>Not dramatically. Ten per cent. It reads as confidence and costs you eleven seconds a day.</p></article>
+      <article class="rl" style="--rc:#ff3d7f"><p class="n">02</p><h3>One loud thing only</h3>
+        <p>The coat or the hat or the boots. Two loud things is a costume. Three is a warning.</p></article>
+      <article class="rl" style="--rc:#9dff4d"><p class="n">03</p><h3>Carry something</h3>
+        <p>Hands do not know what to do on their own. A lantern, a book, an iced drink in February. Anything.</p></article>
+      <article class="rl" style="--rc:#4d8dff"><p class="n">04</p><h3>Be delighted, out loud</h3>
+        <p>The actual secret. Main characters are not cool — they are visibly, embarrassingly interested in things.</p></article>
+    </div>
+  </section>
+
+  <section class="sign" id="list" aria-labelledby="sg">
+    <h2 id="sg">Get the <em>next drop</em> first</h2>
+    <p>New pieces monthly, always one loud thing per drop. No urgency emails — the whole point is not rushing.</p>
+    <form class="sform" id="sform" novalidate>
+      <label class="sr" for="se">Email address</label>
+      <input id="se" type="email" placeholder="you@email.com" autocomplete="email" required>
+      <button class="mb a" type="submit">I'm in</button>
+    </form>
+    <p class="smsg" id="smsg" role="status"></p>
+  </section>
+</main>
+
+<footer>
+  <div class="fg">
+    <div><p class="big">MAIN<em>CHARACTER</em></p>
+      <p style="color:var(--dim);font-size:.86rem;margin:8px 0 0;max-width:24ch">A fit builder for people who have decided to stop being furniture.</p></div>
+    <div><h4>Shop</h4><ul><li><a href="#builder">Fit builder</a></li><li><a href="#">All pieces</a></li><li><a href="#">Sizing</a></li></ul></div>
+    <div><h4>Info</h4><ul><li><a href="#rules">The four rules</a></li><li><a href="#">Shipping</a></li><li><a href="#">Returns</a></li></ul></div>
+    <div><h4>Elsewhere</h4><ul><li><a href="../../index.html">The other 24 studios</a></li><li><a href="#mt">Back to the top</a></li></ul></div>
+  </div>
+  <div class="fb"><span>Fan project · not affiliated with HoYoverse</span><span>Walk slower.</span></div>
+</footer>
+
+<script>
+(function(){
+var RM=matchMedia('(prefers-reduced-motion:reduce)').matches;
+
+/* loader */
+var ct=document.getElementById('curtain');
+function go(){ct.classList.add('gone');}
+if(RM) setTimeout(go,200); else setTimeout(go,1500);
+
+/* hero letters */
+document.querySelectorAll('.hero h1 span').forEach(function(s,i){s.style.animationDelay=(.2+i*.13)+'s';});
+
+/* spotlight follows pointer */
+if(!RM){
+  var tx=innerWidth/2, ty=innerHeight*.4, cx=tx, cy=ty;
+  addEventListener('pointermove',function(e){tx=e.clientX;ty=e.clientY;},{passive:true});
+  (function loop(){
+    cx+=(tx-cx)*.09; cy+=(ty-cy)*.09;
+    document.documentElement.style.setProperty('--sx',cx+'px');
+    document.documentElement.style.setProperty('--sy',cy+'px');
+    requestAnimationFrame(loop);
+  })();
+}
+
+/* fit builder */
+var sel={coat:null,hat:null,boots:null,prop:null};
+var LEVELS=[
+ [0,'Level 0 — background blur'],
+ [20,'Level 1 — noticed by one person'],
+ [40,'Level 2 — someone asks where it\u2019s from'],
+ [60,'Level 3 — the room reorganises slightly'],
+ [80,'Level 4 — you are the anecdote'],
+ [95,'Level 5 — main character, confirmed']
+];
+
+function update(){
+  var total=0, hype=0, names=[];
+  Object.keys(sel).forEach(function(k){
+    var s=sel[k]; if(!s) return;
+    total+=s.p; hype+=s.h;
+    if(s.n) names.push(s.n);
+  });
+  hype=Math.min(hype,100);
+  document.getElementById('meterFill').style.width=hype+'%';
+  document.getElementById('meterPct').textContent=hype+'%';
+  document.getElementById('miniBar').style.width=hype+'%';
+  document.getElementById('miniPct').textContent=hype+'%';
+  var lv=LEVELS[0];
+  LEVELS.forEach(function(l){ if(hype>=l[0]) lv=l; });
+  document.getElementById('lvlTxt').textContent=lv[1];
+  document.getElementById('totalTxt').innerHTML='$'+total+'<small>'+
+    (names.length? names.length+' piece'+(names.length>1?'s':'')+' · '+names.join(', ') : 'nothing selected yet')+'</small>';
+  document.getElementById('stageMsg').textContent = names.length
+    ? (hype>=80 ? 'Yeah. That\u2019s the one. Don\u2019t change it.' : 'Getting there. Add one more loud thing.')
+    : 'Nothing selected. You are, currently, an extra.';
+}
+
+document.querySelectorAll('.opts').forEach(function(group){
+  var layerId=group.dataset.layer, key=group.dataset.group;
+  var layer=document.getElementById(layerId);
+  group.querySelectorAll('.opt').forEach(function(b){
+    b.style.setProperty('--oc',b.dataset.oc);
+    b.addEventListener('click',function(){
+      group.querySelectorAll('.opt').forEach(function(x){x.setAttribute('aria-pressed','false');});
+      b.setAttribute('aria-pressed','true');
+      var n=b.dataset.n;
+      sel[key]= n ? {p:+b.dataset.p,h:+b.dataset.h,n:n} : null;
+      layer.classList.toggle('on',!!n);
+      if(n && !RM) layer.animate(
+        [{transform:'translateY(14px) scale(.96)',opacity:0},{transform:'none',opacity:1}],
+        {duration:420,easing:'cubic-bezier(.2,1.5,.3,1)'});
+      update();
+    });
+  });
+});
+update();
+
+document.getElementById('buildBtn').addEventListener('click',function(){
+  document.getElementById('builder').scrollIntoView({behavior:RM?'auto':'smooth'});
+});
+
+document.getElementById('buyAll').addEventListener('click',function(){
+  var n=Object.keys(sel).filter(function(k){return sel[k];}).length;
+  document.getElementById('buyMsg').textContent = n
+    ? 'Bagged — '+n+' piece'+(n>1?'s':'')+'. Wear it somewhere with a doorway worth standing in.'
+    : 'Pick at least one thing. Being an extra is free but it is not a fit.';
+});
+
+/* newsletter */
+document.getElementById('sform').addEventListener('submit',function(e){
+  e.preventDefault();
+  var v=document.getElementById('se').value.trim();
+  document.getElementById('smsg').textContent =
+    /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v)
+      ? 'You\u2019re on the list. One loud thing a month, no rushing.'
+      : 'That email is playing a supporting role. Try again.';
+});
+})();
+</script>
+</body>
+</html>

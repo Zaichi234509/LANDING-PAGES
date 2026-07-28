@@ -1,5 +1,8 @@
 # 25 Landing Pages — Identity Manifest
 
+**Status: all 25 shipped.** `node tools/validate.mjs` → all clear, 25/25 distinct type
+systems, 25/25 distinct hero headlines.
+
 Each page is a standalone, self-contained `index.html` (inline CSS + JS, zero build step)
 inside `pages/NN-slug/`, with its own generated `img/` set. No shared stylesheet, no shared
 layout, no shared animation code — every page is engineered as if by a different studio.
@@ -10,7 +13,7 @@ layout, no shared animation code — every page is engineered as if by a differe
 | 02 | butterflys-call | Cinematic | LEPIDOPTERA | Cormorant Garamond + Jost | Cursor-attracted butterfly flock (boids), bloom trails |
 | 03 | one-last-smile | Cinematic | LAST LIGHT STUDIO | Playfair Display + Inter Tight | Horizontal film-strip scroll, portrait cross-dissolve |
 | 04 | midnight-lantern | Cinematic | 子夜 MIDNIGHT | Marcellus + Manrope | Draggable lantern light that reveals the dark scene |
-| 05 | festival-of-spirits | Cinematic | SPIRIT FESTIVAL CO. | Bebas Neue + Sora | Parade marquee, firework particles, depth parallax rows |
+| 05 | festival-of-spirits | Cinematic | SPIRIT FESTIVAL CO. | Bebas Neue + Sora* | Parade marquee, firework particles, depth parallax rows |
 | 06 | crafted-for-collectors | Luxury | ATELIER HU | Bodoni Moda + Karla | Museum plinth, slow zoom reveal, magnetic cursor |
 | 07 | limited-collection | Luxury | MAISON 77 | Italiana + Archivo | Numbered edition counter, split-flap reveal |
 | 08 | elegance-in-crimson | Luxury | CRIMSON | Tenor Sans + Syne | Silk liquid transitions, colour-swipe wipes |
@@ -30,7 +33,7 @@ layout, no shared animation code — every page is engineered as if by a differe
 | 22 | pov | Gen Z | POV: | Archivo Black + DM Sans | Vertical swipe feed, caption pop, tap hearts |
 | 23 | touch-everything | Gen Z | TOUCH EVERYTHING | Bungee + Space Mono | Every element is draggable / throwable |
 | 24 | oops | Gen Z | OOPS. | Anton + IBM Plex Sans | Glitch, chaos mode, things fall apart |
-| 25 | main-character-energy | Gen Z | MAIN CHARACTER | Climate Crisis + Sora | Spotlight follow, hype meter, marquee stack |
+| 25 | main-character-energy | Gen Z | MAIN CHARACTER | Bricolage Grotesque + Sora | Spotlight follow, hype meter, fit builder, marquee stack |
 
 ## Conventions
 - Root `index.html` = gallery index of all 25.
@@ -39,3 +42,5 @@ layout, no shared animation code — every page is engineered as if by a differe
   JSON-LD product schema, lazy-loaded below-fold imagery.
 - Images: generated per page, never shared between pages (except `assets/shared/butterfly.png`,
   an intentional brand motif).
+- \* Pages 05 and 25 both use Sora as their body face but pair it with different display
+  faces (Bebas Neue vs Bricolage Grotesque), so the validator's pairing check still passes.

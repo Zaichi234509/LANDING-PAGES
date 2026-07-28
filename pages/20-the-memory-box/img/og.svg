@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="The Memory Box">
+  <defs><radialGradient id="gg" cx="76%" cy="40%" r="46%">
+    <stop offset="0%" stop-color="#e0b872" stop-opacity=".34"/><stop offset="100%" stop-color="#e0b872" stop-opacity="0"/></radialGradient></defs>
+  <rect width="1200" height="630" fill="#1c1a24"/>
+  <rect width="1200" height="630" fill="url(#gg)"/>
+  <g transform="translate(900,330)">
+    <ellipse cx="0" cy="150" rx="200" ry="24" fill="#000" opacity=".5"/>
+    <g transform="rotate(-9)"><rect x="-150" y="-90" width="104" height="124" fill="#f4ede0"/>
+      <rect x="-142" y="-82" width="88" height="88" fill="#cbbfa8"/></g>
+    <g transform="rotate(8)"><rect x="-20" y="-104" width="104" height="124" fill="#efe6d6"/>
+      <rect x="-12" y="-96" width="88" height="88" fill="#b9c6b1"/></g>
+    <path d="M-140 40h280v112h-280z" fill="#2e2a3a" stroke="#e0b872" stroke-opacity=".45" stroke-width="3"/>
+    <path d="M-140 40l28-24h224l28 24" fill="#3b3548" stroke="#e0b872" stroke-opacity=".45" stroke-width="3"/>
+    <g transform="translate(70,-160) rotate(-14)">
+      <rect x="-80" y="-36" width="160" height="72" fill="#3f3950" stroke="#e0b872" stroke-opacity=".5" stroke-width="3"/>
+      <path d="M-80 -36l18-20h124l18 20" fill="#4a4358" stroke="#e0b872" stroke-opacity=".5" stroke-width="3"/></g>
+  </g>
+  <text x="80" y="132" font-family="Rubik,sans-serif" font-size="20" letter-spacing="10" fill="#e0b872">ONE SHOEBOX · NINE PHOTOGRAPHS</text>
+  <text x="80" y="288" font-family="Vollkorn,serif" font-size="82" fill="#f4ede0">Lift the lid and</text>
+  <text x="80" y="378" font-family="Vollkorn,serif" font-style="italic" font-size="82" fill="#e0b872">it all falls out</text>
+  <text x="82" y="446" font-family="Rubik,sans-serif" font-size="23" fill="#9b93a6">Drag them around. Turn them over. Read the backs.</text>
+  <text x="82" y="486" font-family="Rubik,sans-serif" font-size="23" fill="#9b93a6">Top of the wardrobe, at the back, for eleven years.</text>
+</svg>

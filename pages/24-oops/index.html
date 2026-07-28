@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>OOPS. — the store that keeps breaking on purpose</title>
+<meta name="description" content="OOPS. is a merch store that admits it is falling apart. Glitched hero, a chaos mode button that wrecks the layout, six products with terrible product photography and honest reviews.">
+<meta name="theme-color" content="#0a0a0a">
+<meta name="color-scheme" content="dark">
+<link rel="canonical" href="https://oops.example/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="OOPS. — the store that keeps breaking on purpose">
+<meta property="og:description" content="Press the red button. Do not press the red button.">
+<meta property="og:image" content="img/og.svg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="img/og.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230a0a0a'/%3E%3Ctext x='16' y='24' font-size='20' text-anchor='middle' fill='%23ff3b30' font-family='sans-serif' font-weight='900'%3E!%3C/text%3E%3C/svg%3E">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"ItemList","name":"OOPS. — Things We Made Wrong","itemListElement":[
+{"@type":"ListItem","position":1,"item":{"@type":"Product","name":"The Misprint Tee","offers":{"@type":"Offer","price":"29","priceCurrency":"USD","availability":"https://schema.org/InStock"}}},
+{"@type":"ListItem","position":2,"item":{"@type":"Product","name":"Slightly Wrong Mug","offers":{"@type":"Offer","price":"18","priceCurrency":"USD","availability":"https://schema.org/InStock"}}},
+{"@type":"ListItem","position":3,"item":{"@type":"Product","name":"Upside-Down Poster","offers":{"@type":"Offer","price":"22","priceCurrency":"USD","availability":"https://schema.org/InStock"}}}]}
+</script>
+<style>
+*,*::before,*::after{box-sizing:border-box}
+:root{
+  --bg:#0a0a0a; --card:#141414; --txt:#f2f2f2; --dim:#8a8a8a;
+  --red:#ff3b30; --cyan:#00fff0; --yellow:#ffe600; --mag:#ff00c8;
+  --line:rgba(242,242,242,.14);
+  --g:clamp(16px,4.5vw,68px);
+  --tilt:0deg;
+}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--txt);font-family:'IBM Plex Sans',system-ui,sans-serif;
+  font-weight:300;font-size:16.5px;line-height:1.66;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+body::before{content:'';position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.5;
+  background:repeating-linear-gradient(0deg,rgba(255,255,255,.035) 0 1px,transparent 1px 3px)}
+h1,h2,h3{margin:0;font-family:Anton,sans-serif;font-weight:400;line-height:.94;text-transform:uppercase;
+  letter-spacing:-.01em}
+a{color:inherit;text-decoration:none}
+::selection{background:var(--red);color:#fff}
+:focus-visible{outline:3px solid var(--cyan);outline-offset:3px}
+.skip{position:absolute;left:-9999px;background:var(--cyan);color:#000;padding:10px 18px;z-index:400;font-weight:600}
+.skip:focus{left:12px;top:12px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* glitch text */
+.gl{position:relative;display:inline-block}
+.gl::before,.gl::after{content:attr(data-t);position:absolute;left:0;top:0;width:100%;overflow:hidden}
+.gl::before{color:var(--cyan);animation:g1 3.4s steps(2,end) infinite;clip-path:inset(0 0 62% 0)}
+.gl::after{color:var(--red);animation:g2 2.8s steps(2,end) infinite;clip-path:inset(58% 0 0 0)}
+@keyframes g1{0%,88%,100%{transform:none}90%{transform:translate(-4px,-2px)}94%{transform:translate(3px,1px)}}
+@keyframes g2{0%,84%,100%{transform:none}88%{transform:translate(4px,2px)}92%{transform:translate(-3px,-1px)}}
+
+/* ---------- loader: error dialog ---------- */
+#err{position:fixed;inset:0;z-index:500;background:#050505;display:grid;place-items:center;padding:20px;
+  transition:opacity .4s,visibility .4s}
+#err.gone{opacity:0;visibility:hidden}
+.dlg{width:min(460px,94vw);border:2px solid var(--txt);background:var(--card)}
+.dlg .bar{display:flex;align-items:center;justify-content:space-between;background:var(--txt);color:#000;
+  padding:5px 10px;font-weight:600;font-size:.82rem}
+.dlg .bar span:last-child{font-family:monospace}
+.dlg .body{padding:22px 20px;display:flex;gap:16px;align-items:flex-start}
+.dlg .ic{flex:none;width:44px;height:44px;border-radius:50%;background:var(--red);display:grid;place-items:center;
+  font-family:Anton,sans-serif;font-size:1.6rem;color:#fff;animation:shake .5s infinite}
+@keyframes shake{25%{transform:translateX(-2px)}75%{transform:translateX(2px)}}
+.dlg .body p{margin:0;font-size:.92rem}
+.dlg .body p b{display:block;font-family:Anton,sans-serif;font-size:1.2rem;text-transform:uppercase;margin-bottom:6px}
+.dlg .foot{padding:0 20px 20px;display:flex;justify-content:flex-end;gap:8px}
+.dlg .foot button{background:var(--txt);color:#000;border:none;font-family:inherit;font-weight:600;
+  font-size:.82rem;padding:8px 20px;cursor:pointer}
+.dlg .prog{height:6px;background:#222;margin:0 20px 16px}
+.dlg .prog i{display:block;height:100%;width:0;background:var(--red);animation:fill 1.4s ease-out forwards}
+@keyframes fill{to{width:100%}}
+
+/* ---------- top bar ---------- */
+.bar2{position:fixed;top:0;left:0;right:0;z-index:80;display:flex;align-items:center;gap:12px;
+  padding:10px var(--g);background:var(--bg);border-bottom:2px solid var(--line)}
+.bar2 .lg{font-family:Anton,sans-serif;font-size:1.3rem;letter-spacing:-.02em}
+.bar2 .lg em{font-style:normal;color:var(--red)}
+.bar2 nav{display:flex;gap:clamp(9px,2vw,22px);margin-left:auto}
+.bar2 nav a{font-size:.8rem;color:var(--dim);transition:color .2s}
+.bar2 nav a:hover{color:var(--txt)}
+.bar2 .chaos{background:var(--red);color:#fff;border:none;font-family:Anton,sans-serif;font-size:.94rem;
+  letter-spacing:.04em;padding:8px 18px;cursor:pointer;text-transform:uppercase;
+  transition:transform .15s,background .2s}
+.bar2 .chaos:hover{transform:scale(1.05)}
+.bar2 .chaos[aria-pressed="true"]{background:var(--cyan);color:#000}
+@media(max-width:700px){.bar2 nav{display:none}}
+
+/* ---------- hero ---------- */
+.hero{position:relative;z-index:2;min-height:100svh;display:grid;align-content:center;gap:20px;
+  padding:clamp(90px,14vh,140px) var(--g) clamp(40px,7vh,90px)}
+.hero .strap{display:inline-flex;align-items:center;gap:9px;align-self:start;background:var(--yellow);
+  color:#000;font-weight:600;font-size:.78rem;padding:5px 14px;transform:rotate(-1.5deg)}
+.hero h1{font-size:clamp(3.4rem,19vw,15rem);line-height:.82}
+.hero h1 .r{color:var(--red)}
+.hero .sub{max-width:52ch;color:var(--dim);font-size:clamp(1rem,1.7vw,1.2rem);margin:0}
+.hero .btns{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px}
+.ob{border:2px solid var(--txt);background:transparent;color:var(--txt);font-family:Anton,sans-serif;
+  font-size:1rem;letter-spacing:.03em;text-transform:uppercase;padding:14px 30px;cursor:pointer;
+  transition:transform .16s,background .2s,color .2s}
+.ob:hover{transform:translate(-3px,-3px);box-shadow:5px 5px 0 var(--red)}
+.ob.fill{background:var(--txt);color:#000}
+.ob.fill:hover{box-shadow:5px 5px 0 var(--cyan)}
+.tape{margin-top:clamp(24px,5vh,48px);border-block:2px solid var(--line);overflow:hidden;padding:8px 0;
+  background:var(--red)}
+.tape .t{display:flex;gap:30px;white-space:nowrap;width:max-content;color:#fff;
+  font-family:Anton,sans-serif;font-size:1.06rem;letter-spacing:.08em;text-transform:uppercase;
+  animation:run 18s linear infinite}
+@keyframes run{to{transform:translateX(-50%)}}
+
+/* ---------- confession log ---------- */
+.log{position:relative;z-index:2;padding:clamp(40px,8vh,110px) var(--g)}
+.log h2{font-size:clamp(1.8rem,6vw,4rem);margin-bottom:8px}
+.log h2 em{font-style:normal;color:var(--cyan)}
+.log .lead{color:var(--dim);max-width:52ch;margin:0 0 clamp(24px,4vh,44px)}
+.entries{display:grid;gap:1px;background:var(--line);border:1px solid var(--line)}
+.en{background:var(--card);display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:clamp(12px,3vw,30px);
+  align-items:baseline;padding:16px clamp(14px,2.6vw,24px);transition:background .3s}
+.en:hover{background:#1c1c1c}
+.en .code{font-family:monospace;font-size:.82rem;color:var(--red)}
+.en .what{font-size:.96rem}
+.en .what b{font-weight:600}
+.en .cost{font-family:Anton,sans-serif;font-size:1.06rem;color:var(--yellow);white-space:nowrap}
+@media(max-width:620px){.en{grid-template-columns:auto minmax(0,1fr)}.en .cost{grid-column:2}}
+
+/* ---------- products ---------- */
+.shop{position:relative;z-index:2;padding:clamp(40px,8vh,110px) var(--g)}
+.shead{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:14px;margin-bottom:24px}
+.shead h2{font-size:clamp(1.8rem,6vw,4rem)}
+.shead h2 em{font-style:normal;color:var(--mag)}
+.shead p{margin:0;color:var(--dim);max-width:32ch;font-size:.92rem}
+.pgrid{display:grid;gap:clamp(12px,2.2vw,22px);grid-template-columns:repeat(auto-fit,minmax(min(230px,100%),1fr))}
+.p{position:relative;background:var(--card);border:2px solid var(--line);display:flex;flex-direction:column;
+  transition:transform .28s cubic-bezier(.2,1.4,.3,1),border-color .28s}
+.p:hover{transform:translate(-4px,-4px);border-color:var(--pc,var(--red));box-shadow:6px 6px 0 var(--pc,var(--red))}
+.p .flag{position:absolute;top:-2px;right:-2px;background:var(--pc,var(--red));color:#000;font-weight:600;
+  font-size:.66rem;padding:3px 10px;z-index:2}
+.p .pic{aspect-ratio:1;position:relative;overflow:hidden;display:grid;place-items:center;background:#0f0f0f}
+.p .pic svg{width:62%;height:62%;overflow:visible;transition:transform .35s}
+.p:hover .pic svg{transform:rotate(-6deg) scale(1.06)}
+.p .pic .oops{position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(115deg,transparent 40%,rgba(255,59,48,.22) 50%,transparent 60%);
+  opacity:0;transition:opacity .3s}
+.p:hover .pic .oops{opacity:1}
+.p .body{padding:16px;display:flex;flex-direction:column;gap:8px;flex:1}
+.p h3{font-size:1.24rem}
+.p .defect{font-size:.74rem;color:var(--pc,var(--red));font-weight:600}
+.p p{margin:0;font-size:.88rem;color:var(--dim);flex:1}
+.p .row{display:flex;align-items:center;justify-content:space-between;gap:10px;padding-top:12px;
+  border-top:2px solid var(--line)}
+.p .price{display:flex;align-items:baseline;gap:8px}
+.p .price s{color:var(--dim);font-size:.86rem}
+.p .price b{font-family:Anton,sans-serif;font-size:1.3rem}
+.p button{background:var(--txt);color:#000;border:none;font-family:Anton,sans-serif;font-size:.86rem;
+  letter-spacing:.04em;text-transform:uppercase;padding:9px 16px;cursor:pointer;transition:.2s}
+.p button:hover{background:var(--pc,var(--red));color:#fff}
+.p button.got{background:var(--cyan);color:#000}
+
+/* ---------- reviews ---------- */
+.rev{position:relative;z-index:2;padding:clamp(40px,8vh,110px) var(--g);background:var(--card);
+  border-block:2px solid var(--line)}
+.rev h2{font-size:clamp(1.6rem,5vw,3.2rem);margin-bottom:20px}
+.rev h2 em{font-style:normal;color:var(--yellow)}
+.rgrid{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(250px,100%),1fr))}
+.rv{border:2px solid var(--line);padding:16px;background:var(--bg);display:grid;gap:8px}
+.rv .stars{color:var(--yellow);font-size:.94rem;letter-spacing:.14em}
+.rv p{margin:0;font-size:.92rem}
+.rv .who{font-size:.78rem;color:var(--dim)}
+
+/* ---------- signup ---------- */
+.sub{position:relative;z-index:2;padding:clamp(46px,9vh,120px) var(--g);text-align:center}
+.sub h2{font-size:clamp(1.8rem,6vw,4rem);margin-bottom:12px}
+.sub h2 em{font-style:normal;color:var(--red)}
+.sub p{color:var(--dim);max-width:44ch;margin:0 auto clamp(24px,4vh,42px)}
+.sform{display:flex;flex-wrap:wrap;gap:9px;justify-content:center;max-width:520px;margin:0 auto}
+.sform input{flex:1 1 220px;background:var(--card);border:2px solid var(--line);color:var(--txt);
+  padding:14px 16px;font-family:inherit;font-size:1rem}
+.sform input:focus{outline:none;border-color:var(--cyan)}
+.smsg{min-height:1.5em;margin-top:14px;color:var(--cyan);font-family:monospace;font-size:.9rem}
+
+/* ---------- footer ---------- */
+footer{position:relative;z-index:2;padding:clamp(32px,6vh,68px) var(--g) 28px;border-top:2px solid var(--line)}
+.fg{display:grid;gap:24px;grid-template-columns:repeat(auto-fit,minmax(min(165px,100%),1fr));padding-bottom:24px}
+.fg h4{margin:0 0 10px;font-family:Anton,sans-serif;font-size:.92rem;letter-spacing:.04em;color:var(--red)}
+.fg ul{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.fg a{color:var(--dim);font-size:.88rem;transition:color .2s}
+.fg a:hover{color:var(--txt)}
+.fg .big{font-family:Anton,sans-serif;font-size:2.2rem;line-height:.9}
+.fg .big em{font-style:normal;color:var(--red)}
+.fb{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;padding-top:18px;
+  border-top:2px solid var(--line);font-size:.76rem;color:var(--dim)}
+
+/* ---------- CHAOS MODE ---------- */
+body.chaos .p,body.chaos .en,body.chaos .rv{transform:rotate(var(--tilt))}
+body.chaos .p:nth-child(2n){--tilt:2.4deg}
+body.chaos .p:nth-child(3n){--tilt:-3.2deg}
+body.chaos .p:nth-child(4n){--tilt:1.6deg}
+body.chaos .rv:nth-child(2n){--tilt:-2.6deg}
+body.chaos .rv:nth-child(3n){--tilt:3deg}
+body.chaos .en:nth-child(odd){--tilt:.7deg}
+body.chaos .en:nth-child(even){--tilt:-.8deg}
+body.chaos h2,body.chaos h3{animation:wob 1.6s ease-in-out infinite}
+@keyframes wob{50%{transform:skewX(-3deg)}}
+body.chaos .hero h1{animation:jitter .18s steps(2) infinite}
+@keyframes jitter{50%{transform:translate(3px,-2px)}}
+body.chaos::after{content:'';position:fixed;inset:0;z-index:3;pointer-events:none;mix-blend-mode:screen;
+  background:repeating-linear-gradient(90deg,rgba(255,0,200,.06) 0 3px,rgba(0,255,240,.06) 3px 6px)}
+.fallen{position:fixed;z-index:120;pointer-events:none;font-family:Anton,sans-serif;
+  font-size:clamp(1.2rem,3vw,2rem);text-transform:uppercase;color:var(--red)}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;
+    transition-duration:.001ms!important}
+  .gl::before,.gl::after{display:none}
+  body.chaos .p,body.chaos .en,body.chaos .rv{transform:none}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#shop">Skip to the products</a>
+
+<div id="err" role="status" aria-label="Loading">
+  <div class="dlg">
+    <div class="bar"><span>oops.exe</span><span>— □ ×</span></div>
+    <div class="body">
+      <span class="ic" aria-hidden="true">!</span>
+      <p><b>Something went wrong</b>Loading the store anyway. This is normal. This is the whole brand, actually.</p>
+    </div>
+    <div class="prog"><i></i></div>
+    <div class="foot"><button id="errOk">Continue anyway</button></div>
+  </div>
+</div>
+
+<header class="bar2">
+  <span class="lg">OOPS<em>.</em></span>
+  <nav aria-label="Primary"><a href="#log">The log</a><a href="#shop">Seconds</a><a href="#reviews">Reviews</a></nav>
+  <button class="chaos" id="chaosBtn" aria-pressed="false">Chaos mode</button>
+</header>
+
+<main>
+  <section class="hero" aria-labelledby="ot">
+    <span class="strap">⚠ EVERY ITEM ON THIS PAGE IS DEFECTIVE ON PURPOSE (MOSTLY)</span>
+    <h1 id="ot"><span class="gl" data-t="OOPS.">OOPS.</span><br><span class="r">WE DID</span><br>IT AGAIN</h1>
+    <p class="sub">We are a merch studio with a quality control problem we have decided to reframe as a personality. Everything here has something wrong with it. Everything here is therefore cheaper.</p>
+    <div class="btns">
+      <button class="ob fill" id="shopBtn">Shop the seconds</button>
+      <button class="ob" id="breakBtn">Break the page</button>
+    </div>
+    <div class="tape" aria-hidden="true">
+      <div class="t">
+        <span>★ 40% OFF BECAUSE WE MEASURED WRONG</span><span>★ NO REFUNDS, ONLY APOLOGIES</span>
+        <span>★ THE PRINTER WAS BACKWARDS</span><span>★ SHIPS EVENTUALLY</span>
+        <span>★ 40% OFF BECAUSE WE MEASURED WRONG</span><span>★ NO REFUNDS, ONLY APOLOGIES</span>
+        <span>★ THE PRINTER WAS BACKWARDS</span><span>★ SHIPS EVENTUALLY</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="log" id="log" aria-labelledby="lg">
+    <h2 id="lg">The <em>incident log</em></h2>
+    <p class="lead">Published in full, quarterly, because hiding it turned out to be more work than admitting it. Costs are what each mistake cost us, not you.</p>
+    <div class="entries">
+      <article class="en"><span class="code">ERR_001</span>
+        <span class="what"><b>Printed 400 tees at 140% scale.</b> The blossom now reaches the armpit on both sides. Several people prefer this.</span>
+        <span class="cost">−$4,120</span></article>
+      <article class="en"><span class="code">ERR_014</span>
+        <span class="what"><b>Mug handles fired at the wrong angle.</b> Holds liquid perfectly. Sits at 7° on any flat surface.</span>
+        <span class="cost">−$980</span></article>
+      <article class="en"><span class="code">ERR_027</span>
+        <span class="what"><b>Poster run went through the press upside down.</b> Nobody noticed until 600 were boxed.</span>
+        <span class="cost">−$2,340</span></article>
+      <article class="en"><span class="code">ERR_031</span>
+        <span class="what"><b>Enamel pin spelled the name with one too many characters.</b> It is arguably a different name now.</span>
+        <span class="cost">−$610</span></article>
+      <article class="en"><span class="code">ERR_046</span>
+        <span class="what"><b>Tote bags sewn inside out.</b> The seams are on the outside. Structurally identical. Visually alarming.</span>
+        <span class="cost">−$1,455</span></article>
+      <article class="en"><span class="code">ERR_055</span>
+        <span class="what"><b>This website shipped without a QA pass.</b> Twice. The button in the corner is the only thing tested.</span>
+        <span class="cost">−$0</span></article>
+    </div>
+  </section>
+
+  <section class="shop" id="shop" aria-labelledby="sh">
+    <div class="shead">
+      <h2 id="sh">The <em>seconds</em> rack</h2>
+      <p>Every listing states the specific defect. No surprises, only disclosures.</p>
+    </div>
+    <div class="pgrid">
+      <article class="p" style="--pc:#ff3b30">
+        <span class="flag">140% SCALE</span>
+        <div class="pic"><span class="oops"></span>
+          <svg viewBox="0 0 100 100" aria-hidden="true" fill="none" stroke="#ff3b30" stroke-width="4" stroke-linejoin="round">
+            <path d="M32 18L14 30l8 15 10-6v43h36V39l10 6 8-15-18-12-8 8H40z"/><path d="M40 18a10 10 0 0020 0"/>
+            <circle cx="50" cy="52" r="17" stroke-dasharray="5 5"/></svg></div>
+        <div class="body"><h3>The Misprint Tee</h3><span class="defect">Defect: artwork 40% too large</span>
+          <p>Heavyweight cotton. The print runs off both side seams. Genuinely looks intentional from four metres.</p>
+          <div class="row"><span class="price"><s>$48</s><b>$29</b></span><button>Add</button></div></div>
+      </article>
+      <article class="p" style="--pc:#ffe600">
+        <span class="flag">SITS AT 7°</span>
+        <div class="pic"><span class="oops"></span>
+          <svg viewBox="0 0 100 100" aria-hidden="true" fill="none" stroke="#ffe600" stroke-width="4" stroke-linejoin="round"
+            style="transform:rotate(7deg)"><path d="M22 28h40v38a14 14 0 01-28 0" /><path d="M22 28v38a14 14 0 0014 14h12"/>
+            <path d="M62 36h10a10 10 0 010 20H62"/></svg></div>
+        <div class="body"><h3>Slightly Wrong Mug</h3><span class="defect">Defect: handle fired off-axis</span>
+          <p>350ml stoneware. Watertight, dishwasher safe, and permanently leaning like it has an opinion.</p>
+          <div class="row"><span class="price"><s>$30</s><b>$18</b></span><button>Add</button></div></div>
+      </article>
+      <article class="p" style="--pc:#00fff0">
+        <span class="flag">UPSIDE DOWN</span>
+        <div class="pic"><span class="oops"></span>
+          <svg viewBox="0 0 100 100" aria-hidden="true" fill="none" stroke="#00fff0" stroke-width="4" stroke-linejoin="round"
+            style="transform:rotate(180deg)"><rect x="20" y="14" width="60" height="72"/><path d="M30 62l16-20 12 14 8-8 14 18"/>
+            <circle cx="38" cy="34" r="7"/></svg></div>
+        <div class="body"><h3>Upside-Down Poster</h3><span class="defect">Defect: entire run inverted</span>
+          <p>A2 offset litho on uncoated stock. Hang it the other way up and it is a completely correct poster.</p>
+          <div class="row"><span class="price"><s>$34</s><b>$22</b></span><button>Add</button></div></div>
+      </article>
+      <article class="p" style="--pc:#ff00c8">
+        <span class="flag">EXTRA LETTER</span>
+        <div class="pic"><span class="oops"></span>
+          <svg viewBox="0 0 100 100" aria-hidden="true" fill="none" stroke="#ff00c8" stroke-width="4" stroke-linejoin="round">
+            <circle cx="50" cy="42" r="24"/><path d="M50 66v20M40 86h20"/><path d="M38 42h24M50 30v24"/></svg></div>
+        <div class="body"><h3>The Typo Pin</h3><span class="defect">Defect: one character too many</span>
+          <p>Hard enamel, 32mm, double posted. Collectors have started calling it "the other one", which we accept.</p>
+          <div class="row"><span class="price"><s>$20</s><b>$12</b></span><button>Add</button></div></div>
+      </article>
+      <article class="p" style="--pc:#ff3b30">
+        <span class="flag">SEAMS OUT</span>
+        <div class="pic"><span class="oops"></span>
+          <svg viewBox="0 0 100 100" aria-hidden="true" fill="none" stroke="#ff3b30" stroke-width="4" stroke-linejoin="round">
+            <path d="M18 30h64l6 54H12z" stroke-dasharray="7 4"/><path d="M32 30v-6a18 18 0 0136 0v6"/></svg></div>
+        <div class="body"><h3>Inside-Out Tote</h3><span class="defect">Defect: assembled reversed</span>
+          <p>16oz canvas, 18L. Every seam and label is on the outside. Load rating unaffected. Dignity affected.</p>
+          <div class="row"><span class="price"><s>$32</s><b>$19</b></span><button>Add</button></div></div>
+      </article>
+      <article class="p" style="--pc:#ffe600">
+        <span class="flag">MYSTERY</span>
+        <div class="pic"><span class="oops"></span>
+          <svg viewBox="0 0 100 100" aria-hidden="true" fill="none" stroke="#ffe600" stroke-width="4" stroke-linejoin="round">
+            <rect x="16" y="30" width="68" height="52"/><path d="M16 46h68M36 30V18h28v12"/>
+            <path d="M50 56v14M50 76v.01" stroke-linecap="round"/></svg></div>
+        <div class="body"><h3>The Apology Box</h3><span class="defect">Defect: contents unknown to us too</span>
+          <p>Three to five items from the rejects shelf, weighing at least 900g. Not returnable. Obviously.</p>
+          <div class="row"><span class="price"><s>$90</s><b>$39</b></span><button>Add</button></div></div>
+      </article>
+    </div>
+  </section>
+
+  <section class="rev" id="reviews" aria-labelledby="rw">
+    <h2 id="rw">Real, <em>unedited</em> reviews</h2>
+    <div class="rgrid">
+      <div class="rv"><span class="stars">★★★★★</span>
+        <p>“The mug leans. I have started leaning to match. We are a team now.”</p>
+        <span class="who">— verified buyer, ERR_014</span></div>
+      <div class="rv"><span class="stars">★★☆☆☆</span>
+        <p>“Poster arrived upside down as advertised. I still turned it the wrong way twice. This is on me.”</p>
+        <span class="who">— verified buyer, ERR_027</span></div>
+      <div class="rv"><span class="stars">★★★★★</span>
+        <p>“Bought the tee expecting a disaster. It is a disaster. It is also my favourite thing I own.”</p>
+        <span class="who">— verified buyer, ERR_001</span></div>
+      <div class="rv"><span class="stars">★★★★☆</span>
+        <p>“Apology box contained one tote, two pins and a note that just said 'sorry' in nine point type. Worth it.”</p>
+        <span class="who">— verified buyer, mystery</span></div>
+    </div>
+  </section>
+
+  <section class="sub" aria-labelledby="su">
+    <h2 id="su">Get told about the <em>next mistake</em></h2>
+    <p>We email when a run goes wrong, which is roughly monthly. Sale prices last until the shelf is clear.</p>
+    <form class="sform" id="sform" novalidate>
+      <label class="sr" for="se">Email address</label>
+      <input id="se" type="email" placeholder="you@email.com" autocomplete="email" required>
+      <button class="ob fill" type="submit">Notify me</button>
+    </form>
+    <p class="smsg" id="smsg" role="status"></p>
+  </section>
+</main>
+
+<footer>
+  <div class="fg">
+    <div><p class="big">OOPS<em>.</em></p>
+      <p style="color:var(--dim);font-size:.86rem;margin:8px 0 0;max-width:24ch">A merch studio with a QC problem and a good attitude about it.</p></div>
+    <div><h4>Store</h4><ul><li><a href="#shop">Seconds rack</a></li><li><a href="#log">Incident log</a></li><li><a href="#reviews">Reviews</a></li></ul></div>
+    <div><h4>Admin</h4><ul><li><a href="#">Shipping (slow)</a></li><li><a href="#">Returns (no)</a></li><li><a href="#">Sizing (approximate)</a></li></ul></div>
+    <div><h4>Elsewhere</h4><ul><li><a href="../../index.html">The other 24 studios</a></li><li><a href="#ot">Back to the top</a></li></ul></div>
+  </div>
+  <div class="fb"><span>Fan project · not affiliated with HoYoverse</span><span id="fbNote">Page last QA'd: never</span></div>
+</footer>
+
+<script>
+(function(){
+var RM=matchMedia('(prefers-reduced-motion:reduce)').matches;
+
+/* loader */
+var er=document.getElementById('err');
+function go(){er.classList.add('gone');}
+document.getElementById('errOk').addEventListener('click',go);
+if(RM) setTimeout(go,200); else setTimeout(go,1700);
+
+/* chaos mode */
+var on=false, btn=document.getElementById('chaosBtn');
+function setChaos(v){
+  on=v;
+  document.body.classList.toggle('chaos',on);
+  btn.setAttribute('aria-pressed',String(on));
+  btn.textContent = on ? 'Fix it, please' : 'Chaos mode';
+  document.getElementById('fbNote').textContent = on ? 'Page last QA\u2019d: it is worse now' : 'Page last QA\u2019d: never';
+}
+btn.addEventListener('click',function(){setChaos(!on);});
+
+/* break the page — words fall off */
+var WORDS=['oh no','the','layout','again','sorry','?!','it fell','over'];
+document.getElementById('breakBtn').addEventListener('click',function(){
+  setChaos(true);
+  if(RM) return;
+  WORDS.forEach(function(w,i){
+    setTimeout(function(){
+      var el=document.createElement('span');
+      el.className='fallen'; el.textContent=w;
+      el.style.left=(6+Math.random()*80)+'vw';
+      el.style.top='-8vh';
+      el.style.color=['#ff3b30','#00fff0','#ffe600','#ff00c8'][i%4];
+      document.body.appendChild(el);
+      el.animate([
+        {transform:'translateY(0) rotate(0deg)',opacity:1},
+        {transform:'translateY(112vh) rotate('+(Math.random()*520-260)+'deg)',opacity:.15}
+      ],{duration:1800+Math.random()*900,easing:'cubic-bezier(.4,0,.7,1)'})
+      .onfinish=function(){el.remove();};
+    },i*130);
+  });
+});
+
+/* shop scroll */
+document.getElementById('shopBtn').addEventListener('click',function(){
+  document.getElementById('shop').scrollIntoView({behavior:RM?'auto':'smooth'});
+});
+
+/* add to cart — occasionally "fails" on purpose */
+var fails=['Added. Probably.','Added ✓','Added (we think)','Added ✓','Cart error — added anyway','Added ✓'];
+document.querySelectorAll('.p button').forEach(function(b,i){
+  b.addEventListener('click',function(){
+    b.textContent=fails[i%fails.length]; b.classList.add('got');
+    setTimeout(function(){b.textContent='Add';b.classList.remove('got');},1900);
+  });
+});
+
+/* newsletter */
+document.getElementById('sform').addEventListener('submit',function(e){
+  e.preventDefault();
+  var v=document.getElementById('se').value.trim();
+  document.getElementById('smsg').textContent =
+    /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v)
+      ? '> subscribed. we will write when something breaks. it will not be long.'
+      : '> ERR_099: that address is also wrong. fitting, really.';
+});
+})();
+</script>
+</body>
+</html>

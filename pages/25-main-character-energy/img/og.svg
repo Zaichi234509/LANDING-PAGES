@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="Main Character Energy">
+  <defs>
+    <radialGradient id="sp" cx="76%" cy="34%" r="46%">
+      <stop offset="0%" stop-color="#ffe14d" stop-opacity=".4"/><stop offset="55%" stop-color="#ff3d7f" stop-opacity=".16"/>
+      <stop offset="100%" stop-color="#ff3d7f" stop-opacity="0"/></radialGradient>
+    <linearGradient id="mm" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#4d8dff"/><stop offset="38%" stop-color="#9dff4d"/>
+      <stop offset="70%" stop-color="#ffe14d"/><stop offset="100%" stop-color="#ff3d7f"/></linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="#100b16"/>
+  <rect width="1200" height="630" fill="url(#sp)"/>
+  <path d="M840 -40l260 0 130 700h-560z" fill="#ffe14d" opacity=".1"/>
+  <g transform="translate(920,300) scale(1.5)">
+    <ellipse cx="0" cy="128" rx="62" ry="10" fill="#000" opacity=".5"/>
+    <g stroke="#f6f2ff" stroke-width="4" fill="none" stroke-linecap="round">
+      <circle cx="0" cy="-98" r="22"/><path d="M0 -76v96M0 20l-20 100M0 20l20 100M-28 -46h56"/></g>
+    <path d="M-32 -58h64l16 106-24 8-8-70v96h-32v-96l-8 70-24-8z" fill="#ff3d7f" opacity=".9"/>
+    <path d="M-50 -110h100l-8 12h-84z" fill="#ffe14d"/>
+    <path d="M-28 -110c0-18 12-28 28-28s28 10 28 28z" fill="#ffe14d"/>
+    <path d="M-32 100h26v34h-34v-14z" fill="#4d8dff"/><path d="M6 100h26v20l8 14H6z" fill="#4d8dff"/>
+    <path d="M48 -20v70" stroke="#9dff4d" stroke-width="5"/><ellipse cx="48" cy="-32" rx="15" ry="19" fill="#9dff4d"/>
+  </g>
+  <rect x="70" y="92" width="428" height="38" rx="19" fill="#ffe14d"/>
+  <text x="94" y="118" font-family="Sora,sans-serif" font-weight="600" font-size="19" fill="#100b16">◆ THE SPOTLIGHT IS ALREADY ON YOU</text>
+  <text x="64" y="272" font-family="'Bricolage Grotesque',sans-serif" font-weight="800" font-size="124" fill="#f6f2ff">MAIN</text>
+  <text x="64" y="382" font-family="'Bricolage Grotesque',sans-serif" font-weight="800" font-size="124" fill="#ffe14d">CHARACTER</text>
+  <text x="64" y="492" font-family="'Bricolage Grotesque',sans-serif" font-weight="800" font-size="124" fill="none" stroke="#ff3d7f" stroke-width="3">ENERGY</text>
+  <g transform="translate(70,540)">
+    <rect width="440" height="20" rx="10" fill="#f6f2ff" fill-opacity=".12"/>
+    <rect width="330" height="20" rx="10" fill="url(#mm)"/>
+    <text x="470" y="16" font-family="Sora,sans-serif" font-size="19" fill="#9d92b5">HYPE 75% · MAIN CHARACTER, CONFIRMED</text>
+  </g>
+</svg>
