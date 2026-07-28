@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Quest Rewards — Questline | Complete the Chain, Claim the Loot</title>
+<meta name="description" content="Questline turns a merch drop into a five-step quest chain. Accept the contract, clear each objective as you scroll, and open the reward caskets at the end of the line.">
+<meta name="theme-color" content="#120c18">
+<meta name="color-scheme" content="dark">
+<link rel="canonical" href="https://questline.example/quest-rewards">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Quest Rewards — Questline">
+<meta property="og:description" content="Five objectives. Four caskets. One very insistent quest giver.">
+<meta property="og:image" content="img/og.svg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="img/og.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Exo+2:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23120c18'/%3E%3Cpath d='M16 5l3.2 7.4 8 .7-6 5.3 1.8 7.8L16 22l-7 4.2 1.8-7.8-6-5.3 8-.7z' fill='%23e9b949'/%3E%3C/svg%3E">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"ItemList","name":"Questline — Reward Caskets","itemListElement":[
+{"@type":"ListItem","position":1,"item":{"@type":"Product","name":"Casket I — Wayfinder's Charm","offers":{"@type":"Offer","price":"58","priceCurrency":"USD","availability":"https://schema.org/InStock"}}},
+{"@type":"ListItem","position":2,"item":{"@type":"Product","name":"Casket II — Contract Scroll Print","offers":{"@type":"Offer","price":"84","priceCurrency":"USD","availability":"https://schema.org/InStock"}}},
+{"@type":"ListItem","position":3,"item":{"@type":"Product","name":"Casket III — Director's Seal Ring","offers":{"@type":"Offer","price":"215","priceCurrency":"USD","availability":"https://schema.org/InStock"}}},
+{"@type":"ListItem","position":4,"item":{"@type":"Product","name":"Casket IV — Full Questline Bundle","offers":{"@type":"Offer","price":"420","priceCurrency":"USD","availability":"https://schema.org/LimitedAvailability"}}}]}
+</script>
+<style>
+*,*::before,*::after{box-sizing:border-box}
+:root{
+  --night:#120c18; --deep:#0b0710; --panel:#1a1122; --txt:#f0e6d6; --dim:#9a8ba6;
+  --gold:#e9b949; --amber:#ff9f45; --violet:#8b5cf6; --blood:#c0392b;
+  --line:rgba(233,185,73,.22);
+  --g:clamp(18px,5vw,80px);
+}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--night);color:var(--txt);font-family:'Exo 2',system-ui,sans-serif;
+  font-weight:300;font-size:16.5px;line-height:1.7;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:radial-gradient(90% 60% at 50% -10%,rgba(139,92,246,.16),transparent 65%),
+             radial-gradient(70% 50% at 90% 110%,rgba(233,185,73,.1),transparent 65%)}
+h1,h2,h3{margin:0;font-family:'Cinzel Decorative',serif;font-weight:700;line-height:1.14}
+a{color:inherit;text-decoration:none}
+::selection{background:var(--gold);color:var(--deep)}
+:focus-visible{outline:2px solid var(--gold);outline-offset:4px}
+.skip{position:absolute;left:-9999px;background:var(--gold);color:var(--deep);padding:10px 18px;z-index:400;font-weight:600}
+.skip:focus{left:12px;top:12px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* ---------- sigil loader ---------- */
+#seal{position:fixed;inset:0;z-index:500;background:var(--deep);display:grid;place-items:center;
+  transition:opacity .8s,visibility .8s}
+#seal.gone{opacity:0;visibility:hidden}
+#seal svg{width:min(190px,44vw);overflow:visible}
+#seal circle,#seal path,#seal polygon{fill:none;stroke:var(--gold);stroke-width:1.4;
+  stroke-dasharray:400;stroke-dashoffset:400;animation:sigil 1.7s cubic-bezier(.5,0,.2,1) forwards}
+#seal path{animation-delay:.25s;stroke:var(--violet)}
+#seal polygon{animation-delay:.5s;stroke:var(--amber)}
+@keyframes sigil{to{stroke-dashoffset:0}}
+.sealtxt{position:absolute;bottom:12vh;left:0;right:0;text-align:center;color:var(--dim);
+  font-size:.66rem;letter-spacing:.46em;text-transform:uppercase;opacity:0;animation:apr 1s .9s forwards}
+@keyframes apr{to{opacity:1}}
+
+/* ---------- quest tracker (sticky rail) ---------- */
+.tracker{position:fixed;right:clamp(10px,2vw,26px);top:50%;transform:translateY(-50%);z-index:70;
+  display:grid;gap:14px;padding:16px 12px;border:1px solid var(--line);border-radius:14px;
+  background:rgba(18,12,24,.78);backdrop-filter:blur(12px)}
+.tracker .tk{display:flex;align-items:center;gap:10px;font-size:.66rem;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--dim);white-space:nowrap;transition:color .4s}
+.tracker .tk i{width:9px;height:9px;transform:rotate(45deg);border:1px solid var(--dim);
+  transition:background .4s,border-color .4s,box-shadow .4s;flex:none}
+.tracker .tk.done{color:var(--gold)}
+.tracker .tk.done i{background:var(--gold);border-color:var(--gold);box-shadow:0 0 14px rgba(233,185,73,.7)}
+.tracker .tk span{max-width:0;overflow:hidden;transition:max-width .5s cubic-bezier(.16,1,.3,1)}
+.tracker:hover .tk span,.tracker:focus-within .tk span{max-width:170px}
+@media(max-width:900px){.tracker{display:none}}
+
+/* ---------- top bar ---------- */
+.bar{position:fixed;top:0;left:0;right:0;z-index:69;display:flex;align-items:center;justify-content:space-between;
+  gap:14px;padding:12px var(--g);background:linear-gradient(180deg,rgba(11,7,16,.94),transparent)}
+.bar .lg{font-family:'Cinzel Decorative',serif;font-weight:900;font-size:1.02rem;letter-spacing:.1em;color:var(--gold)}
+.bar .lvl{display:flex;align-items:center;gap:10px;font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--dim)}
+.bar .lvl b{color:var(--txt);font-weight:600}
+
+/* ---------- hero: quest offer card ---------- */
+.hero{position:relative;z-index:2;min-height:100svh;display:grid;place-items:center;
+  padding:clamp(90px,14vh,140px) var(--g) clamp(50px,9vh,110px)}
+.offer{position:relative;width:min(820px,100%);border:1px solid var(--line);
+  background:linear-gradient(155deg,rgba(26,17,34,.94),rgba(11,7,16,.94));
+  padding:clamp(26px,5vw,58px);border-radius:4px;overflow:hidden;
+  box-shadow:0 40px 120px -40px rgba(0,0,0,.95)}
+.offer::before,.offer::after{content:'';position:absolute;width:60px;height:60px;border:2px solid var(--gold);opacity:.55}
+.offer::before{top:12px;left:12px;border-right:0;border-bottom:0}
+.offer::after{bottom:12px;right:12px;border-left:0;border-top:0}
+.offer .banner{display:inline-flex;align-items:center;gap:9px;font-size:.64rem;letter-spacing:.32em;
+  text-transform:uppercase;color:var(--amber);border:1px solid rgba(255,159,69,.4);padding:5px 13px;
+  border-radius:999px;margin-bottom:clamp(18px,3vh,30px);background:rgba(255,159,69,.08)}
+.offer .banner i{width:6px;height:6px;border-radius:50%;background:var(--amber);animation:tw 1.6s infinite}
+@keyframes tw{50%{opacity:.3}}
+.hero h1{font-size:clamp(2.1rem,7.4vw,4.9rem);letter-spacing:-.01em}
+.hero h1 .sh{background:linear-gradient(100deg,var(--gold),#fff3cf 40%,var(--amber));
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  background-size:220% 100%;animation:shimmer 6s linear infinite}
+@keyframes shimmer{to{background-position:220% 0}}
+.giver{display:flex;gap:16px;align-items:flex-start;margin-top:clamp(20px,3.6vh,34px);
+  padding-top:22px;border-top:1px solid rgba(233,185,73,.16)}
+.giver .av{flex:none;width:56px;height:56px;border-radius:50%;display:grid;place-items:center;
+  background:radial-gradient(circle at 40% 30%,var(--blood),#5c1410);border:1px solid rgba(233,185,73,.4);
+  font-family:'Cinzel Decorative',serif;font-weight:900;color:var(--gold);font-size:1.2rem}
+.giver .say{margin:0;font-style:italic;color:var(--txt);font-size:clamp(.98rem,1.6vw,1.1rem)}
+.giver .who{display:block;margin-top:8px;font-style:normal;font-size:.64rem;letter-spacing:.26em;
+  text-transform:uppercase;color:var(--dim)}
+.objlist{display:grid;gap:9px;margin:clamp(22px,4vh,36px) 0 0;padding:0;list-style:none}
+.objlist li{display:flex;align-items:center;gap:12px;font-size:.94rem;color:var(--dim)}
+.objlist li::before{content:'◇';color:var(--gold);font-size:.85em}
+.rewrow{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-top:clamp(24px,4vh,40px);
+  padding-top:22px;border-top:1px solid rgba(233,185,73,.16)}
+.acceptbtn{position:relative;border:none;cursor:pointer;font-family:'Cinzel Decorative',serif;font-weight:700;
+  font-size:.86rem;letter-spacing:.12em;padding:16px 34px;border-radius:3px;color:var(--deep);
+  background:linear-gradient(100deg,var(--gold),var(--amber));overflow:hidden;
+  transition:transform .2s cubic-bezier(.2,1.7,.4,1),box-shadow .3s}
+.acceptbtn:hover{transform:translateY(-3px);box-shadow:0 16px 44px -12px rgba(233,185,73,.85)}
+.acceptbtn.taken{background:linear-gradient(100deg,var(--violet),#5b21b6);color:#fff}
+.declinebtn{background:none;border:1px solid var(--line);color:var(--dim);font-family:inherit;
+  font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;padding:15px 24px;border-radius:3px;
+  cursor:pointer;transition:.3s}
+.declinebtn:hover{color:var(--txt);border-color:var(--dim)}
+.rewrow .pay{margin-left:auto;font-size:.74rem;letter-spacing:.2em;text-transform:uppercase;color:var(--dim)}
+.rewrow .pay b{display:block;font-family:'Cinzel Decorative',serif;font-size:1.3rem;color:var(--gold);letter-spacing:0}
+
+/* ---------- objective chain ---------- */
+.chain{position:relative;z-index:2;padding:clamp(50px,10vh,130px) var(--g)}
+.chain h2{font-size:clamp(1.6rem,4.6vw,3rem);text-align:center;margin-bottom:clamp(34px,6vh,70px)}
+.chain h2 em{font-style:normal;color:var(--gold)}
+.nodes{position:relative;max-width:900px;margin:0 auto;display:grid;gap:clamp(24px,5vh,56px)}
+.nodes::before{content:'';position:absolute;left:23px;top:20px;bottom:20px;width:2px;
+  background:rgba(233,185,73,.16)}
+.nodes .fillline{position:absolute;left:23px;top:20px;width:2px;height:0;
+  background:linear-gradient(var(--gold),var(--amber));box-shadow:0 0 16px rgba(233,185,73,.6);
+  transition:height .6s ease-out}
+@media(max-width:620px){.nodes::before,.nodes .fillline{left:15px}}
+.node{position:relative;padding-left:70px;opacity:.42;transition:opacity .7s}
+.node.on{opacity:1}
+@media(max-width:620px){.node{padding-left:52px}}
+.node .dot{position:absolute;left:0;top:2px;width:48px;height:48px;display:grid;place-items:center;
+  border:1px solid var(--line);border-radius:50%;background:var(--night);
+  font-family:'Cinzel Decorative',serif;font-weight:900;color:var(--dim);font-size:.9rem;
+  transition:color .5s,border-color .5s,box-shadow .5s,transform .5s}
+@media(max-width:620px){.node .dot{width:32px;height:32px;font-size:.72rem}}
+.node.on .dot{color:var(--deep);border-color:var(--gold);transform:scale(1.05);
+  background:radial-gradient(circle at 40% 30%,#fff2cb,var(--gold));
+  box-shadow:0 0 28px rgba(233,185,73,.6)}
+.node h3{font-size:clamp(1.1rem,2.8vw,1.6rem);margin-bottom:6px}
+.node .type{font-size:.62rem;letter-spacing:.28em;text-transform:uppercase;color:var(--violet);
+  display:block;margin-bottom:8px}
+.node p{margin:0;color:var(--dim);max-width:56ch;font-size:.96rem}
+.node .rew{display:inline-flex;align-items:center;gap:8px;margin-top:12px;font-size:.74rem;
+  letter-spacing:.16em;text-transform:uppercase;color:var(--gold);opacity:0;transform:translateY(6px);
+  transition:opacity .6s .2s,transform .6s .2s}
+.node.on .rew{opacity:1;transform:none}
+
+/* ---------- caskets ---------- */
+.loot{position:relative;z-index:2;padding:clamp(50px,10vh,130px) var(--g);background:
+  linear-gradient(180deg,transparent,rgba(11,7,16,.85) 22%,rgba(11,7,16,.85) 78%,transparent)}
+.loot .lh{text-align:center;margin-bottom:clamp(30px,6vh,64px)}
+.loot .lh h2{font-size:clamp(1.7rem,5.2vw,3.4rem)}
+.loot .lh p{color:var(--dim);max-width:52ch;margin:14px auto 0}
+.caskets{display:grid;gap:clamp(14px,2.4vw,26px);grid-template-columns:repeat(auto-fit,minmax(min(230px,100%),1fr));
+  max-width:1180px;margin:0 auto}
+.cask{position:relative;border:1px solid var(--line);border-radius:6px;background:var(--panel);
+  padding:22px 20px 20px;text-align:center;overflow:hidden;
+  transition:transform .5s cubic-bezier(.2,1,.3,1),box-shadow .5s}
+.cask:hover{transform:translateY(-8px);box-shadow:0 26px 60px -26px rgba(233,185,73,.5)}
+.cask .tier{position:absolute;top:0;left:0;right:0;height:3px;background:var(--tc,var(--gold))}
+.cask .box{position:relative;width:104px;height:104px;margin:8px auto 18px;cursor:pointer}
+.cask .box svg{width:100%;height:100%;overflow:visible;filter:drop-shadow(0 0 16px var(--tc,var(--gold)))}
+.cask .lid{transform-origin:50% 78%;transition:transform .55s cubic-bezier(.3,1.6,.4,1)}
+.cask.open .lid{transform:rotate(-42deg) translateY(-6px)}
+.cask .rays{opacity:0;transition:opacity .5s}
+.cask.open .rays{opacity:1;animation:spin 9s linear infinite}
+@keyframes spin{to{transform:rotate(1turn)}}
+.cask h3{font-size:1.08rem;margin-bottom:6px}
+.cask .rt{font-size:.6rem;letter-spacing:.26em;text-transform:uppercase;color:var(--tc,var(--gold));
+  display:block;margin-bottom:12px}
+.cask p{margin:0;color:var(--dim);font-size:.86rem;min-height:4.4em}
+.cask .pr{display:block;font-family:'Cinzel Decorative',serif;font-size:1.3rem;margin:14px 0 12px}
+.cask .take{width:100%;border:1px solid var(--tc,var(--gold));background:transparent;color:var(--tc,var(--gold));
+  font-family:inherit;font-weight:500;font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;
+  padding:12px;border-radius:3px;cursor:pointer;transition:.3s}
+.cask .take:hover{background:var(--tc,var(--gold));color:var(--deep)}
+.cask .take.claimed{background:var(--violet);border-color:var(--violet);color:#fff}
+.cask .hintopen{font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:var(--dim);
+  display:block;margin-bottom:10px;min-height:1.3em}
+
+/* ---------- turn-in ---------- */
+.turnin{position:relative;z-index:2;padding:clamp(50px,10vh,130px) var(--g);text-align:center}
+.turnin .scroll{max-width:760px;margin:0 auto;border:1px solid var(--line);border-radius:6px;
+  padding:clamp(26px,5vw,54px);background:
+    radial-gradient(120% 100% at 50% 0%,rgba(139,92,246,.14),transparent 60%),var(--panel)}
+.turnin h2{font-size:clamp(1.5rem,4.6vw,2.9rem);margin-bottom:14px}
+.turnin p{color:var(--dim);max-width:48ch;margin:0 auto clamp(24px,4vh,40px)}
+.xpwrap{margin-bottom:26px}
+.xprail{height:16px;border:1px solid var(--line);border-radius:999px;overflow:hidden;background:rgba(233,185,73,.08)}
+.xprail i{display:block;height:100%;width:0;border-radius:999px;
+  background:linear-gradient(90deg,var(--violet),var(--gold));transition:width 1.5s cubic-bezier(.16,1,.3,1)}
+.xplab{display:flex;justify-content:space-between;margin-top:9px;font-size:.68rem;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--dim)}
+.tform{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
+.tform input{flex:1 1 230px;max-width:330px;background:rgba(11,7,16,.7);border:1px solid var(--line);
+  color:var(--txt);padding:14px 16px;border-radius:3px;font-family:inherit;font-size:1rem}
+.tform input:focus{outline:none;border-color:var(--gold)}
+.tmsg{min-height:1.5em;margin-top:16px;color:var(--gold);font-style:italic}
+
+/* ---------- footer ---------- */
+footer{position:relative;z-index:2;border-top:1px solid var(--line);padding:clamp(36px,7vh,74px) var(--g) 30px;
+  background:var(--deep)}
+.fcols{display:grid;gap:28px;grid-template-columns:repeat(auto-fit,minmax(min(180px,100%),1fr));padding-bottom:28px}
+.fcols h4{margin:0 0 11px;font-family:'Cinzel Decorative',serif;font-size:.76rem;letter-spacing:.14em;color:var(--gold)}
+.fcols ul{list-style:none;margin:0;padding:0;display:grid;gap:7px}
+.fcols a{color:var(--dim);font-size:.9rem;transition:color .3s}
+.fcols a:hover{color:var(--txt)}
+.fcols .crest{font-family:'Cinzel Decorative',serif;font-weight:900;font-size:1.4rem;color:var(--txt);line-height:1.3}
+.fb{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;padding-top:20px;
+  border-top:1px solid rgba(233,185,73,.14);font-size:.76rem;color:var(--dim)}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;
+    transition-duration:.001ms!important}
+  .node{opacity:1}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#caskets">Skip to the reward caskets</a>
+
+<div id="seal" role="status" aria-label="Loading">
+  <svg viewBox="0 0 120 120" aria-hidden="true">
+    <circle cx="60" cy="60" r="52"/>
+    <path d="M60 12v96M12 60h96M25 25l70 70M95 25l-70 70"/>
+    <polygon points="60,26 89,78 31,78"/>
+  </svg>
+  <p class="sealtxt">Questline — contract loading</p>
+</div>
+
+<nav class="tracker" aria-label="Quest progress tracker">
+  <span class="tk" data-t="0"><i></i><span>Accept the contract</span></span>
+  <span class="tk" data-t="1"><i></i><span>Walk the harbour</span></span>
+  <span class="tk" data-t="2"><i></i><span>Deliver the lantern</span></span>
+  <span class="tk" data-t="3"><i></i><span>Survive the tea</span></span>
+  <span class="tk" data-t="4"><i></i><span>Return for payment</span></span>
+</nav>
+
+<header class="bar">
+  <span class="lg">QUESTLINE</span>
+  <span class="lvl">Adventurer <b>Lv. 14</b> · <b id="xpNow">0</b> XP</span>
+</header>
+
+<main>
+  <section class="hero" aria-labelledby="qt">
+    <article class="offer">
+      <span class="banner"><i></i>New quest available</span>
+      <h1 id="qt">The Contract of <span class="sh">Four Caskets</span></h1>
+      <div class="giver">
+        <span class="av" aria-hidden="true">胡</span>
+        <p class="say">“Ordinary shopping is so grim. Mine is a quest chain — five objectives, four caskets, and at the end you get a receipt AND a story. Come on, the paperwork is already filled in with your name.”
+          <span class="who">Quest giver — the 77th Director</span></p>
+      </div>
+      <ul class="objlist">
+        <li>Objectives: 5</li>
+        <li>Estimated duration: one afternoon and a lot of talking</li>
+        <li>Failure condition: none — she will simply follow you home</li>
+      </ul>
+      <div class="rewrow">
+        <button class="acceptbtn" id="accept">Accept quest</button>
+        <button class="declinebtn" id="decline">Decline</button>
+        <span class="pay">Reward pool<b>4 caskets</b></span>
+      </div>
+    </article>
+  </section>
+
+  <section class="chain" id="chain" aria-labelledby="ch">
+    <h2 id="ch">Objective <em>chain</em></h2>
+    <div class="nodes" id="nodes">
+      <span class="fillline" id="fillline" aria-hidden="true"></span>
+      <article class="node" data-i="0">
+        <span class="dot">I</span><span class="type">Escort · no combat</span>
+        <h3>Walk the harbour at closing time</h3>
+        <p>She knows every stallholder by name and every one of them owes her a favour. Expect to be handed food. Expect to be told, in detail, how each of them wants to be sent off.</p>
+        <span class="rew">✦ +120 XP · unlocks Casket I</span>
+      </article>
+      <article class="node" data-i="1">
+        <span class="dot">II</span><span class="type">Delivery · fragile</span>
+        <h3>Carry the lantern up the hill without looking back</h3>
+        <p>An old rule and a badly kept one. The lantern is heavier than it should be and the wind on the third switchback is deliberately unhelpful.</p>
+        <span class="rew">✦ +240 XP · unlocks Casket II</span>
+      </article>
+      <article class="node" data-i="2">
+        <span class="dot">III</span><span class="type">Endurance · social</span>
+        <h3>Survive four cups of the parlour's tea</h3>
+        <p>It is not poison. It is worse: it is very strong and served with total sincerity. Refusing the fourth cup ends the chain, so drink up.</p>
+        <span class="rew">✦ +310 XP · unlocks Casket III</span>
+      </article>
+      <article class="node" data-i="3">
+        <span class="dot">IV</span><span class="type">Escort · reversed</span>
+        <h3>Walk her back down</h3>
+        <p>The only objective that was never on the contract. Nobody has ever done it before, which is why the reward for it is the largest in the pool.</p>
+        <span class="rew">✦ +500 XP · unlocks Casket IV</span>
+      </article>
+      <article class="node" data-i="4">
+        <span class="dot">V</span><span class="type">Turn-in</span>
+        <h3>Return to the parlour for payment</h3>
+        <p>Payment is issued in goods, not mora. The ledger is stamped, the caskets are opened, and you are enrolled — permanently — as a regular.</p>
+        <span class="rew">✦ Quest complete · rank up</span>
+      </article>
+    </div>
+  </section>
+
+  <section class="loot" id="caskets" aria-labelledby="lt">
+    <div class="lh">
+      <h2 id="lt">Reward caskets</h2>
+      <p>Tap a casket to open it. What is inside is real, shippable and unfortunately not free.</p>
+    </div>
+    <div class="caskets">
+      <article class="cask" style="--tc:#7dd3a0">
+        <span class="tier"></span>
+        <div class="box" role="button" tabindex="0" aria-label="Open casket one">
+          <svg viewBox="0 0 100 100" aria-hidden="true">
+            <g class="rays" style="transform-origin:50px 52px"><g stroke="#7dd3a0" stroke-width="1.6" opacity=".7">
+              <path d="M50 4v14M50 86v10M4 52h14M82 52h14M18 20l10 10M82 20L72 30M18 84l10-10M82 84L72 74"/></g></g>
+            <rect x="22" y="48" width="56" height="34" rx="4" fill="rgba(125,211,160,.2)" stroke="#7dd3a0" stroke-width="2.4"/>
+            <g class="lid"><path d="M22 50a28 16 0 0156 0z" fill="rgba(125,211,160,.3)" stroke="#7dd3a0" stroke-width="2.4"/></g>
+            <rect x="45" y="56" width="10" height="16" rx="2" fill="#7dd3a0"/>
+          </svg>
+        </div>
+        <span class="hintopen">Objective I</span>
+        <h3>Wayfinder's Charm</h3><span class="rt">◇ Common</span>
+        <p>Cast brass charm on a braided cord, stamped with the parlour's mark on the reverse.</p>
+        <span class="pr">$58</span><button class="take">Take reward</button>
+      </article>
+      <article class="cask" style="--tc:#5eb0ef">
+        <span class="tier"></span>
+        <div class="box" role="button" tabindex="0" aria-label="Open casket two">
+          <svg viewBox="0 0 100 100" aria-hidden="true">
+            <g class="rays" style="transform-origin:50px 52px"><g stroke="#5eb0ef" stroke-width="1.6" opacity=".7">
+              <path d="M50 4v14M50 86v10M4 52h14M82 52h14M18 20l10 10M82 20L72 30M18 84l10-10M82 84L72 74"/></g></g>
+            <rect x="22" y="48" width="56" height="34" rx="4" fill="rgba(94,176,239,.2)" stroke="#5eb0ef" stroke-width="2.4"/>
+            <g class="lid"><path d="M22 50a28 16 0 0156 0z" fill="rgba(94,176,239,.3)" stroke="#5eb0ef" stroke-width="2.4"/></g>
+            <rect x="45" y="56" width="10" height="16" rx="2" fill="#5eb0ef"/>
+          </svg>
+        </div>
+        <span class="hintopen">Objective II</span>
+        <h3>Contract Scroll Print</h3><span class="rt">◆ Rare</span>
+        <p>The full quest contract, letterpressed on mulberry paper and rolled in a card tube.</p>
+        <span class="pr">$84</span><button class="take">Take reward</button>
+      </article>
+      <article class="cask" style="--tc:#e9b949">
+        <span class="tier"></span>
+        <div class="box" role="button" tabindex="0" aria-label="Open casket three">
+          <svg viewBox="0 0 100 100" aria-hidden="true">
+            <g class="rays" style="transform-origin:50px 52px"><g stroke="#e9b949" stroke-width="1.6" opacity=".7">
+              <path d="M50 4v14M50 86v10M4 52h14M82 52h14M18 20l10 10M82 20L72 30M18 84l10-10M82 84L72 74"/></g></g>
+            <rect x="22" y="48" width="56" height="34" rx="4" fill="rgba(233,185,73,.2)" stroke="#e9b949" stroke-width="2.4"/>
+            <g class="lid"><path d="M22 50a28 16 0 0156 0z" fill="rgba(233,185,73,.3)" stroke="#e9b949" stroke-width="2.4"/></g>
+            <rect x="45" y="56" width="10" height="16" rx="2" fill="#e9b949"/>
+          </svg>
+        </div>
+        <span class="hintopen">Objective III</span>
+        <h3>Director's Seal Ring</h3><span class="rt">★ Epic</span>
+        <p>Solid signet in blackened silver with a crimson enamel plum blossom. Sized on request.</p>
+        <span class="pr">$215</span><button class="take">Take reward</button>
+      </article>
+      <article class="cask" style="--tc:#c084fc">
+        <span class="tier"></span>
+        <div class="box" role="button" tabindex="0" aria-label="Open casket four">
+          <svg viewBox="0 0 100 100" aria-hidden="true">
+            <g class="rays" style="transform-origin:50px 52px"><g stroke="#c084fc" stroke-width="1.6" opacity=".7">
+              <path d="M50 4v14M50 86v10M4 52h14M82 52h14M18 20l10 10M82 20L72 30M18 84l10-10M82 84L72 74"/></g></g>
+            <rect x="22" y="48" width="56" height="34" rx="4" fill="rgba(192,132,252,.2)" stroke="#c084fc" stroke-width="2.4"/>
+            <g class="lid"><path d="M22 50a28 16 0 0156 0z" fill="rgba(192,132,252,.3)" stroke="#c084fc" stroke-width="2.4"/></g>
+            <rect x="45" y="56" width="10" height="16" rx="2" fill="#c084fc"/>
+          </svg>
+        </div>
+        <span class="hintopen">Objective IV</span>
+        <h3>Full Questline Bundle</h3><span class="rt">✦ Legendary</span>
+        <p>All three caskets, the lantern from objective two, and the ledger page with your name on it.</p>
+        <span class="pr">$420</span><button class="take">Take reward</button>
+      </article>
+    </div>
+  </section>
+
+  <section class="turnin" id="turnin" aria-labelledby="ti">
+    <div class="scroll">
+      <h2 id="ti">Turn in the contract</h2>
+      <p>Leave a courier address and we will stamp the ledger. Quest chains restart every season, and returning adventurers start at rank two.</p>
+      <div class="xpwrap">
+        <div class="xprail"><i id="xpBar"></i></div>
+        <div class="xplab"><span>Chain progress</span><span id="xpPct">0 / 1170 XP</span></div>
+      </div>
+      <form class="tform" id="tform" novalidate>
+        <label class="sr" for="te">Email address</label>
+        <input id="te" type="email" placeholder="adventurer@guild" autocomplete="email" required>
+        <button class="acceptbtn" type="submit">Turn in</button>
+      </form>
+      <p class="tmsg" id="tmsg" role="status"></p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="fcols">
+    <div><p class="crest">QUESTLINE</p>
+      <p style="color:var(--dim);font-size:.88rem;margin:10px 0 0;max-width:26ch">Merchandise, restructured as a contract you are legally obliged to enjoy.</p></div>
+    <div><h4>Chain</h4><ul><li><a href="#chain">Objectives</a></li><li><a href="#caskets">Reward table</a></li><li><a href="#turnin">Turn-in</a></li></ul></div>
+    <div><h4>Guild</h4><ul><li><a href="#">Shipping</a></li><li><a href="#">Ring sizing</a></li><li><a href="#">Returns</a></li></ul></div>
+    <div><h4>Elsewhere</h4><ul><li><a href="../../index.html">The other 24 studios</a></li><li><a href="#qt">Re-read the contract</a></li></ul></div>
+  </div>
+  <div class="fb"><span>Fan project · not affiliated with HoYoverse</span><span>Contract void where cheerfulness is prohibited</span></div>
+</footer>
+
+<script>
+(function(){
+var RM=matchMedia('(prefers-reduced-motion:reduce)').matches;
+var TOTAL=1170, xp=0;
+
+/* loader */
+var sl=document.getElementById('seal');
+function go(){sl.classList.add('gone');}
+if(RM) setTimeout(go,200); else addEventListener('load',function(){setTimeout(go,1500);});
+setTimeout(go,4000);
+
+/* accept */
+var acc=document.getElementById('accept');
+acc.addEventListener('click',function(){
+  acc.textContent='Quest accepted ✓'; acc.classList.add('taken');
+  markTracker(0);
+  document.getElementById('chain').scrollIntoView({behavior:RM?'auto':'smooth'});
+});
+document.getElementById('decline').addEventListener('click',function(){
+  this.textContent='She is already following you';
+  var s=this; setTimeout(function(){s.textContent='Decline';},2400);
+});
+
+function markTracker(i){
+  var t=document.querySelector('.tracker .tk[data-t="'+i+'"]');
+  if(t) t.classList.add('done');
+}
+
+/* node unlocking + xp */
+var XPS=[120,240,310,500,0];
+var nodes=[].slice.call(document.querySelectorAll('.node'));
+var fill=document.getElementById('fillline'), nodesWrap=document.getElementById('nodes');
+var xpNow=document.getElementById('xpNow');
+function addXP(n){
+  var target=Math.min(xp+n,TOTAL), step=Math.max(1,Math.round(n/26));
+  (function up(){ xp=Math.min(xp+step,target); xpNow.textContent=xp;
+    if(xp<target) requestAnimationFrame(up); })();
+}
+function unlock(node){
+  if(node.classList.contains('on')) return;
+  node.classList.add('on');
+  var i=+node.dataset.i;
+  markTracker(i+1<=4?i+1:4);
+  addXP(XPS[i]);
+  var done=document.querySelectorAll('.node.on').length;
+  fill.style.height=(done/nodes.length*100)+'%';
+}
+if('IntersectionObserver' in window && !RM){
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){
+    if(e.isIntersecting){unlock(e.target);io.unobserve(e.target);}});},
+    {threshold:.45,rootMargin:'0px 0px -12% 0px'});
+  nodes.forEach(function(n){io.observe(n);});
+} else { nodes.forEach(unlock); }
+
+/* caskets */
+document.querySelectorAll('.cask').forEach(function(c){
+  var box=c.querySelector('.box'), hint=c.querySelector('.hintopen');
+  function open(){
+    c.classList.toggle('open');
+    hint.textContent = c.classList.contains('open') ? 'Opened' : hint.dataset.o || 'Tap to open';
+  }
+  hint.dataset.o=hint.textContent;
+  box.addEventListener('click',open);
+  box.addEventListener('keydown',function(e){
+    if(e.key==='Enter'||e.key===' '){e.preventDefault();open();}
+  });
+  c.querySelector('.take').addEventListener('click',function(){
+    c.classList.add('open');
+    this.textContent='Claimed ✓'; this.classList.add('claimed');
+    var b=this; setTimeout(function(){b.textContent='Take reward';b.classList.remove('claimed');},2300);
+  });
+});
+
+/* turn-in bar */
+function runBar(){
+  var pct=Math.round(xp/TOTAL*100);
+  document.getElementById('xpBar').style.width=Math.max(pct,8)+'%';
+  document.getElementById('xpPct').textContent=xp+' / '+TOTAL+' XP';
+}
+if('IntersectionObserver' in window){
+  var io2=new IntersectionObserver(function(es){es.forEach(function(e){
+    if(e.isIntersecting) runBar();});},{threshold:.35});
+  io2.observe(document.getElementById('turnin'));
+} else runBar();
+
+document.getElementById('tform').addEventListener('submit',function(e){
+  e.preventDefault();
+  var v=document.getElementById('te').value.trim();
+  document.getElementById('tmsg').textContent =
+    /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v)
+      ? 'Ledger stamped. She has written “regular” next to your name, in red.'
+      : 'The clerk squints at that address and hands it back.';
+});
+})();
+</script>
+</body>
+</html>

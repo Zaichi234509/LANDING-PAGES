@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="Adventure Begins — Wayfarer Online">
+  <defs>
+    <linearGradient id="g1" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#00e0c6"/><stop offset="55%" stop-color="#ffc857"/><stop offset="100%" stop-color="#ff4d6d"/></linearGradient>
+    <pattern id="grid" width="56" height="56" patternUnits="userSpaceOnUse">
+      <path d="M56 0H0v56" fill="none" stroke="#00e0c6" stroke-opacity=".12"/></pattern>
+  </defs>
+  <rect width="1200" height="630" fill="#050a12"/>
+  <rect width="1200" height="630" fill="url(#grid)"/>
+  <g fill="none" stroke="#00e0c6" stroke-opacity=".28" stroke-width="1.4">
+    <path d="M60 520c120-40 180-120 320-128s180 56 320 26 260-118 380-92"/>
+    <path d="M40 460c130-36 190-104 330-112s186 50 328 22 258-104 382-82"/>
+    <path d="M120 380c100-56 180-30 260-96s150-128 260-118"/>
+  </g>
+  <g stroke="#ffc857" stroke-width="2" stroke-dasharray="8 9" fill="none" opacity=".7">
+    <path d="M180 470C300 400 350 320 470 320s180 66 300 30"/></g>
+  <g>
+    <circle cx="180" cy="470" r="9" fill="#00e0c6"/><circle cx="180" cy="470" r="24" fill="none" stroke="#00e0c6" stroke-opacity=".5"/>
+    <circle cx="770" cy="350" r="9" fill="#ffc857"/><circle cx="770" cy="350" r="24" fill="none" stroke="#ffc857" stroke-opacity=".5"/>
+  </g>
+  <rect x="0" y="0" width="1200" height="56" fill="#050a12" opacity=".85"/>
+  <text x="60" y="36" font-family="Orbitron,sans-serif" font-weight="600" font-size="19" letter-spacing="9" fill="#00e0c6">WAYFARER · ONLINE</text>
+  <text x="1140" y="36" text-anchor="end" font-family="Rajdhani,sans-serif" font-size="18" letter-spacing="5" fill="#6d829b">CLIENT 4.7.1 · LIYUE-01</text>
+  <text x="60" y="230" font-family="Orbitron,sans-serif" font-weight="800" font-size="96" fill="#dbe9f5">ADVENTURE</text>
+  <text x="60" y="330" font-family="Orbitron,sans-serif" font-weight="800" font-size="96" fill="url(#g1)">BEGINS</text>
+  <text x="62" y="392" font-family="Rajdhani,sans-serif" font-size="26" letter-spacing="4" fill="#6d829b">Four regions open · 17 items in the drop pool</text>
+  <g stroke="#00e0c6" stroke-width="3" fill="none">
+    <path d="M40 84h30M40 84v30"/><path d="M1160 84h-30M1160 84v30"/>
+    <path d="M40 590h30M40 590v-30"/><path d="M1160 590h-30M1160 590v-30"/></g>
+</svg>

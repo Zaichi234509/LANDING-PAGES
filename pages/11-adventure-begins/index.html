@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Adventure Begins — Wayfarer Online | Open World Merch Expedition</title>
+<meta name="description" content="Wayfarer Online: an open-world expedition where every region drops different Hu Tao gear. Boot the client, follow the compass, ping a marker and claim the region loot.">
+<meta name="theme-color" content="#050a12">
+<meta name="color-scheme" content="dark">
+<link rel="canonical" href="https://wayfarer.example/adventure-begins">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Adventure Begins — Wayfarer Online">
+<meta property="og:description" content="Four regions. Four drops. Set a marker and go.">
+<meta property="og:image" content="img/og.svg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="img/og.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800&family=Rajdhani:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23050a12'/%3E%3Cpath d='M16 4l3 9 9 3-9 3-3 9-3-9-9-3 9-3z' fill='%2300e0c6'/%3E%3C/svg%3E">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"ItemList","name":"Wayfarer Online — Region Drops","itemListElement":[
+{"@type":"ListItem","position":1,"item":{"@type":"Product","name":"Harbour Region Drop — Wayfinder Jacket","offers":{"@type":"Offer","price":"128","priceCurrency":"USD","availability":"https://schema.org/InStock"}}},
+{"@type":"ListItem","position":2,"item":{"@type":"Product","name":"Chasm Region Drop — Depth Lamp","offers":{"@type":"Offer","price":"74","priceCurrency":"USD","availability":"https://schema.org/InStock"}}},
+{"@type":"ListItem","position":3,"item":{"@type":"Product","name":"Summit Region Drop — Ridge Pack","offers":{"@type":"Offer","price":"156","priceCurrency":"USD","availability":"https://schema.org/PreOrder"}}}]}
+</script>
+<style>
+*,*::before,*::after{box-sizing:border-box}
+:root{
+  --bg:#050a12; --panel:#0a1220; --panel2:#0d1a2c; --txt:#dbe9f5; --dim:#6d829b;
+  --cy:#00e0c6; --mag:#ff4d6d; --gold:#ffc857;
+  --grid:rgba(0,224,198,.09); --line:rgba(0,224,198,.22);
+  --g:clamp(16px,4vw,64px);
+}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--txt);font-family:Rajdhani,system-ui,sans-serif;
+  font-weight:400;font-size:17px;line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:56px 56px;mask-image:radial-gradient(ellipse 120% 90% at 50% 0%,#000 20%,transparent 78%)}
+h1,h2,h3{margin:0;font-family:Orbitron,sans-serif;font-weight:800;line-height:1.05;letter-spacing:-.01em}
+a{color:inherit;text-decoration:none}
+::selection{background:var(--cy);color:var(--bg)}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+.skip{position:absolute;left:-9999px;background:var(--cy);color:var(--bg);padding:10px 18px;z-index:400;font-weight:600}
+.skip:focus{left:12px;top:12px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.mono{font-variant-numeric:tabular-nums;letter-spacing:.06em}
+
+/* ---------- boot sequence ---------- */
+#boot{position:fixed;inset:0;z-index:500;background:#03060c;display:grid;place-items:center;
+  padding:24px;transition:opacity .6s,visibility .6s}
+#boot.gone{opacity:0;visibility:hidden}
+.bootwin{width:min(560px,94vw)}
+.bootlogo{font-family:Orbitron,sans-serif;font-weight:800;font-size:clamp(1.5rem,5vw,2.4rem);
+  color:var(--cy);letter-spacing:.14em;text-align:center;margin-bottom:8px;
+  text-shadow:0 0 26px rgba(0,224,198,.55)}
+.bootver{text-align:center;color:var(--dim);font-size:.78rem;letter-spacing:.3em;margin-bottom:28px}
+.bootlog{font-family:'Courier New',monospace;font-size:.76rem;color:var(--dim);min-height:118px;line-height:1.85}
+.bootlog b{color:var(--cy);font-weight:400}
+.bootbar{height:3px;background:rgba(0,224,198,.16);margin-top:20px;overflow:hidden}
+.bootbar i{display:block;height:100%;width:0;background:var(--cy);box-shadow:0 0 14px var(--cy)}
+
+/* ---------- HUD frame ---------- */
+.hud{position:fixed;inset:0;z-index:60;pointer-events:none}
+.hud .corner{position:absolute;width:26px;height:26px;border:2px solid var(--line)}
+.hud .tl{top:12px;left:12px;border-right:0;border-bottom:0}
+.hud .tr{top:12px;right:12px;border-left:0;border-bottom:0}
+.hud .bl{bottom:12px;left:12px;border-right:0;border-top:0}
+.hud .br{bottom:12px;right:12px;border-left:0;border-top:0}
+
+/* compass strip */
+.compass{position:fixed;top:0;left:0;right:0;z-index:70;height:44px;display:flex;align-items:center;
+  background:linear-gradient(180deg,rgba(5,10,18,.94),rgba(5,10,18,.4));border-bottom:1px solid var(--line);
+  overflow:hidden}
+.compass .ticks{display:flex;gap:0;white-space:nowrap;will-change:transform;font-size:.7rem;color:var(--dim);
+  letter-spacing:.24em}
+.compass .ticks span{display:inline-flex;align-items:center;justify-content:center;width:88px;flex:none}
+.compass .ticks span.card{color:var(--cy);font-weight:600}
+.compass::after{content:'';position:absolute;left:50%;top:0;bottom:0;width:1px;background:var(--gold);
+  box-shadow:0 0 12px var(--gold)}
+
+/* top bar */
+.topbar{position:fixed;top:44px;left:0;right:0;z-index:69;display:flex;align-items:center;
+  justify-content:space-between;gap:12px;padding:9px var(--g);
+  background:rgba(5,10,18,.72);backdrop-filter:blur(10px);border-bottom:1px solid rgba(0,224,198,.1)}
+.topbar .brand{font-family:Orbitron,sans-serif;font-weight:600;font-size:.82rem;letter-spacing:.22em;color:var(--cy)}
+.topbar nav{display:flex;gap:clamp(10px,2vw,26px)}
+.topbar nav a{font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);
+  font-weight:500;transition:color .25s;position:relative}
+.topbar nav a:hover{color:var(--txt)}
+.topbar .party{display:flex;align-items:center;gap:8px;font-size:.74rem;color:var(--dim);letter-spacing:.1em}
+.topbar .party i{width:7px;height:7px;border-radius:50%;background:var(--cy);animation:blip 1.8s infinite}
+@keyframes blip{50%{opacity:.25}}
+@media(max-width:760px){.topbar nav{display:none}}
+
+/* ---------- hero ---------- */
+.hero{position:relative;z-index:2;min-height:100svh;display:grid;align-content:center;
+  padding:clamp(120px,18vh,180px) var(--g) clamp(60px,10vh,120px);gap:clamp(18px,3vh,32px)}
+.hero::after{content:'';position:absolute;left:50%;top:44%;width:min(96vw,900px);aspect-ratio:1;
+  transform:translate(-50%,-50%);pointer-events:none;z-index:-1;
+  background:radial-gradient(circle,rgba(0,224,198,.14),transparent 62%);filter:blur(30px)}
+.quest-tag{display:inline-flex;align-items:center;gap:10px;align-self:start;
+  border:1px solid var(--line);background:rgba(0,224,198,.07);padding:6px 14px;
+  font-size:.7rem;letter-spacing:.28em;text-transform:uppercase;font-weight:600;color:var(--cy);
+  clip-path:polygon(8px 0,100% 0,100% calc(100% - 8px),calc(100% - 8px) 100%,0 100%,0 8px)}
+.quest-tag i{width:6px;height:6px;background:var(--cy);transform:rotate(45deg)}
+.hero h1{font-size:clamp(2.4rem,9.4vw,7.4rem);text-transform:uppercase;max-width:16ch}
+.hero h1 .g{background:linear-gradient(100deg,var(--cy),var(--gold) 55%,var(--mag));
+  -webkit-background-clip:text;background-clip:text;color:transparent}
+.hero h1 span{display:inline-block;opacity:0;transform:translateY(22px) skewY(4deg);
+  animation:hud-in .7s cubic-bezier(.2,1,.3,1) forwards}
+@keyframes hud-in{to{opacity:1;transform:none}}
+.hero p.brief{max-width:52ch;color:var(--dim);font-size:clamp(1rem,1.7vw,1.16rem);margin:0}
+.ctas{display:flex;flex-wrap:wrap;gap:12px;margin-top:8px}
+.btn{position:relative;border:none;font-family:Orbitron,sans-serif;font-weight:600;font-size:.76rem;
+  letter-spacing:.16em;text-transform:uppercase;padding:16px 30px;cursor:pointer;
+  clip-path:polygon(12px 0,100% 0,100% calc(100% - 12px),calc(100% - 12px) 100%,0 100%,0 12px);
+  transition:transform .18s cubic-bezier(.2,1.6,.4,1),box-shadow .3s,background .3s}
+.btn.primary{background:var(--cy);color:#03151a;box-shadow:0 0 0 rgba(0,224,198,0)}
+.btn.primary:hover{transform:translateY(-3px) scale(1.02);box-shadow:0 14px 40px -10px rgba(0,224,198,.8)}
+.btn.ghost{background:transparent;color:var(--txt);box-shadow:inset 0 0 0 1px var(--line)}
+.btn.ghost:hover{background:rgba(0,224,198,.1);transform:translateY(-3px)}
+.statline{display:flex;flex-wrap:wrap;gap:clamp(14px,3vw,44px);margin-top:clamp(20px,4vh,44px);
+  padding-top:20px;border-top:1px solid rgba(0,224,198,.14)}
+.statline div b{display:block;font-family:Orbitron,sans-serif;font-size:clamp(1.3rem,3vw,2rem);color:var(--cy)}
+.statline div span{font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--dim)}
+
+/* ---------- world map ---------- */
+.world{position:relative;z-index:2;padding:clamp(50px,10vh,120px) var(--g)}
+.sechead{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:16px;
+  margin-bottom:clamp(24px,4vh,44px)}
+.sechead h2{font-size:clamp(1.5rem,4.4vw,3rem);text-transform:uppercase}
+.sechead h2 em{font-style:normal;color:var(--mag)}
+.sechead p{margin:0;color:var(--dim);max-width:38ch;font-size:.96rem}
+.maparea{display:grid;gap:clamp(14px,2.4vw,26px);grid-template-columns:minmax(0,1.55fr) minmax(0,1fr)}
+@media(max-width:860px){.maparea{grid-template-columns:1fr}}
+.mapbox{position:relative;border:1px solid var(--line);background:
+  radial-gradient(120% 100% at 20% 0%,#0e2033,#060d18 70%);overflow:hidden;min-height:380px;
+  clip-path:polygon(0 0,calc(100% - 22px) 0,100% 22px,100% 100%,22px 100%,0 calc(100% - 22px))}
+.mapbox svg{width:100%;height:100%;display:block}
+.mapbox .scan{position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(180deg,transparent,rgba(0,224,198,.14),transparent);height:120px;
+  animation:scan 5.5s linear infinite}
+@keyframes scan{0%{transform:translateY(-140px)}100%{transform:translateY(520px)}}
+.marker{position:absolute;transform:translate(-50%,-50%);z-index:3;background:none;border:none;
+  cursor:pointer;padding:0;width:34px;height:34px}
+.marker .ring{position:absolute;inset:0;border:1.5px solid var(--cy);border-radius:50%;
+  animation:ping2 2.6s cubic-bezier(0,.6,.4,1) infinite}
+.marker .ring:nth-child(2){animation-delay:1.3s}
+@keyframes ping2{0%{transform:scale(.35);opacity:1}100%{transform:scale(1.6);opacity:0}}
+.marker .pip{position:absolute;left:50%;top:50%;width:11px;height:11px;transform:translate(-50%,-50%) rotate(45deg);
+  background:var(--cy);box-shadow:0 0 16px var(--cy);transition:background .3s,box-shadow .3s}
+.marker[aria-pressed="true"] .pip{background:var(--gold);box-shadow:0 0 20px var(--gold)}
+.marker .lbl{position:absolute;left:26px;top:50%;transform:translateY(-50%);white-space:nowrap;
+  font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:var(--txt);
+  background:rgba(5,10,18,.82);border:1px solid rgba(0,224,198,.24);padding:2px 8px;font-weight:600}
+.regionpanel{border:1px solid var(--line);background:linear-gradient(180deg,var(--panel2),var(--panel));
+  padding:clamp(18px,3vw,30px);display:flex;flex-direction:column;gap:14px;
+  clip-path:polygon(0 0,calc(100% - 18px) 0,100% 18px,100% 100%,18px 100%,0 calc(100% - 18px))}
+.regionpanel .rk{font-size:.68rem;letter-spacing:.3em;text-transform:uppercase;color:var(--dim)}
+.regionpanel h3{font-size:clamp(1.3rem,3vw,2rem);text-transform:uppercase;color:var(--cy)}
+.regionpanel .desc{color:var(--dim);font-size:.96rem;margin:0;min-height:5.4em}
+.bars{display:grid;gap:10px}
+.bars .b{display:grid;grid-template-columns:74px 1fr auto;gap:10px;align-items:center;font-size:.72rem;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--dim)}
+.bars .track{height:6px;background:rgba(0,224,198,.13)}
+.bars .track i{display:block;height:100%;background:linear-gradient(90deg,var(--cy),var(--gold));
+  transition:width .8s cubic-bezier(.16,1,.3,1)}
+.regionpanel .drop{margin-top:auto;border-top:1px solid rgba(0,224,198,.16);padding-top:14px;
+  display:flex;align-items:center;justify-content:space-between;gap:12px}
+.regionpanel .drop b{font-family:Orbitron,sans-serif;font-size:1.1rem;color:var(--gold)}
+
+/* ---------- loot drops ---------- */
+.loot{position:relative;z-index:2;padding:clamp(50px,10vh,120px) var(--g)}
+.lootgrid{display:grid;gap:clamp(14px,2.2vw,24px);grid-template-columns:repeat(auto-fit,minmax(min(240px,100%),1fr))}
+.crate{position:relative;border:1px solid rgba(0,224,198,.2);background:var(--panel);padding:20px;
+  display:flex;flex-direction:column;gap:12px;overflow:hidden;
+  transition:transform .35s cubic-bezier(.2,1,.3,1),border-color .35s}
+.crate::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,var(--rar,var(--cy)),transparent);opacity:.85}
+.crate:hover{transform:translateY(-8px);border-color:var(--rar,var(--cy))}
+.crate .rar{font-size:.64rem;letter-spacing:.26em;text-transform:uppercase;color:var(--rar,var(--cy));font-weight:600}
+.crate .art{aspect-ratio:1;border:1px dashed rgba(0,224,198,.2);display:grid;place-items:center;
+  background:radial-gradient(circle at 50% 40%,rgba(0,224,198,.09),transparent 66%);position:relative;overflow:hidden}
+.crate .art svg{width:62%;height:62%;overflow:visible;
+  filter:drop-shadow(0 0 14px var(--rar,var(--cy)));animation:hover 5s ease-in-out infinite}
+@keyframes hover{50%{transform:translateY(-8px) rotate(-2deg)}}
+.crate h3{font-size:1.1rem;text-transform:uppercase}
+.crate p{margin:0;color:var(--dim);font-size:.88rem;flex:1}
+.crate .foot{display:flex;align-items:center;justify-content:space-between;gap:10px;
+  padding-top:12px;border-top:1px solid rgba(0,224,198,.14)}
+.crate .pr{font-family:Orbitron,sans-serif;font-weight:600;font-size:1.06rem}
+.crate .claim{border:1px solid var(--rar,var(--cy));background:transparent;color:var(--rar,var(--cy));
+  font-family:Orbitron,sans-serif;font-size:.64rem;letter-spacing:.14em;text-transform:uppercase;
+  padding:9px 14px;cursor:pointer;font-weight:600;transition:.25s}
+.crate .claim:hover{background:var(--rar,var(--cy));color:#03151a}
+.crate .claim.got{background:var(--gold);border-color:var(--gold);color:#1a1203}
+
+/* ---------- XP track / party CTA ---------- */
+.xp{position:relative;z-index:2;margin:0 var(--g) clamp(50px,10vh,120px);
+  border:1px solid var(--line);background:linear-gradient(120deg,var(--panel2),rgba(10,18,32,.4));
+  padding:clamp(22px,4vw,44px);
+  clip-path:polygon(0 0,calc(100% - 24px) 0,100% 24px,100% 100%,24px 100%,0 calc(100% - 24px))}
+.xp h2{font-size:clamp(1.4rem,4vw,2.6rem);text-transform:uppercase;margin-bottom:10px}
+.xp p{color:var(--dim);max-width:56ch;margin:0 0 24px}
+.xpbar{position:relative;height:22px;background:rgba(0,224,198,.1);border:1px solid rgba(0,224,198,.2);
+  overflow:hidden}
+.xpbar i{display:block;height:100%;width:0;
+  background:repeating-linear-gradient(115deg,var(--cy) 0 14px,#00c3ad 14px 28px);
+  transition:width 1.6s cubic-bezier(.16,1,.3,1)}
+.xpbar span{position:absolute;inset:0;display:grid;place-items:center;font-family:Orbitron,sans-serif;
+  font-size:.68rem;letter-spacing:.2em;color:#03151a;font-weight:800;mix-blend-mode:difference}
+.xpmeta{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;margin-top:12px;
+  font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;color:var(--dim)}
+.joinrow{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
+.joinrow input{flex:1 1 220px;background:rgba(5,10,18,.7);border:1px solid var(--line);color:var(--txt);
+  padding:14px 16px;font-family:inherit;font-size:1rem;letter-spacing:.04em}
+.joinrow input:focus{outline:none;border-color:var(--gold)}
+.joinmsg{min-height:1.4em;margin:14px 0 0;color:var(--gold);font-size:.9rem;letter-spacing:.06em}
+
+/* ---------- footer ---------- */
+footer{position:relative;z-index:2;border-top:1px solid var(--line);background:rgba(3,6,12,.7);
+  padding:clamp(34px,6vh,64px) var(--g) 28px}
+.fg{display:grid;gap:26px;grid-template-columns:repeat(auto-fit,minmax(min(170px,100%),1fr));padding-bottom:26px}
+.fg h4{margin:0 0 10px;font-family:Orbitron,sans-serif;font-size:.62rem;letter-spacing:.24em;
+  text-transform:uppercase;color:var(--cy);font-weight:600}
+.fg ul{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.fg a{color:var(--dim);font-size:.9rem;transition:color .25s}
+.fg a:hover{color:var(--txt)}
+.fg .logo{font-family:Orbitron,sans-serif;font-weight:800;font-size:1.3rem;letter-spacing:.1em;color:var(--txt)}
+.fg .logo span{color:var(--cy)}
+.fb{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;padding-top:20px;
+  border-top:1px solid rgba(0,224,198,.14);font-size:.74rem;color:var(--dim);letter-spacing:.08em}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;
+    transition-duration:.001ms!important}
+  .hero h1 span{opacity:1;transform:none}
+  .compass .ticks{transform:none!important}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#drops">Skip to the region drops</a>
+
+<div id="boot" role="status" aria-label="Loading client">
+  <div class="bootwin">
+    <p class="bootlogo">WAYFARER ONLINE</p>
+    <p class="bootver">CLIENT 4.7.1 · REGION SERVER — LIYUE</p>
+    <pre class="bootlog" id="bootlog"></pre>
+    <div class="bootbar"><i id="bootbar"></i></div>
+  </div>
+</div>
+
+<div class="hud" aria-hidden="true"><span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span></div>
+
+<div class="compass" aria-hidden="true"><div class="ticks" id="ticks"></div></div>
+
+<header class="topbar">
+  <span class="brand">WAYFARER<span style="color:var(--gold)">·</span>ONLINE</span>
+  <nav aria-label="Primary">
+    <a href="#world">World map</a><a href="#drops">Region drops</a><a href="#party">Party up</a>
+  </nav>
+  <span class="party"><i></i>1 / 4 in party</span>
+</header>
+
+<main>
+  <section class="hero" aria-labelledby="ht">
+    <span class="quest-tag"><i></i>Main quest · unclaimed</span>
+    <h1 id="ht"><span>Adventure</span> <span class="g">Begins</span> <span>at the gate</span></h1>
+    <p class="brief">You spawn outside Liyue Harbour with nothing but a compass and a very loud guide who insists on walking in front. Every region she drags you through drops different gear. Set a marker and go get it.</p>
+    <div class="ctas">
+      <button class="btn primary" id="startBtn">▶ Start the expedition</button>
+      <a class="btn ghost" href="#world">Open world map</a>
+    </div>
+    <div class="statline">
+      <div><b class="mono" id="s1">0</b><span>Regions scouted</span></div>
+      <div><b class="mono">4</b><span>Region drops live</span></div>
+      <div><b class="mono">17</b><span>Items in the pool</span></div>
+      <div><b class="mono">∞</b><span>Detours available</span></div>
+    </div>
+  </section>
+
+  <section class="world" id="world" aria-labelledby="wm">
+    <div class="sechead">
+      <h2 id="wm">World map — <em>set a marker</em></h2>
+      <p>Four regions are open this season. Ping one to see what it drops and how far in you have to walk.</p>
+    </div>
+    <div class="maparea">
+      <div class="mapbox" id="mapbox">
+        <svg viewBox="0 0 800 520" role="img" aria-label="Stylised topographic map of four open regions">
+          <defs>
+            <linearGradient id="sea" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#0b2233"/><stop offset="100%" stop-color="#061019"/>
+            </linearGradient>
+          </defs>
+          <rect width="800" height="520" fill="url(#sea)"/>
+          <g fill="none" stroke="rgba(0,224,198,.22)" stroke-width="1.2">
+            <path d="M60 430c80-30 120-90 210-96s120 42 210 20 180-90 260-70"/>
+            <path d="M40 370c90-26 130-78 220-84s130 38 218 18 176-78 262-62"/>
+            <path d="M70 480c74-26 118-72 202-78s126 34 212 16 172-70 254-56"/>
+            <path d="M120 300c70-40 130-22 190-70s110-96 190-88 160 62 232 44"/>
+            <path d="M150 240c62-36 118-20 172-64s100-88 172-80 146 58 210 40"/>
+          </g>
+          <g fill="rgba(0,224,198,.1)" stroke="rgba(0,224,198,.3)">
+            <path d="M180 150l52-70 54 70z"/><path d="M250 176l40-54 42 54z"/>
+            <path d="M600 220l46-62 48 62z"/>
+          </g>
+          <g stroke="var(--gold)" stroke-width="1.6" stroke-dasharray="7 8" fill="none" opacity=".65">
+            <path d="M170 400C280 330 330 250 430 250s150 60 260 30"/>
+          </g>
+          <g fill="rgba(219,233,245,.25)" font-family="Rajdhani,sans-serif" font-size="13" letter-spacing="3">
+            <text x="56" y="40">N 27°44'</text><text x="640" y="500">E 121°08'</text>
+          </g>
+        </svg>
+        <span class="scan" aria-hidden="true"></span>
+        <button class="marker" style="left:22%;top:76%" data-r="0" aria-pressed="true" aria-label="Ping the Harbour region">
+          <span class="ring"></span><span class="ring"></span><span class="pip"></span><span class="lbl">Harbour</span></button>
+        <button class="marker" style="left:53%;top:48%" data-r="1" aria-pressed="false" aria-label="Ping the Chasm region">
+          <span class="ring"></span><span class="ring"></span><span class="pip"></span><span class="lbl">The Chasm</span></button>
+        <button class="marker" style="left:31%;top:26%" data-r="2" aria-pressed="false" aria-label="Ping the Summit region">
+          <span class="ring"></span><span class="ring"></span><span class="pip"></span><span class="lbl">Summit</span></button>
+        <button class="marker" style="left:79%;top:36%" data-r="3" aria-pressed="false" aria-label="Ping the Wilds region">
+          <span class="ring"></span><span class="ring"></span><span class="pip"></span><span class="lbl">The Wilds</span></button>
+      </div>
+      <aside class="regionpanel" aria-live="polite">
+        <span class="rk mono" id="rk">Region 01 / 04</span>
+        <h3 id="rname">Liyue Harbour</h3>
+        <p class="desc" id="rdesc">Where the expedition starts and where most of it ends up again. Crowded, loud, smells of tea and ink. Your guide knows every shortcut and takes none of them.</p>
+        <div class="bars">
+          <div class="b"><span>Distance</span><span class="track"><i id="b1"></i></span><span class="mono" id="v1">0</span></div>
+          <div class="b"><span>Danger</span><span class="track"><i id="b2"></i></span><span class="mono" id="v2">0</span></div>
+          <div class="b"><span>Loot rate</span><span class="track"><i id="b3"></i></span><span class="mono" id="v3">0</span></div>
+        </div>
+        <div class="drop"><span style="color:var(--dim);font-size:.78rem;letter-spacing:.18em;text-transform:uppercase">Region drop</span><b id="rdrop">Wayfinder Jacket</b></div>
+      </aside>
+    </div>
+  </section>
+
+  <section class="loot" id="drops" aria-labelledby="ld">
+    <div class="sechead">
+      <h2 id="ld">Region <em>drops</em></h2>
+      <p>Real objects, priced in real currency, obtained the boring way: by clicking claim.</p>
+    </div>
+    <div class="lootgrid">
+      <article class="crate" style="--rar:#00e0c6">
+        <span class="rar">◆ Rare · Harbour</span>
+        <div class="art"><svg viewBox="0 0 100 100" aria-hidden="true">
+          <path d="M30 26l20-8 20 8 8 12-10 6v38H32V44l-10-6z" fill="rgba(0,224,198,.16)" stroke="#00e0c6" stroke-width="2.2"/>
+          <path d="M50 18v64M38 30l12 8 12-8" fill="none" stroke="#00e0c6" stroke-width="2.2"/></svg></div>
+        <h3>Wayfinder Jacket</h3>
+        <p>Water-shed shell with a reflective plum-blossom stitch across the back. Packs into its own pocket.</p>
+        <div class="foot"><span class="pr">$128</span><button class="claim">Claim</button></div>
+      </article>
+      <article class="crate" style="--rar:#ffc857">
+        <span class="rar">★ Legendary · Chasm</span>
+        <div class="art"><svg viewBox="0 0 100 100" aria-hidden="true">
+          <rect x="34" y="30" width="32" height="42" rx="5" fill="rgba(255,200,87,.18)" stroke="#ffc857" stroke-width="2.2"/>
+          <path d="M50 18v12M40 78h20M44 42h12M44 54h12" fill="none" stroke="#ffc857" stroke-width="2.2"/>
+          <circle cx="50" cy="51" r="20" fill="none" stroke="#ffc857" stroke-width="1" opacity=".5"/></svg></div>
+        <h3>Depth Lamp</h3>
+        <p>Rechargeable brass-body lamp with a warm 2200K core. Runs nine hours; survives being dropped down a hole.</p>
+        <div class="foot"><span class="pr">$74</span><button class="claim">Claim</button></div>
+      </article>
+      <article class="crate" style="--rar:#ff4d6d">
+        <span class="rar">✦ Epic · Summit</span>
+        <div class="art"><svg viewBox="0 0 100 100" aria-hidden="true">
+          <path d="M28 38h44l6 42H22z" fill="rgba(255,77,109,.16)" stroke="#ff4d6d" stroke-width="2.2"/>
+          <path d="M38 38V26a12 12 0 0124 0v12M22 56h56" fill="none" stroke="#ff4d6d" stroke-width="2.2"/></svg></div>
+        <h3>Ridge Pack — 28L</h3>
+        <p>Frame pack with a lantern loop, twin ice-axe keepers and a crimson storm cover nobody can miss.</p>
+        <div class="foot"><span class="pr">$156</span><button class="claim">Claim</button></div>
+      </article>
+      <article class="crate" style="--rar:#7c9cff">
+        <span class="rar">◇ Uncommon · Wilds</span>
+        <div class="art"><svg viewBox="0 0 100 100" aria-hidden="true">
+          <circle cx="50" cy="50" r="26" fill="rgba(124,156,255,.16)" stroke="#7c9cff" stroke-width="2.2"/>
+          <path d="M50 24v52M24 50h52M62 38L54 54l-16 8 8-16z" fill="none" stroke="#7c9cff" stroke-width="2.2"/></svg></div>
+        <h3>Field Compass</h3>
+        <p>Brass sighting compass, sapphire jewel bearing. Points north. Ignores every shortcut she suggests.</p>
+        <div class="foot"><span class="pr">$62</span><button class="claim">Claim</button></div>
+      </article>
+    </div>
+  </section>
+
+  <section class="xp" id="party" aria-labelledby="xh">
+    <h2 id="xh">Party up for the next region</h2>
+    <p>Season progress unlocks the fifth region and the drop attached to it. Get on the roster and we'll ping you the moment the gate opens.</p>
+    <div class="xpbar"><i id="xpFill"></i><span id="xpTxt">0%</span></div>
+    <div class="xpmeta"><span>Season 01 · Expedition rank</span><span id="xpRank">Rank — recruit</span></div>
+    <form class="joinrow" id="joinForm" novalidate>
+      <label class="sr" for="je">Email address</label>
+      <input id="je" type="email" placeholder="adventurer@wayfarer.online" autocomplete="email" required>
+      <button class="btn primary" type="submit">Enlist</button>
+    </form>
+    <p class="joinmsg" id="joinMsg" role="status"></p>
+  </section>
+</main>
+
+<footer>
+  <div class="fg">
+    <div><p class="logo">WAYFARER<span>·</span>ONLINE</p>
+      <p style="color:var(--dim);font-size:.86rem;margin:10px 0 0;max-width:26ch">An open-world merch expedition. Servers up, weather clear, guide unbearable.</p></div>
+    <div><h4>World</h4><ul><li><a href="#world">Region map</a></li><li><a href="#drops">Drop table</a></li><li><a href="#party">Season pass</a></li></ul></div>
+    <div><h4>Support</h4><ul><li><a href="#">Shipping regions</a></li><li><a href="#">Returns portal</a></li><li><a href="#">Size charts</a></li></ul></div>
+    <div><h4>Elsewhere</h4><ul><li><a href="../../index.html">The other 24 studios</a></li><li><a href="#ht">Back to spawn</a></li></ul></div>
+  </div>
+  <div class="fb"><span>Fan project · not affiliated with HoYoverse</span><span class="mono">PING 12MS · SERVER LIYUE-01</span></div>
+</footer>
+
+<script>
+(function(){
+var RM=matchMedia('(prefers-reduced-motion:reduce)').matches;
+
+/* ---- boot ---- */
+var LINES=['> mounting region packs .......... ok',
+ '> streaming terrain LOD 0-4 ......... ok',
+ '> loading guide personality ......... EXCESSIVE',
+ '> syncing drop table ................ 17 items',
+ '> handshake with LIYUE-01 ........... 12ms',
+ '> world ready.'];
+var log=document.getElementById('bootlog'), bar=document.getElementById('bootbar'), bt=document.getElementById('boot');
+function endBoot(){bt.classList.add('gone');}
+if(RM){log.textContent=LINES.join('\n');bar.style.width='100%';setTimeout(endBoot,200);}
+else{
+  var i=0;
+  var iv=setInterval(function(){
+    if(i>=LINES.length){clearInterval(iv);setTimeout(endBoot,420);return;}
+    log.innerHTML+=(i===LINES.length-1?'<b>'+LINES[i]+'</b>':LINES[i])+'\n';
+    bar.style.transition='width .4s ease';
+    bar.style.width=Math.round((i+1)/LINES.length*100)+'%';
+    i++;
+  },300);
+  setTimeout(endBoot,4200);
+}
+
+/* ---- hero letters ---- */
+document.querySelectorAll('.hero h1 span').forEach(function(s,i){s.style.animationDelay=(0.15+i*0.12)+'s';});
+
+/* ---- compass strip ---- */
+var ticks=document.getElementById('ticks');
+if(ticks){
+  var CARD=['N','15','30','NE','60','75','E','105','120','SE','150','165','S','195','210','SW','240','255','W','285','300','NW','330','345'];
+  var html='';
+  for(var r=0;r<3;r++) CARD.forEach(function(c){
+    html+='<span class="'+(/^[NSEW]/.test(c)?'card':'')+'">'+c+'</span>';});
+  ticks.innerHTML=html;
+  if(!RM){
+    var off=0;
+    (function spin(){ off-=0.32; if(off<=-88*24) off=0;
+      ticks.style.transform='translateX('+off+'px)'; requestAnimationFrame(spin); })();
+  }
+}
+
+/* ---- region panel ---- */
+var REG=[
+ {n:'Liyue Harbour',k:'Region 01 / 04',d:'Where the expedition starts and where most of it ends up again. Crowded, loud, smells of tea and ink. Your guide knows every shortcut and takes none of them.',s:[22,14,48],drop:'Wayfinder Jacket'},
+ {n:'The Chasm',k:'Region 02 / 04',d:'Straight down for two hours, then sideways in the dark for four. Bring the lamp. She will tell ghost stories the entire descent and claim they are professional research.',s:[64,88,72],drop:'Depth Lamp'},
+ {n:'Mt. Aozang Summit',k:'Region 03 / 04',d:'Thin air, hard wind, best view in the province. The last ridge is roped. Somebody has already tied a crimson ribbon at the top and refuses to explain when.',s:[92,66,84],drop:'Ridge Pack — 28L'},
+ {n:'The Outer Wilds',k:'Region 04 / 04',d:'No path, no signage, no shopfront for eleven miles. This is the region the compass is actually for, and the only one where she stops talking.',s:[78,52,36],drop:'Field Compass'}
+];
+var scouted=[true,false,false,false];
+function paint(idx){
+  var r=REG[idx];
+  document.getElementById('rk').textContent=r.k;
+  document.getElementById('rname').textContent=r.n;
+  document.getElementById('rdesc').textContent=r.d;
+  document.getElementById('rdrop').textContent=r.drop;
+  for(var i=0;i<3;i++){
+    document.getElementById('b'+(i+1)).style.width=r.s[i]+'%';
+    document.getElementById('v'+(i+1)).textContent=r.s[i];
+  }
+  scouted[idx]=true;
+  document.getElementById('s1').textContent=scouted.filter(Boolean).length;
+}
+document.querySelectorAll('.marker').forEach(function(m){
+  m.addEventListener('click',function(){
+    document.querySelectorAll('.marker').forEach(function(x){x.setAttribute('aria-pressed','false');});
+    m.setAttribute('aria-pressed','true');
+    paint(+m.dataset.r);
+  });
+});
+paint(0);
+
+/* ---- start expedition scrolls to map + pings all ---- */
+document.getElementById('startBtn').addEventListener('click',function(){
+  document.getElementById('world').scrollIntoView({behavior:RM?'auto':'smooth',block:'start'});
+  var ms=document.querySelectorAll('.marker');
+  ms.forEach(function(m,i){ setTimeout(function(){ m.click(); }, RM?0:600+i*520); });
+});
+
+/* ---- claim ---- */
+document.querySelectorAll('.claim').forEach(function(b){
+  b.addEventListener('click',function(){
+    b.textContent='Claimed ✓'; b.classList.add('got');
+    setTimeout(function(){b.textContent='Claim';b.classList.remove('got');},2200);
+  });
+});
+
+/* ---- xp fill on view ---- */
+var fill=document.getElementById('xpFill'), txt=document.getElementById('xpTxt'), rank=document.getElementById('xpRank');
+function runXP(){
+  fill.style.width='68%';
+  var v=0, iv2=setInterval(function(){
+    v+=2; if(v>=68){v=68;clearInterval(iv2);rank.textContent='Rank — pathfinder';}
+    txt.textContent=v+'%';
+  },RM?1:22);
+}
+if('IntersectionObserver' in window){
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){
+    if(e.isIntersecting){runXP();io.disconnect();}});},{threshold:.4});
+  io.observe(document.getElementById('party'));
+} else runXP();
+
+/* ---- enlist ---- */
+document.getElementById('joinForm').addEventListener('submit',function(e){
+  e.preventDefault();
+  var v=document.getElementById('je').value.trim();
+  document.getElementById('joinMsg').textContent =
+    /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v)
+      ? 'Enlisted. Party slot 2 of 4 reserved — gate opens at season rollover.'
+      : 'Invalid address. The server rejected the handshake.';
+});
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="Quest Rewards — Questline">
+  <defs>
+    <linearGradient id="sh" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#e9b949"/><stop offset="45%" stop-color="#fff3cf"/><stop offset="100%" stop-color="#ff9f45"/></linearGradient>
+    <radialGradient id="vg" cx="50%" cy="0%" r="90%"><stop offset="0%" stop-color="#8b5cf6" stop-opacity=".3"/><stop offset="100%" stop-color="#8b5cf6" stop-opacity="0"/></radialGradient>
+  </defs>
+  <rect width="1200" height="630" fill="#120c18"/>
+  <rect width="1200" height="630" fill="url(#vg)"/>
+  <g fill="none" stroke="#e9b949" stroke-opacity=".3" stroke-width="1.4">
+    <circle cx="950" cy="315" r="180"/><circle cx="950" cy="315" r="140"/>
+    <path d="M950 135v360M770 315h360M823 188l254 254M1077 188L823 442"/>
+    <polygon points="950,190 1046,420 854,420"/>
+  </g>
+  <g transform="translate(950,315)">
+    <rect x="-56" y="-4" width="112" height="68" rx="8" fill="rgba(233,185,73,.22)" stroke="#e9b949" stroke-width="4"/>
+    <path d="M-56 0a56 32 0 01112 0z" fill="rgba(233,185,73,.35)" stroke="#e9b949" stroke-width="4"/>
+    <rect x="-10" y="12" width="20" height="30" rx="4" fill="#e9b949"/>
+  </g>
+  <g fill="#e9b949" opacity=".85">
+    <path d="M120 470l7 17 18 1.6-14 12 4.3 18L120 509l-15.3 9.6 4.3-18-14-12 18-1.6z"/>
+    <path d="M186 512l5 12 13 1.2-10 8.6 3 12.8-11-6.9-11 6.9 3-12.8-10-8.6 13-1.2z"/>
+  </g>
+  <text x="80" y="140" font-family="'Exo 2',sans-serif" font-size="21" letter-spacing="10" fill="#9a8ba6">QUESTLINE · CONTRACT OPEN</text>
+  <text x="80" y="272" font-family="'Cinzel Decorative',serif" font-weight="900" font-size="76" fill="#f0e6d6">The Contract of</text>
+  <text x="80" y="368" font-family="'Cinzel Decorative',serif" font-weight="900" font-size="76" fill="url(#sh)">Four Caskets</text>
+  <text x="82" y="428" font-family="'Exo 2',sans-serif" font-size="24" fill="#9a8ba6">5 objectives · 4 caskets · 1170 XP</text>
+</svg>
