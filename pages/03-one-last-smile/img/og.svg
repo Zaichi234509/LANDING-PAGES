@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="One Last Smile — Last Light Studio">
+  <rect width="1200" height="630" fill="#100c0b"/>
+  <rect y="0" width="1200" height="64" fill="#080605"/><rect y="566" width="1200" height="64" fill="#080605"/>
+  <g fill="rgba(242,236,227,.16)">
+    <rect x="40" y="18" width="16" height="28" rx="3"/><rect x="140" y="18" width="16" height="28" rx="3"/>
+    <rect x="240" y="18" width="16" height="28" rx="3"/><rect x="340" y="18" width="16" height="28" rx="3"/>
+    <rect x="440" y="18" width="16" height="28" rx="3"/><rect x="540" y="18" width="16" height="28" rx="3"/>
+    <rect x="640" y="18" width="16" height="28" rx="3"/><rect x="740" y="18" width="16" height="28" rx="3"/>
+    <rect x="840" y="18" width="16" height="28" rx="3"/><rect x="940" y="18" width="16" height="28" rx="3"/>
+    <rect x="1040" y="18" width="16" height="28" rx="3"/><rect x="1140" y="18" width="16" height="28" rx="3"/>
+    <rect x="40" y="584" width="16" height="28" rx="3"/><rect x="140" y="584" width="16" height="28" rx="3"/>
+    <rect x="240" y="584" width="16" height="28" rx="3"/><rect x="340" y="584" width="16" height="28" rx="3"/>
+    <rect x="440" y="584" width="16" height="28" rx="3"/><rect x="540" y="584" width="16" height="28" rx="3"/>
+    <rect x="640" y="584" width="16" height="28" rx="3"/><rect x="740" y="584" width="16" height="28" rx="3"/>
+    <rect x="840" y="584" width="16" height="28" rx="3"/><rect x="940" y="584" width="16" height="28" rx="3"/>
+    <rect x="1040" y="584" width="16" height="28" rx="3"/><rect x="1140" y="584" width="16" height="28" rx="3"/>
+  </g>
+  <circle cx="600" cy="315" r="230" fill="#d8452f" opacity=".08"/>
+  <text x="600" y="150" text-anchor="middle" font-family="'Inter Tight',sans-serif" font-size="20" letter-spacing="11" fill="#928a80">LAST LIGHT STUDIO PRESENTS</text>
+  <text x="600" y="300" text-anchor="middle" font-family="'Playfair Display',serif" font-size="118" fill="#f2ece3">One Last</text>
+  <text x="600" y="420" text-anchor="middle" font-family="'Playfair Display',serif" font-style="italic" font-size="118" fill="#d8452f">Smile</text>
+  <text x="600" y="498" text-anchor="middle" font-family="'Inter Tight',sans-serif" font-size="22" letter-spacing="4" fill="#928a80">Four frames. One goodbye. Now showing at dusk.</text>
+</svg>
